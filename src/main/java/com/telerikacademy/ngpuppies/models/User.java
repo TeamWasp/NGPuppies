@@ -3,12 +3,12 @@ package com.telerikacademy.ngpuppies.models;
 import javax.persistence.*;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private int id;
+    @Column(name = "UserID")
+    private int userId;
 
     @Column(name = "Username")
     private String username;
@@ -16,28 +16,30 @@ public class User {
     @Column(name = "Password")
     private String password;
 
-    @Column(name = "RoleID")
-    private int roleID;
+    @ManyToOne
+    @JoinColumn(name = "RoleID")
+    private Role role;
 
     @Column(name = "EIK")
     private String EIK;
 
-    public User(String username, String password, int roleID, String EIK) {
+    public User(String username, String password, Role role, String EIK) {
         this.username = username;
         this.password = password;
-        this.roleID = roleID;
+        this.role = role;
         this.EIK = EIK;
     }
+
 
     public User() {
     }
 
-    public int getId() {
-        return id;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public void setUserId(int id) {
+        this.userId = id;
     }
 
     public String getUsername() {
@@ -56,19 +58,19 @@ public class User {
         this.password = password;
     }
 
-    public int getRoleID() {
-        return roleID;
-    }
-
-    public void setRoleID(int roleID) {
-        this.roleID = roleID;
-    }
-
     public String getEIK() {
         return EIK;
     }
 
     public void setEIK(String EIK) {
         this.EIK = EIK;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

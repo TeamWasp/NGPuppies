@@ -18,19 +18,19 @@ USE `ngpuppies`;
 
 -- Dumping structure for table ngpuppies.bills
 CREATE TABLE IF NOT EXISTS `bills` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `BillID` int(11) NOT NULL AUTO_INCREMENT,
   `ServiceID` int(11) NOT NULL DEFAULT 0,
   `SubscriberID` int(11) NOT NULL DEFAULT 0,
   `StartDate` date NOT NULL COMMENT 'Invoice date',
   `EndDate` date NOT NULL COMMENT 'Due date',
   `Amount` double NOT NULL DEFAULT 0,
   `CurrencyID` int(11) NOT NULL DEFAULT 0,
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`BillID`),
   KEY `FK_bills_services` (`ServiceID`),
   KEY `FK_bills_subscribers` (`SubscriberID`),
   KEY `FK_bills_currencies` (`CurrencyID`),
-  CONSTRAINT `FK_bills_currencies` FOREIGN KEY (`CurrencyID`) REFERENCES `currencies` (`ID`),
-  CONSTRAINT `FK_bills_services` FOREIGN KEY (`ServiceID`) REFERENCES `services` (`ID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_bills_currencies` FOREIGN KEY (`CurrencyID`) REFERENCES `currencies` (`CurrencyID`) ON DELETE CASCADE ON UPDATE CASCADE,
+  CONSTRAINT `FK_bills_services` FOREIGN KEY (`ServiceID`) REFERENCES `services` (`ServiceID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_bills_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`PhoneNumber`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
@@ -40,14 +40,14 @@ CREATE TABLE IF NOT EXISTS `bills` (
 
 -- Dumping structure for table ngpuppies.currencies
 CREATE TABLE IF NOT EXISTS `currencies` (
-  `ID` int(11) NOT NULL,
+  `CurrencyID` int(11) NOT NULL AUTO_INCREMENT,
   `Currency` varchar(50) NOT NULL,
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`CurrencyID`)
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.currencies: ~4 rows (approximately)
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
-REPLACE INTO `currencies` (`ID`, `Currency`) VALUES
+REPLACE INTO `currencies` (`CurrencyID`, `Currency`) VALUES
 	(1, 'BGN'),
 	(2, 'EUR'),
 	(3, 'USD'),
@@ -56,28 +56,28 @@ REPLACE INTO `currencies` (`ID`, `Currency`) VALUES
 
 -- Dumping structure for table ngpuppies.roles
 CREATE TABLE IF NOT EXISTS `roles` (
-  `ID` int(11) NOT NULL,
+  `RoleID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  PRIMARY KEY (`RoleID`)
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-REPLACE INTO `roles` (`ID`, `Name`) VALUES
+REPLACE INTO `roles` (`RoleID`, `Name`) VALUES
 	(1, 'Client'),
 	(2, 'Admin');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies.services
 CREATE TABLE IF NOT EXISTS `services` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ServiceID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`)
+  PRIMARY KEY (`ServiceID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.services: ~3 rows (approximately)
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-REPLACE INTO `services` (`ID`, `Name`) VALUES
+REPLACE INTO `services` (`ServiceID`, `Name`) VALUES
 	(1, 'Telephone'),
 	(2, 'Television'),
 	(3, 'Internet');
@@ -93,7 +93,7 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   `BankID` int(11) NOT NULL,
   PRIMARY KEY (`PhoneNumber`),
   KEY `FK_subscribers_users` (`BankID`),
-  CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`id`)
+  CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.subscribers: ~0 rows (approximately)
@@ -102,12 +102,12 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
 
 -- Dumping structure for table ngpuppies.users
 CREATE TABLE IF NOT EXISTS `users` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(20) NOT NULL DEFAULT '0',
   `Password` varchar(30) NOT NULL DEFAULT '0',
   `RoleID` int(11) NOT NULL,
   `EIK` varchar(50) NOT NULL,
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.users: ~0 rows (approximately)
