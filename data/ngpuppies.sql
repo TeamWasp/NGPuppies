@@ -47,7 +47,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
 
 -- Dumping data for table ngpuppies.currencies: ~4 rows (approximately)
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
-INSERT INTO `currencies` (`ID`, `Currency`) VALUES
+REPLACE INTO `currencies` (`ID`, `Currency`) VALUES
 	(1, 'BGN'),
 	(2, 'EUR'),
 	(3, 'USD'),
@@ -56,14 +56,14 @@ INSERT INTO `currencies` (`ID`, `Currency`) VALUES
 
 -- Dumping structure for table ngpuppies.roles
 CREATE TABLE IF NOT EXISTS `roles` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL,
   `Name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ID`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.roles: ~2 rows (approximately)
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
-INSERT INTO `roles` (`ID`, `Name`) VALUES
+REPLACE INTO `roles` (`ID`, `Name`) VALUES
 	(1, 'Client'),
 	(2, 'Admin');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `services` (
 
 -- Dumping data for table ngpuppies.services: ~3 rows (approximately)
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
-INSERT INTO `services` (`ID`, `Name`) VALUES
+REPLACE INTO `services` (`ID`, `Name`) VALUES
 	(1, 'Telephone'),
 	(2, 'Television'),
 	(3, 'Internet');
@@ -90,7 +90,10 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   `LastName` varchar(50) NOT NULL,
   `EGN` varchar(50) NOT NULL,
   `Address` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`PhoneNumber`)
+  `BankID` int(11) NOT NULL,
+  PRIMARY KEY (`PhoneNumber`),
+  KEY `FK_subscribers_users` (`BankID`),
+  CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.subscribers: ~0 rows (approximately)
