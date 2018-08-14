@@ -20,18 +20,18 @@ USE `ngpuppies`;
 CREATE TABLE IF NOT EXISTS `bills` (
   `BillID` int(11) NOT NULL AUTO_INCREMENT,
   `ServiceID` int(11) NOT NULL DEFAULT 0,
-  `SubscriberID` int(11) NOT NULL DEFAULT 0,
+  `SubscriberID` varchar(50) NOT NULL DEFAULT '0',
   `StartDate` date NOT NULL COMMENT 'Invoice date',
   `EndDate` date NOT NULL COMMENT 'Due date',
   `Amount` double NOT NULL DEFAULT 0,
   `CurrencyID` int(11) NOT NULL DEFAULT 0,
   PRIMARY KEY (`BillID`),
   KEY `FK_bills_services` (`ServiceID`),
-  KEY `FK_bills_subscribers` (`SubscriberID`),
   KEY `FK_bills_currencies` (`CurrencyID`),
+  KEY `FK_bills_subscribers` (`SubscriberID`),
   CONSTRAINT `FK_bills_currencies` FOREIGN KEY (`CurrencyID`) REFERENCES `currencies` (`CurrencyID`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_bills_services` FOREIGN KEY (`ServiceID`) REFERENCES `services` (`ServiceID`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_bills_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`PhoneNumber`) ON DELETE CASCADE ON UPDATE CASCADE
+  CONSTRAINT `FK_bills_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`PhoneNumber`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.bills: ~0 rows (approximately)
@@ -85,7 +85,7 @@ REPLACE INTO `services` (`ServiceID`, `Name`) VALUES
 
 -- Dumping structure for table ngpuppies.subscribers
 CREATE TABLE IF NOT EXISTS `subscribers` (
-  `PhoneNumber` int(11) NOT NULL,
+  `PhoneNumber` varchar(50) NOT NULL,
   `FirstName` varchar(50) NOT NULL,
   `LastName` varchar(50) NOT NULL,
   `EGN` varchar(50) NOT NULL,
@@ -106,8 +106,10 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Username` varchar(20) NOT NULL DEFAULT '0',
   `Password` varchar(30) NOT NULL DEFAULT '0',
   `RoleID` int(11) NOT NULL,
-  `EIK` varchar(50) NOT NULL,
-  PRIMARY KEY (`UserID`)
+  `EIK` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`UserID`),
+  KEY `FK_users_roles` (`RoleID`),
+  CONSTRAINT `FK_users_roles` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.users: ~0 rows (approximately)
