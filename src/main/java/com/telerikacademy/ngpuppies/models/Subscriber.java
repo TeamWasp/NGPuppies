@@ -7,7 +7,7 @@ import javax.persistence.*;
 public class Subscriber {
     @Id
     @Column(name="PhoneNumber")
-    private int phoneNumber;
+    private String phoneNumber;
 
     @Column(name="FirstName")
     private String firstName;
@@ -21,22 +21,27 @@ public class Subscriber {
     @Column(name = "Address")
     private String address;
 
-    public Subscriber(int phoneNumber, String firstName, String lastName, String EGN, String address) {
+    @ManyToOne
+    @JoinColumn(name = "BankID")
+    private User bank;
+
+    public Subscriber(String phoneNumber, String firstName, String lastName, String EGN, String address, User bank) {
         this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
         this.EGN = EGN;
         this.address = address;
+        this.bank = bank;
     }
 
     public Subscriber() {
     }
 
-    public int getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
-    public void setPhoneNumber(int phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 
@@ -70,5 +75,13 @@ public class Subscriber {
 
     public void setAddress(String address) {
         this.address = address;
+    }
+
+    public User getBank() {
+        return bank;
+    }
+
+    public void setBank(User bank) {
+        this.bank = bank;
     }
 }

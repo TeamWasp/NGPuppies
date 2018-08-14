@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Table(name = "users")
@@ -23,13 +24,16 @@ public class User {
     @Column(name = "EIK")
     private String EIK;
 
-    public User(String username, String password, Role role, String EIK) {
+    @OneToMany(mappedBy = "bank")
+    private List<Subscriber> subscribers;
+
+    public User(String username, String password, Role role, String EIK, List<Subscriber> subscribers) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.EIK = EIK;
+        this.subscribers = subscribers;
     }
-
 
     public User() {
     }
@@ -72,5 +76,13 @@ public class User {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public List<Subscriber> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<Subscriber> subscribers) {
+        this.subscribers = subscribers;
     }
 }
