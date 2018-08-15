@@ -1,5 +1,7 @@
 package com.telerikacademy.ngpuppies.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,15 +19,18 @@ public class Subscriber {
 
     @Column(name="EGN")
     private String EGN;
-
-    @Column(name = "Address")
-    private String address;
+    
+    @ManyToOne
+    @Column(name = "AddressID")
+    @JsonManagedReference
+    private Address address;
 
     @ManyToOne
     @JoinColumn(name = "BankID")
+    @JsonManagedReference
     private User bank;
 
-    public Subscriber(String phoneNumber, String firstName, String lastName, String EGN, String address, User bank) {
+    public Subscriber(String phoneNumber, String firstName, String lastName, String EGN, Address address, User bank) {
         this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -69,11 +74,11 @@ public class Subscriber {
         this.EGN = EGN;
     }
 
-    public String getAddress() {
+    public Address getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
+    public void setAddress(Address address) {
         this.address = address;
     }
 
