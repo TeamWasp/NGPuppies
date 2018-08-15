@@ -30,15 +30,19 @@ public class Bill {
     private Date endDate;
 
     @Column(name="Amount")
-    private int amount;
+    private double amount;
 
-    public Bill(Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, int amount) {
+    @Column(name="PaymentDate")
+    private Date paymentDate;
+
+    public Bill(Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, double amount, Date paymentDate) {
         this.service = service;
         this.subscriber = subscriber;
         this.currency = currency;
         this.startDate = startDate;
         this.endDate = endDate;
         this.amount = amount;
+        this.paymentDate = paymentDate;
     }
 
     public Bill() {
@@ -92,11 +96,19 @@ public class Bill {
         this.endDate = endDate;
     }
 
-    public int getAmount() {
+    public double getAmount() {
         return amount;
     }
 
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
     }
 }

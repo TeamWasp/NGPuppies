@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS `bills` (
   `EndDate` date NOT NULL COMMENT 'Due date',
   `Amount` double NOT NULL DEFAULT 0,
   `CurrencyID` int(11) NOT NULL DEFAULT 0,
+  `PaymentDate` date DEFAULT NULL,
   PRIMARY KEY (`BillID`),
   KEY `FK_bills_services` (`ServiceID`),
   KEY `FK_bills_currencies` (`CurrencyID`),
@@ -42,16 +43,17 @@ CREATE TABLE IF NOT EXISTS `bills` (
 CREATE TABLE IF NOT EXISTS `currencies` (
   `CurrencyID` int(11) NOT NULL AUTO_INCREMENT,
   `Currency` varchar(50) NOT NULL,
+  `ExhangeRate` double DEFAULT NULL,
   PRIMARY KEY (`CurrencyID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.currencies: ~4 rows (approximately)
 /*!40000 ALTER TABLE `currencies` DISABLE KEYS */;
-REPLACE INTO `currencies` (`CurrencyID`, `Currency`) VALUES
-	(1, 'BGN'),
-	(2, 'EUR'),
-	(3, 'USD'),
-	(4, 'GBP');
+REPLACE INTO `currencies` (`CurrencyID`, `Currency`, `ExhangeRate`) VALUES
+	(1, 'BGN', 1),
+	(2, 'EUR', 1.96),
+	(3, 'USD', 1.73),
+	(4, 'GBP', 2.19);
 /*!40000 ALTER TABLE `currencies` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies.roles
