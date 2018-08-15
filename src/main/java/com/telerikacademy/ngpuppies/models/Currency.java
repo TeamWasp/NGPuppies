@@ -13,8 +13,12 @@ public class Currency {
     @Column(name = "currency")
     private String currency;
 
-    public Currency(String currency) {
+    @Column(name = "ExhangeRate")
+    private double exchangeRate;
+
+    public Currency(String currency, double exchangeRate) {
         this.currency = currency;
+        this.exchangeRate = exchangeRate;
     }
 
     public Currency() {
@@ -35,5 +39,13 @@ public class Currency {
 
     public void setCurrency(String currency) {
         this.currency = currency;
+    }
+
+    public double getExchangeRate() {
+        return exchangeRate;
+    }
+
+    public void setExchangeRate(double exchangeRate) {
+        this.exchangeRate = exchangeRate;
     }
 }
