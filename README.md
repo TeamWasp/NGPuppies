@@ -6,5 +6,5 @@ Telerik Academy Final Project
 
 ## MindMap presentation:
 https://app.mindmup.com/map/_free/2018/08/51e4a500a19811e8aec2e32c564eee5a
-![Alt text](https://github.com/TeamWasp/NGPuppies/tree/master/data/ng-puppies-project-schema/ng-puppies-project-schema.png?raw=true 'NG-Puppies project schema')
+![Alt text](https://github.com/TeamWasp/NGPuppies/blob/master/data/ng-puppies-project-schema/ng-puppies-project-schema.png?raw=true 'NG-Puppies project schema')
 
