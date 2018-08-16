@@ -1,3 +1,3 @@
 # NGPuppies
 Telerik Academy Final Project
-![Alt text](NGPuppies/data?ngpuppies_db_diagram.png)
+![Alt text](https://github.com/TeamWasp/NGPuppies/blob/master/data/ngpuppies_db_diagram.png?raw=true 'Title')
