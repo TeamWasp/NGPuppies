@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import java.util.List;
 
 @Entity
@@ -23,16 +24,21 @@ public class User {
 
     @Column(name = "EIK")
     private String EIK;
+    
+    @Email
+    @Column(name = "EmailAddress")
+    private String emailAddress;
 
     @OneToMany(mappedBy = "bank")
     private List<Subscriber> subscribers;
 
-    public User(String username, String password, Role role, String EIK, List<Subscriber> subscribers) {
+    public User(String username, String password, Role role, String EIK, List<Subscriber> subscribers, String emailAddress) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.EIK = EIK;
         this.subscribers = subscribers;
+        this.emailAddress = emailAddress;
     }
 
     public User() {
@@ -84,5 +90,13 @@ public class User {
 
     public void setSubscribers(List<Subscriber> subscribers) {
         this.subscribers = subscribers;
+    }
+    
+    public String getEmailAddress() {
+        return emailAddress;
+    }
+    
+    public void setEmailAddress(String emailAddress) {
+        this.emailAddress = emailAddress;
     }
 }
