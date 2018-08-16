@@ -1,0 +1,764 @@
+{
+  "formatVersion": 3,
+  "id": "root",
+  "ideas": {
+    "1": {
+      "title": "CLIENT",
+      "id": 1,
+      "attr": {
+        "position": [
+          -2324,
+          -886,
+          1
+        ],
+        "style": {
+          "width": 145,
+          "background": "#000000"
+        }
+      },
+      "ideas": {
+        "15": {
+          "title": "table fields",
+          "id": 80,
+          "attr": {
+            "position": [
+              131.8667278289795,
+              -218.3999786376953,
+              10
+            ],
+            "style": {
+              "background": "#0000FF"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "id -> username",
+              "id": 81
+            },
+            "2": {
+              "title": "password (mandatory)",
+              "id": 82
+            },
+            "3": {
+              "title": "details (e.g., user-friendly name, descr, etc.) (optional)",
+              "id": 108
+            },
+            "2.5": {
+              "title": "EIK (UIC) (mandatory)",
+              "id": 109
+            }
+          }
+        },
+        "30": {
+          "title": "Users - Banks",
+          "id": 15,
+          "attr": {
+            "position": [
+              177.00006103515625,
+              276.7333297729492,
+              12
+            ]
+          },
+          "ideas": {
+            "4": {
+              "title": "functions",
+              "id": 103,
+              "attr": {
+                "style": {
+                  "background": "#FF0000"
+                }
+              },
+              "ideas": {
+                "1": {
+                  "title": "Non-admins",
+                  "id": 104
+                },
+                "2": {
+                  "title": "pay only the bills of their Subscribers",
+                  "id": 105
+                },
+                "3": {
+                  "title": "see only their own Subscribers",
+                  "id": 106
+                },
+                "4": {
+                  "title": "can't change their username or password",
+                  "id": 107
+                },
+                "5": {
+                  "title": "one Bank can have only one User in the system",
+                  "id": 111
+                }
+              }
+            }
+          }
+        },
+        "-10": {
+          "title": "Admins - Telecom employees",
+          "id": 14,
+          "attr": {
+            "position": [
+              117.99993896484375,
+              274.7333297729492,
+              11
+            ]
+          },
+          "ideas": {
+            "11": {
+              "title": "functions",
+              "id": 90,
+              "ideas": {
+                "1": {
+                  "title": "access and change all major system objects",
+                  "id": 91
+                },
+                "2": {
+                  "title": "create Users with username & password",
+                  "id": 92
+                },
+                "3": {
+                  "title": "manage all User-related data",
+                  "id": 93
+                },
+                "4": {
+                  "title": "create Admins w/ username, initial password, & email",
+                  "id": 94
+                },
+                "5": {
+                  "title": "at initial log-in, must change their password!",
+                  "id": 95
+                },
+                "6": {
+                  "title": "see a list of Admins & Users",
+                  "id": 96
+                },
+                "7": {
+                  "title": "update info of Users",
+                  "id": 97
+                },
+                "8": {
+                  "title": "delete other Admins & Users",
+                  "id": 98
+                },
+                "9": {
+                  "title": "generate payments for any amount  for any Subscriber",
+                  "id": 99
+                },
+                "10": {
+                  "title": "change their own username, password, & email",
+                  "id": 100
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#FF0000"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "2": {
+      "title": "SUBSCRIBERS - Banks' customers",
+      "id": 3,
+      "attr": {
+        "style": {
+          "width": 115,
+          "background": "#000000"
+        },
+        "position": [
+          -1122,
+          -889,
+          1
+        ]
+      },
+      "ideas": {
+        "61": {
+          "title": "functions",
+          "id": 101,
+          "attr": {
+            "position": [
+              8.0001220703125,
+              121.13335418701172,
+              4
+            ],
+            "style": {
+              "background": "#FF0000"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "one Subscriber has only one Bank",
+              "id": 102
+            }
+          }
+        },
+        "0.5": {
+          "title": "table fields",
+          "id": 83,
+          "attr": {
+            "position": [
+              79.53338623046875,
+              -232.9999771118164,
+              5
+            ],
+            "style": {
+              "background": "#0000FF"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "id -> phone #",
+              "id": 84
+            },
+            "2": {
+              "title": "first name (mandatory)",
+              "id": 85
+            },
+            "3": {
+              "title": "last name (mandatory)",
+              "id": 86
+            },
+            "4": {
+              "title": "EGN (UCN) (mandatory)",
+              "id": 87
+            },
+            "5": {
+              "title": "address (optional)",
+              "id": 88
+            }
+          }
+        }
+      }
+    },
+    "3": {
+      "title": "BILLS",
+      "id": 22,
+      "attr": {
+        "position": [
+          -1537,
+          -882,
+          1
+        ],
+        "style": {
+          "background": "#000000"
+        }
+      },
+      "ideas": {
+        "5": {
+          "title": "table fields",
+          "id": 114,
+          "attr": {
+            "position": [
+              48.80012130737305,
+              -292.9999771118164,
+              2
+            ],
+            "style": {
+              "background": "#0000FF"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "id -> autogenerated",
+              "id": 115
+            },
+            "2": {
+              "title": "service -> the Service of the Subscriber the User (Bank) pays for, selected from a predefined list of services",
+              "id": 116
+            },
+            "3": {
+              "title": "start date ->  TBD  -> date the Bill was issued",
+              "id": 117
+            },
+            "4": {
+              "title": "end date -> TBD -> deadline for payment of Bill",
+              "id": 118
+            },
+            "5": {
+              "title": "amount -> money to be paid; could be in any currency",
+              "id": 119
+            },
+            "6": {
+              "title": "currency -> BGN, USD, EUR, etc. (predifined list)",
+              "id": 120
+            }
+          }
+        },
+        "10": {
+          "title": "functions",
+          "id": 112,
+          "attr": {
+            "position": [
+              47.0001220703125,
+              113.46668243408203,
+              1
+            ],
+            "style": {
+              "background": "#FF0000"
+            }
+          },
+          "ideas": {
+            "1": {
+              "title": "available to Banks (Users) for payment via GUI or Rest API",
+              "id": 113
+            }
+          }
+        }
+      }
+    },
+    "4": {
+      "title": "APPLICATION",
+      "id": 24,
+      "attr": {
+        "position": [
+          -1295,
+          -454,
+          1
+        ],
+        "style": {
+          "background": "#008000"
+        }
+      },
+      "ideas": {
+        "0.5": {
+          "title": "Private part",
+          "id": 26,
+          "ideas": {
+            "1": {
+              "title": "Access to registered users",
+              "id": 31
+            },
+            "2": {
+              "title": "Bill payment module (after authentication)",
+              "id": 41,
+              "ideas": {
+                "1": {
+                  "title": "pay specific Bill or list of Bills for Subscriber(s)",
+                  "id": 42
+                },
+                "2": {
+                  "title": "Subscriber details",
+                  "id": 43
+                },
+                "3": {
+                  "title": "History of payments for Subscribers (sorted by descending payment date)",
+                  "id": 44
+                },
+                "4": {
+                  "title": "Avg. & Max amount for a time period per Subscriber",
+                  "id": 45,
+                  "attr": {}
+                },
+                "5": {
+                  "title": "list of Services paid for",
+                  "id": 46
+                },
+                "6": {
+                  "title": "Reports",
+                  "id": 48,
+                  "ideas": {
+                    "1": {
+                      "title": "Top 10 Subscribers with largest paid amounts",
+                      "id": 50
+                    },
+                    "2": {
+                      "title": "Most recent 10 payments made by Client for all ofits Subscribers",
+                      "id": 53
+                    }
+                  },
+                  "attr": {
+                    "style": {
+                      "background": "#CCFFFF"
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#FFFF99"
+                }
+              }
+            }
+          },
+          "attr": {
+            "position": [
+              134.66673278808594,
+              79.7332992553711,
+              12
+            ],
+            "style": {
+              "background": "#FFCC00"
+            }
+          }
+        },
+        "-20": {
+          "title": "Public part",
+          "id": 25,
+          "ideas": {
+            "1": {
+              "title": "Access to everyone",
+              "id": 28,
+              "ideas": {},
+              "attr": {
+                "position": [
+                  112.00006103515625,
+                  59.866729736328125,
+                  2
+                ]
+              }
+            },
+            "2": {
+              "title": "has only Client LogIn API",
+              "id": 34,
+              "ideas": {
+                "3": {
+                  "title": "successful log-in",
+                  "id": 37,
+                  "ideas": {
+                    "12": {
+                      "title": "Banks -> access private part",
+                      "id": 39
+                    },
+                    "22": {
+                      "title": "Admins -> access administrative part",
+                      "id": 40,
+                      "attr": {}
+                    }
+                  }
+                },
+                "2.5": {
+                  "title": "username (mandatory field)",
+                  "id": 35,
+                  "ideas": {
+                    "1": {
+                      "title": "password (mandatory field)",
+                      "id": 36,
+                      "attr": {}
+                    }
+                  }
+                }
+              },
+              "attr": {
+                "style": {
+                  "background": "#FFFF99"
+                },
+                "position": [
+                  105.93328857421875,
+                  187.26666259765625,
+                  3
+                ]
+              }
+            }
+          },
+          "attr": {
+            "style": {
+              "background": "#FFCC00"
+            },
+            "position": [
+              273.9999694824219,
+              55.86669158935547,
+              11
+            ]
+          }
+        },
+        "10.5": {
+          "title": "Administrative part",
+          "id": 27,
+          "ideas": {
+            "1": {
+              "title": "Access to admins only",
+              "id": 33
+            },
+            "2": {
+              "title": "all Admin-related functionality",
+              "id": 122
+            }
+          },
+          "attr": {
+            "position": [
+              61.66673278808594,
+              329.7333297729492,
+              13
+            ],
+            "style": {
+              "background": "#FFCC00"
+            }
+          }
+        }
+      }
+    },
+    "5": {
+      "title": "REQUIREMENTS",
+      "id": 126,
+      "attr": {
+        "position": [
+          -1769,
+          411,
+          1
+        ],
+        "style": {
+          "background": "#FF00FF"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "UI & Business Logic -built independently so that they can be deployed on separate servers",
+          "id": 128,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "2": {
+          "title": "May use Thymeleaf  (template engine) to generate the UI",
+          "id": 132,
+          "ideas": {
+            "1": {
+              "title": "i.e., can have both RestsControllers for all functionalities & Controllers for implemented UI!!!",
+              "id": 133,
+              "attr": {
+                "style": {
+                  "background": "#FF0000"
+                }
+              }
+            }
+          }
+        },
+        "3": {
+          "title": "May build single-page applications to serve the UI",
+          "id": 134,
+          "ideas": {
+            "1": {
+              "title": "Note: Better to use Thymeleaf & server-side rendering (have more experience w/ that)",
+              "id": 135
+            }
+          }
+        },
+        "13": {
+          "title": "Use MySQL (MariaDB) as database",
+          "id": 136,
+          "ideas": {}
+        },
+        "23": {
+          "title": "Use Hibernate as ORM (to access DB)",
+          "id": 138,
+          "attr": {}
+        },
+        "24": {
+          "title": "Apply Error Handling & Data Validation to avoid crashes when invalid data are entered (both client- & server-side)",
+          "id": 142,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "25": {
+          "title": "Prevent security holes (XSS, XSRF, Parameter Tampering, etc.)",
+          "id": 145,
+          "ideas": {}
+        },
+        "26": {
+          "title": "Use Inversion of Control & Dependency Injection",
+          "id": 148
+        },
+        "27": {
+          "title": "Create documentation of project and its architecture (i.e., .md file and screenshots)",
+          "id": 150,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "-1": {
+          "title": "UI & Business Logic - communicate via Rest API & JSON",
+          "id": 129,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "-11": {
+          "title": "Beautiful  & responsive UI - optional as long as  all functionalities are supported via Rest API",
+          "id": 130,
+          "ideas": {}
+        },
+        "-12": {
+          "title": "Using Repositories and Service Layer - MUST!!!",
+          "id": 139,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "-13": {
+          "title": "Create tables with data w/ server-side paging & sorting (if needed) for every model entity",
+          "id": 140
+        },
+        "-14": {
+          "title": "May use Bootstrap or Materialize",
+          "id": 141
+        },
+        "-15": {
+          "title": "Can use Spring Security to manage Users & their Roles",
+          "id": 143,
+          "ideas": {
+            "1": {
+              "title": "one User has one Role only (Admin or Non-admin)",
+              "id": 144,
+              "attr": {
+                "style": {
+                  "background": "#FF0000"
+                }
+              }
+            }
+          }
+        },
+        "-16": {
+          "title": "Create Unit Tests for your Business Logic (80% coverage)",
+          "id": 147,
+          "attr": {
+            "style": {
+              "background": "#FF0000"
+            }
+          }
+        },
+        "-17": {
+          "title": "Follow OOP & SOLID principles",
+          "id": 149
+        }
+      }
+    },
+    "6": {
+      "title": "OPTIONAL REQUIREMENTS",
+      "id": 151,
+      "attr": {
+        "position": [
+          -949,
+          530,
+          1
+        ],
+        "style": {
+          "background": "#FF00FF"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "Implement additional security check for Admins (only requests from specific IP's are accepted)",
+          "id": 152
+        },
+        "2": {
+          "title": "Develop Throttling functionality",
+          "id": 158
+        },
+        "3": {
+          "title": "Expose all Business Logic APIs through JMS interface (e.g., ActiveMQ)",
+          "id": 160
+        },
+        "4": {
+          "title": "Integrate app with a continuous integration server (e.g., Jenkins)",
+          "id": 161
+        },
+        "5": {
+          "title": "Configure Unit Tests to run on each commit to the GitHub master branch",
+          "id": 162
+        },
+        "15": {
+          "title": "Create Integration Tests and configure them to run as part of your CI build",
+          "id": 163,
+          "attr": {}
+        },
+        "-1": {
+          "title": "Implement HTTPS protocol for entire communication with app",
+          "id": 153
+        },
+        "-11": {
+          "title": "Develop JWT authentication",
+          "id": 154
+        },
+        "-21": {
+          "title": "Develop Forgotten Password functionality for Admins using registered emails",
+          "id": 155,
+          "ideas": {}
+        },
+        "-31": {
+          "title": "Develop additional verification step  when creating new Admin so that  one-time password is sent to his/ her email to be entered in the app",
+          "id": 157
+        },
+        "-32": {
+          "title": "Deploy your app as Docker images",
+          "id": 164
+        },
+        "-33": {
+          "title": "Host your app in a public hosting provider (e.g., AWS)",
+          "id": 165
+        }
+      }
+    },
+    "7": {
+      "title": "DELIVERABLES",
+      "id": 166,
+      "attr": {
+        "position": [
+          -1080,
+          169,
+          1
+        ],
+        "style": {
+          "background": "#FF00FF"
+        }
+      },
+      "ideas": {
+        "1": {
+          "title": "link to GitHub w/",
+          "id": 168,
+          "ideas": {
+            "1": {
+              "title": "Project documentation",
+              "id": 169
+            },
+            "2": {
+              "title": "Screenshots of your app",
+              "id": 171
+            },
+            "3": {
+              "title": "URL of your app (if hosted online)",
+              "id": 172
+            }
+          }
+        }
+      }
+    }
+  },
+  "title": "CLIENT",
+  "links": [
+    {
+      "ideaIdFrom": 1,
+      "ideaIdTo": 22,
+      "attr": {
+        "style": {
+          "color": "#707070",
+          "lineStyle": "solid",
+          "arrow": "to"
+        }
+      }
+    },
+    {
+      "ideaIdFrom": 22,
+      "ideaIdTo": 3,
+      "attr": {
+        "style": {
+          "color": "#707070",
+          "lineStyle": "solid",
+          "arrow": "to"
+        }
+      }
+    }
+  ]
+}
