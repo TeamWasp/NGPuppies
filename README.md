@@ -1,3 +1,3 @@
 # NGPuppies
 Telerik Academy Final Project
-![Alt text](relative/path/to/img.jpg?raw=true "Title")
+![Alt text](NGPuppies/data/ngpuppies_db_diagram.png?raw=true "Title")
