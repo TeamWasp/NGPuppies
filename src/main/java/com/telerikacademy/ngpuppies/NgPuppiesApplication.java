@@ -13,7 +13,7 @@ public class NgPuppiesApplication {
         SpringApplication.run(NgPuppiesApplication.class, args);
     }
 
-    @Bean
+    /*@Bean
     public SessionFactory createSessionFactory() {
         System.out.println("SessionFactory was created.");
         return new org.hibernate.cfg.Configuration()
@@ -23,8 +23,8 @@ public class NgPuppiesApplication {
                 .addAnnotatedClass(Role.class)
                 .addAnnotatedClass(Service.class)
                 .addAnnotatedClass(Subscriber.class)
-                .addAnnotatedClass(User.class)
+                .addAnnotatedClass(Client.class)
                 .buildSessionFactory();
 
-    }
+    }*/
 }

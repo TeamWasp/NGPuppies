@@ -1,30 +1,41 @@
 package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "addresses")
 public class Address {
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AddressID")
 	private int addressId;
 	
+	@NotNull
+	@Size(min = 5, max = 20)
 	@Column(name = "Country")
 	private String country;
 	
+	@NotNull
+	@Size(min = 4, max = 15)
 	@Column(name = "City")
 	private String city;
 	
+	@NotNull
+	@Size(min = 4, max = 4)
 	@Column(name = "ZipCode")
 	private String zipCode;
 	
+	@NotNull
+	@Size(min = 10)
 	@Column(name = "Street")
 	private String street;
 	
 	public Address() {
-	
 	}
+	
 	public Address(int addressId, String country, String city, String zipCode, String street) {
 		this.addressId = addressId;
 		this.country = country;

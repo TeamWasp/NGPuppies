@@ -1,39 +1,41 @@
 package com.telerikacademy.ngpuppies.models;
 
+import com.telerikacademy.ngpuppies.models.enums.RoleType;
+
 import javax.persistence.*;
 
 @Entity
-@Table(name="roles")
+@Table(name = "roles")
 public class Role {
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="RoleID")
-    private int roleId;
-
-    @Column(name="Name")
-    private String name;
-
-    public Role(String name) {
+    @Column(name = "RoleID")
+    private String roleId;
+    
+    @Column(name = "Name")
+    private RoleType name;
+    
+    public Role() {}
+    
+    public Role(String roleId, RoleType name) {
+        this.roleId = roleId;
         this.name = name;
     }
-
-    public Role() {
-    }
-
-
-    public int getRoleId() {
+    
+    public String getRoleId() {
         return roleId;
     }
-
-    public void setRoleId(int id) {
-        this.roleId = id;
+    
+    public void setRoleId(String roleId) {
+        this.roleId = roleId;
     }
-
-    public String getName() {
+    
+    public RoleType getName() {
         return name;
     }
-
-    public void setName(String name) {
+    
+    public void setName(RoleType name) {
         this.name = name;
     }
 }

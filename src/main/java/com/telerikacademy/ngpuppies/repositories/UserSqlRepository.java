@@ -1,4 +1,5 @@
 package com.telerikacademy.ngpuppies.repositories;
 
-public class SubscriberSqlRepo {
+public class UserSqlRepository {
+	
 }

@@ -1,6 +1,8 @@
 package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "currencies")
@@ -9,42 +11,45 @@ public class Currency {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "CurrencyID")
     private int currencyId;
-
-    @Column(name = "currency")
+    
+    @NotNull
+    @Size(min = 3, max = 3)
+    @Column(name = "Currency", unique = true)
     private String currency;
-
-    @Column(name = "ExhangeRate")
+    
+    @NotNull
+    @Column(name = "ExchangeRate")
     private double exchangeRate;
-
-    public Currency(String currency, double exchangeRate) {
+    
+    public Currency() {
+    }
+    
+    public Currency(int currencyId, String currency, double exchangeRate) {
+        this.currencyId = currencyId;
         this.currency = currency;
         this.exchangeRate = exchangeRate;
     }
-
-    public Currency() {
-    }
-
-
+    
     public int getCurrencyId() {
         return currencyId;
     }
-
-    public void setCurrencyId(int id) {
-        this.currencyId = id;
+    
+    public void setCurrencyId(int currencyId) {
+        this.currencyId = currencyId;
     }
-
+    
     public String getCurrency() {
         return currency;
     }
-
+    
     public void setCurrency(String currency) {
         this.currency = currency;
     }
-
+    
     public double getExchangeRate() {
         return exchangeRate;
     }
-
+    
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
