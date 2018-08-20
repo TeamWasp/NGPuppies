@@ -19,13 +19,13 @@ public class AdminController {
 	
 	@GetMapping("/")
 	public List<Admin> getAllAdmins() {
-		return service.getAll();
+		return service.getAllAdmins();
 	}
 	
 	@GetMapping("/{id}")
 	public Admin getAdminById(@PathVariable("id") String adminIdString) {
 		int adminId = Integer.parseInt(adminIdString);
-		return service.getById(adminId);
+		return service.getAdminById(adminId);
 	}
 	
 	@PostMapping("/createAdmin")
@@ -54,6 +54,6 @@ public class AdminController {
 	@DeleteMapping("/deleteAdmin/{id}")
 	public void deleteAdmin(@PathVariable("id") String adminIdString) {
 		int adminId = Integer.parseInt(adminIdString);
-		service.delete(adminId);
+		service.deleteAdmin(adminId);
 	}
 }
