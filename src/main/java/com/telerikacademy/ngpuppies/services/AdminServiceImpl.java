@@ -1,29 +1,228 @@
 package com.telerikacademy.ngpuppies.services;
 
-import com.telerikacademy.ngpuppies.models.Admin;
-import com.telerikacademy.ngpuppies.repositories.base.AdminRepository;
+import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.repositories.base.BillRepository;
+import com.telerikacademy.ngpuppies.repositories.base.ClientRepository;
+import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
+import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 	
-	private AdminRepository repository;
+	private GenericRepository<Admin> adminRepository;
+	private GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository;
+	private ClientRepository clientRepository;
+	private GenericRepository<Currency> currencyRepository;
+	private BillRepository billRepository;
+	private SubscriberRepository subscriberRepository;
 	
-	public AdminServiceImpl(AdminRepository repository) {
-		this.repository = repository;
+	
+	@Autowired
+	public AdminServiceImpl(
+			GenericRepository<Admin> adminRepository,
+			GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository,
+			ClientRepository clientRepository,
+			GenericRepository<Currency> currencyRepository,
+			BillRepository billRepository,
+			SubscriberRepository subscriberRepository
+	) {
+		this.adminRepository = adminRepository;
+		this.serviceRepository = serviceRepository;
+		this.clientRepository = clientRepository;
+		this.currencyRepository = currencyRepository;
+		this.billRepository = billRepository;
+		this.subscriberRepository = subscriberRepository;
 	}
 	
 	@Override
+	public void create(Admin admin) {
+		adminRepository.create(admin);
+	}
+	
+	@Override
+	public void create(Client client) {
+	
+	}
+	
+	@Override
+	public void create(com.telerikacademy.ngpuppies.models.Service service) {
+		serviceRepository.create(service);
+	}
+	
+	@Override
+	public void create(Currency currency) {
+		currencyRepository.create(currency);
+	}
+	
+	@Override
+	public void create(Bill bill) {
+		billRepository.create(bill);
+	}
+	
+	@Override
+	public void create(Subscriber subscriber) {
+		subscriberRepository.create(subscriber);
+	}
+	
+	@Override
+	public Admin getAdminById(int adminId) {
+		return adminRepository.getById(adminId);
+	}
+	
+	@Override
+	public Client getClientById(int clientId) {
+		return null;
+	}
+	
+	@Override
+	public User getUserById(int userId) {
+		return null;
+	}
+	
+	@Override
+	public com.telerikacademy.ngpuppies.models.Service getServiceById(int serviceId) {
+		return serviceRepository.getById(serviceId);
+	}
+	
+	@Override
+	public Currency getCurrencyById(int currencyId) {
+		return currencyRepository.getById(currencyId);
+	}
+	
+	@Override
+	public Bill getBillById(int billId) {
+		return billRepository.getById(billId);
+	}
+	
+	@Override
+	public Subscriber getSubscriberById(int subscriberId) {
+		return subscriberRepository.getById(subscriberId);
+	}
+	
+	@Override
+	public List<Admin> getAllAdmins() {
+		return adminRepository.getAll();
+	}
+	
+	@Override
+	public List<Client> getAllClients() {
+		return null;
+	}
+	
+	@Override
+	public List<User> getAllUsers() {
+		return null;
+	}
+	
+	@Override
+	public List<com.telerikacademy.ngpuppies.models.Service> getAllServices() {
+		return serviceRepository.getAll();
+	}
+	
+	@Override
+	public List<Currency> getAllCurrencies() {
+		return currencyRepository.getAll();
+	}
+	
+	@Override
+	public List<Bill> getAllBills() {
+		return billRepository.getAll();
+	}
+	
+	@Override
+	public List<Bill> getAllBills(Date startDate, Date endDate) {
+		return billRepository.getAll(startDate, endDate);
+	}
+	
+	@Override
+	public List<Subscriber> getAllSubscribers() {
+		return subscriberRepository.getAll();
+	}
+	
+	@Override
+	public List<Subscriber> getAllSubscribers(int clientId) {
+		return subscriberRepository.getAll(clientId);
+	}
+	
+	@Override
+	public void update(int adminId, Admin admin) {
+		adminRepository.update(adminId, admin);
+	}
+	
+	@Override
+	public void update(int clientId, Client client) {
+	
+	}
+	
+	@Override
+	public void update(int serviceId, com.telerikacademy.ngpuppies.models.Service service) {
+		serviceRepository.update(serviceId, service);
+	}
+	
+	@Override
+	public void update(int currencyId, Currency currency) {
+		currencyRepository.update(currencyId, currency);
+	}
+	
+	@Override
+	public void update(int billId, Bill bill) {
+		billRepository.update(billId, bill);
+	}
+	
+	@Override
+	public void update(int subscriberId, Subscriber subscriber) {
+		subscriberRepository.update(subscriberId, subscriber);
+	}
+	
+	@Override
+	public void deleteAdmin(int adminId) {
+		adminRepository.delete(adminId);
+	}
+	
+	@Override
+	public void deleteClient(int clientId) {
+	
+	}
+	
+	@Override
+	public void deleteUser(int userId) {
+	
+	}
+	
+	@Override
+	public void deleteService(int serviceId) {
+		serviceRepository.delete(serviceId);
+	}
+	
+	@Override
+	public void deleteCurrency(int currencyId) {
+		currencyRepository.delete(currencyId);
+	}
+	
+	@Override
+	public void deleteBill(int billId) {
+		billRepository.delete(billId);
+	}
+	
+	@Override
+	public void deleteSubscriber(int subscriberId) {
+		subscriberRepository.delete(subscriberId);
+	}
+	
+	/*@Override
 	public void delete(int adminId) {
 		Admin admin = getById(adminId);
 		if(admin == null){
 			System.out.printf("Admin with \"%d\" does not exist!", adminId);
 		}
 		else {
-			repository.delete(adminId);
+			adminRepository.delete(adminId);
 		}
 	}
 	
@@ -31,7 +230,7 @@ public class AdminServiceImpl implements AdminService {
 	// Or leave this for the database to handle as a duplicate key error? and use Exception Handler to process it as a message to the UI???
 	@Override
 	public void create(Admin admin) {
-		List<Admin> allAdmins = repository.getAll();
+		List<Admin> allAdmins = adminRepository.getAll();
 		if (admin != null) {
 			for (Admin a : allAdmins) {
 				if (a.getUsername().equals(admin.getUsername())) {
@@ -40,22 +239,22 @@ public class AdminServiceImpl implements AdminService {
 				}
 			}
 		}
-		repository.create(admin);
+		adminRepository.create(admin);
 	}
 	
 	@Override
 	public Admin getById(int adminId) {
-		return repository.getById(adminId);
+		return adminRepository.getById(adminId);
 	}
 	
 	@Override
 	public List<Admin> getAll() {
-		return repository.getAll();
+		return adminRepository.getAll();
 	}
 	
 	@Override
 	public void update(int adminId, Admin admin) {
-		Admin oldAdmin = repository.getById(adminId);
+		Admin oldAdmin = adminRepository.getById(adminId);
 		if(admin.getUsername().equals("")){
 			admin.setUsername(oldAdmin.getUsername());
 		}
@@ -71,6 +270,6 @@ public class AdminServiceImpl implements AdminService {
 		if(admin.getEmailAddress().equals("")){
 			admin.setEmailAddress(oldAdmin.getEmailAddress());
 		}
-		repository.update(adminId, admin);
-	}
+		adminRepository.update(adminId, admin);
+	}*/
 }
