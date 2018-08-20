@@ -1,32 +1,27 @@
 package com.telerikacademy.ngpuppies.repositories;
 
-import com.telerikacademy.ngpuppies.models.Admin;
-import com.telerikacademy.ngpuppies.repositories.base.AdminRepository;
+import com.telerikacademy.ngpuppies.models.Bill;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
 import java.util.List;
 
-// Note: Here maybe we need to use User instead of Admin in order for the Admin to be able to manage not only Admin(s) but also Client(s)
-@Repository
-public class AdminSqlRepository implements GenericRepository<Admin> {
-	
+public class BillSqlRepository implements GenericRepository<Bill> {
 	private SessionFactory factory;
 	
 	@Autowired
-	public AdminSqlRepository(SessionFactory factory) {
+	public BillSqlRepository(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
 	@Override
-	public void create(Admin admin) {
+	public void create(Bill bill) {
 		try(Session session = factory.openSession()) {
 			session.beginTransaction();
-			session.save(admin);
+			session.save(bill);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -34,41 +29,43 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 	}
 	
 	@Override
-	public Admin getById(int adminId) {
-		Admin admin = null;
+	public Bill getById(int billId) {
+		Bill bill = null;
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			admin = session.get(Admin.class, adminId);
+			bill = session.get(Bill.class, billId);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return admin;
+		return bill;
 	}
 	
 	@Override
-	public List<Admin> getAll() {
-		List<Admin> admins = new ArrayList<>();
+	public List<Bill> getAll() {
+		List<Bill> bills = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			admins = session.createQuery("from Admin").list();
+			bills = session.createQuery("from Bill").list();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return admins;
+		return bills;
 	}
 	
 	@Override
-	public void update(int adminId, Admin updateAdmin) {
+	public void update(int billId, Bill updateBill) {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			Admin admin = session.get(Admin.class, adminId);
-			admin.setUsername(updateAdmin.getUsername());
-			admin.setPassword(updateAdmin.getPassword());
-			admin.setEik(updateAdmin.getEik());
-			admin.setRole(updateAdmin.getRole());
-			admin.setEmailAddress(updateAdmin.getEmailAddress());
+			Bill bill = session.get(Bill.class, billId);
+			bill.setService(updateBill.getService());
+			bill.setSubscriber(updateBill.getSubscriber());
+			bill.setAmount(updateBill.getAmount());
+			bill.setCurrency(updateBill.getCurrency());
+			bill.setStartDate(updateBill.getStartDate());
+			bill.setEndDate(updateBill.getEndDate());
+			bill.setPaymentDate(updateBill.getPaymentDate());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -76,11 +73,11 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 	}
 	
 	@Override
-	public void delete(int adminId) {
-		Admin admin = getById(adminId);
+	public void delete(int billId) {
+		Bill bill = getById(billId);
 		try (Session session = factory.openSession()){
 			session.beginTransaction();
-			session.delete(admin);
+			session.delete(bill);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
