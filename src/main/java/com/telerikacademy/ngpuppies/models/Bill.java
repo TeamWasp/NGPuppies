@@ -42,7 +42,7 @@ public class Bill {
     
     @NotNull
     @Column(name = "Amount")
-    private BigDecimal amount;
+    private double amount;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "PaymentDate")
@@ -50,7 +50,7 @@ public class Bill {
     
     public Bill() {}
     
-    public Bill(Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, BigDecimal amount, Date paymentDate) {
+    public Bill(Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, double amount, Date paymentDate) {
         this.service = service;
         this.subscriber = subscriber;
         this.currency = currency;
@@ -108,11 +108,13 @@ public class Bill {
         this.endDate = endDate;
     }
     
-    public BigDecimal getAmount() {
-        return amount;
+    public double getAmount() {
+
+        return amount*currency.getExchangeRate();
+
     }
     
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
     
