@@ -2,8 +2,10 @@ package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
+import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class SubscriberSqlRepository implements GenericRepository<Subscriber> {
+public class SubscriberSqlRepository implements SubscriberRepository {
 	
 	private SessionFactory factory;
 	
@@ -50,6 +52,21 @@ public class SubscriberSqlRepository implements GenericRepository<Subscriber> {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			subscribers = session.createQuery("from Subscriber").list();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return subscribers;
+	}
+	
+	@Override
+	public List<Subscriber> getAll(int clientId) {
+		List<Subscriber> subscribers = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Subscriber as a where a.bank = :clientId");
+			query.setParameter("clientId", clientId);
+			subscribers = query.list();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
