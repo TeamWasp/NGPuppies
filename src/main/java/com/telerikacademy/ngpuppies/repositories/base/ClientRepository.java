@@ -5,8 +5,8 @@ import com.telerikacademy.ngpuppies.models.Client;
 
 import java.util.List;
 
-public interface UserRepository extends GenericRepository<Client> {
+public interface ClientRepository extends GenericRepository<Client> {
 	
-	List<Subscriber> listAllSubscribers(int userId);
+	List<Subscriber> listAllSubscribers(int clientId);
 	
 }
