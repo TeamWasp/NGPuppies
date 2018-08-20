@@ -20,12 +20,12 @@ public class Currency {
     
     @NotNull
     @Column(name = "ExchangeRate")
-    private BigDecimal exchangeRate;
+    private double exchangeRate;
     
     public Currency() {
     }
     
-    public Currency(String currency, BigDecimal exchangeRate) {
+    public Currency(String currency, double exchangeRate) {
         this.currency = currency;
         this.exchangeRate = exchangeRate;
     }
@@ -46,11 +46,11 @@ public class Currency {
         this.currency = currency;
     }
     
-    public BigDecimal getExchangeRate() {
+    public double getExchangeRate() {
         return exchangeRate;
     }
     
-    public void setExchangeRate(BigDecimal exchangeRate) {
+    public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 }

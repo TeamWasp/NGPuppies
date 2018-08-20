@@ -9,7 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Repository
 public class ClientSqlRepository implements ClientRepository {
@@ -24,13 +27,12 @@ public class ClientSqlRepository implements ClientRepository {
     @Override
     public List<Subscriber> getAllSubscribers(int userId) {
         List<Subscriber> subscribers = new ArrayList<>();
-        try(Session session = factory.openSession()){
+        try (Session session = factory.openSession()) {
             session.beginTransaction();
             Client c = session.get(Client.class, userId);
             subscribers = c.getSubscribers();
             session.getTransaction().commit();
-        }
-        catch (Exception ex){
+        } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
         return subscribers;
@@ -39,8 +41,7 @@ public class ClientSqlRepository implements ClientRepository {
     @Override
     public List<Subscriber> getTopTenSubscribers(int userId) {
         List<Subscriber> subscribers = getAllSubscribers(userId);
-
-
-        return subscribers;
+        Collections.sort(subscribers);
+        return subscribers.stream().limit(10).collect(Collectors.toList());
     }
 }

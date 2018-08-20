@@ -9,7 +9,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
-public class Subscriber {
+public class Subscriber implements Comparable<Subscriber> {
     
     @Id
     @Size(min=9, max = 15)
@@ -43,9 +43,11 @@ public class Subscriber {
     @JsonManagedReference
     private Client bank;
 
-    @OneToMany(mappedBy = "subscriber")
+    @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)
     private List<Bill> bills;
-    
+
+    //private int paid;
+
     public Subscriber() {
     }
     
@@ -112,5 +114,21 @@ public class Subscriber {
 
     public void setBills(List<Bill> bills) {
         this.bills = bills;
+    }
+
+
+    @Override
+    public int compareTo(Subscriber o) {
+        int compare=0;
+        int compared=0;
+        for (Bill bill:this.bills) {
+            compare+=bill.getAmount();
+
+        }
+        for (Bill bill:o.getBills()) {
+            compared+=bill.getAmount();
+
+        }
+        return compared-compare;
     }
 }
