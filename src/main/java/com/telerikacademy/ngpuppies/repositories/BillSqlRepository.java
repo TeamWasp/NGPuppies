@@ -1,17 +1,21 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Bill;
+import com.telerikacademy.ngpuppies.repositories.base.BillRepository;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.hibernate.query.QueryParameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Repository
-public class BillSqlRepository implements GenericRepository<Bill> {
+public class BillSqlRepository implements BillRepository {
 	private SessionFactory factory;
 	
 	@Autowired
@@ -49,6 +53,22 @@ public class BillSqlRepository implements GenericRepository<Bill> {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			bills = session.createQuery("from Bill").list();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return bills;
+	}
+	
+	@Override
+	public List<Bill> getAll(Date startDate, Date endDate) {
+		List<Bill> bills = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Bill as a where a.startDate > :startDate and a.endDate < :endDate");
+			query.setParameter("startDate", startDate);
+			query.setParameter("endDate", endDate);
+			bills = query.list();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
