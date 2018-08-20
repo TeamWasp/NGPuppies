@@ -40,12 +40,12 @@ public class Subscriber {
     @ManyToOne
     @JoinColumn(name = "BankID")
     @JsonManagedReference
-    private User bank;
+    private Client bank;
     
     public Subscriber() {
     }
     
-    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, User bank) {
+    public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client bank) {
         this.phoneNumber = phoneNumber;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -94,11 +94,11 @@ public class Subscriber {
         this.address = address;
     }
     
-    public User getBank() {
+    public Client getBank() {
         return bank;
     }
     
-    public void setBank(User bank) {
+    public void setBank(Client bank) {
         this.bank = bank;
     }
 }

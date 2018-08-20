@@ -13,8 +13,8 @@ public class ServiceConfig {
 		
 		return new org.hibernate.cfg.Configuration()
 				.configure("hibernate.cfg.xml")
-				.addAnnotatedClass(Client.class)
 				.addAnnotatedClass(User.class)
+				.addAnnotatedClass(Client.class)
 				.addAnnotatedClass(Admin.class)
 				.addAnnotatedClass(Role.class)
 				.addAnnotatedClass(Subscriber.class)

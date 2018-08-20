@@ -7,7 +7,7 @@ import javax.validation.constraints.Email;
 
 @Entity
 @DiscriminatorValue("1")
-public class Admin extends Client {
+public class Admin extends User {
 	
 	@Email
 	@Column(name ="EmailAddress")
