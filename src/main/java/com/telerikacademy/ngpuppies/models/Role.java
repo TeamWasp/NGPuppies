@@ -11,7 +11,7 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "RoleID")
-    private String roleId;
+    private int roleId;
     
     @Enumerated(EnumType.STRING)
     @Column(name = "Name")
@@ -19,16 +19,15 @@ public class Role {
     
     public Role() {}
     
-    public Role(String roleId, RoleType name) {
-        this.roleId = roleId;
+    public Role(RoleType name) {
         this.name = name;
     }
     
-    public String getRoleId() {
+    public int getRoleId() {
         return roleId;
     }
     
-    public void setRoleId(String roleId) {
+    public void setRoleId(int roleId) {
         this.roleId = roleId;
     }
     

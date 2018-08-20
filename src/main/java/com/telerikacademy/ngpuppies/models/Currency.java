@@ -3,6 +3,7 @@ package com.telerikacademy.ngpuppies.models;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "currencies")
@@ -19,13 +20,12 @@ public class Currency {
     
     @NotNull
     @Column(name = "ExchangeRate")
-    private double exchangeRate;
+    private BigDecimal exchangeRate;
     
     public Currency() {
     }
     
-    public Currency(int currencyId, String currency, double exchangeRate) {
-        this.currencyId = currencyId;
+    public Currency(String currency, BigDecimal exchangeRate) {
         this.currency = currency;
         this.exchangeRate = exchangeRate;
     }
@@ -46,11 +46,11 @@ public class Currency {
         this.currency = currency;
     }
     
-    public double getExchangeRate() {
+    public BigDecimal getExchangeRate() {
         return exchangeRate;
     }
     
-    public void setExchangeRate(double exchangeRate) {
+    public void setExchangeRate(BigDecimal exchangeRate) {
         this.exchangeRate = exchangeRate;
     }
 }

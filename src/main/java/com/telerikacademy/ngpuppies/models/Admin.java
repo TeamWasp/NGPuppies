@@ -15,8 +15,8 @@ public class Admin extends Client {
 	
 	public Admin() {}
 	
-	public Admin(int userId, String username, String password, Role role, String eik, String emailAddress) {
-		super(userId, username, password, role, eik);
+	public Admin(String username, String password, Role role, String eik, String emailAddress) {
+		super(username, password, role, eik);
 		this.emailAddress = emailAddress;
 	}
 	

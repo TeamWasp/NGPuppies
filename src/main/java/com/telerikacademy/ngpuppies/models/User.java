@@ -14,8 +14,8 @@ public class User extends Client {
 	
 	public User() {}
 	
-	public User(int userId, String username, String password, Role role, String eik) {
-		super(userId, username, password, role, eik);
+	public User(String username, String password, Role role, String eik) {
+		super(username, password, role, eik);
 	}
 	
 	public List<Subscriber> getSubscribers() {

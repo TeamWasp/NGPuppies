@@ -2,6 +2,7 @@ package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.util.Date;
 
 @Entity
@@ -41,7 +42,7 @@ public class Bill {
     
     @NotNull
     @Column(name = "Amount")
-    private double amount;
+    private BigDecimal amount;
     
     @Temporal(TemporalType.DATE)
     @Column(name = "PaymentDate")
@@ -49,8 +50,7 @@ public class Bill {
     
     public Bill() {}
     
-    public Bill(int billId, Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, double amount, Date paymentDate) {
-        this.billId = billId;
+    public Bill(Service service, Subscriber subscriber, Currency currency, Date startDate, Date endDate, BigDecimal amount, Date paymentDate) {
         this.service = service;
         this.subscriber = subscriber;
         this.currency = currency;
@@ -108,11 +108,11 @@ public class Bill {
         this.endDate = endDate;
     }
     
-    public double getAmount() {
+    public BigDecimal getAmount() {
         return amount;
     }
     
-    public void setAmount(double amount) {
+    public void setAmount(BigDecimal amount) {
         this.amount = amount;
     }
     

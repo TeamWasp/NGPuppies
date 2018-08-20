@@ -7,13 +7,14 @@ import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class ServiceConfig {
-	private static SessionFactory factory;
-	
-	static {
-		factory = new org.hibernate.cfg.Configuration()
+	@Bean
+	public SessionFactory createSessionFactory() {
+		System.out.println("SessionFactory was created.");
+		
+		return new org.hibernate.cfg.Configuration()
 				.configure("hibernate.cfg.xml")
 				.addAnnotatedClass(Client.class)
-				.addAnnotatedClass(Client.class)
+				.addAnnotatedClass(User.class)
 				.addAnnotatedClass(Admin.class)
 				.addAnnotatedClass(Role.class)
 				.addAnnotatedClass(Subscriber.class)
@@ -22,11 +23,5 @@ public class ServiceConfig {
 				.addAnnotatedClass(Service.class)
 				.addAnnotatedClass(Currency.class)
 				.buildSessionFactory();
-	}
-	
-	@Bean
-	public SessionFactory sessionFactory() {
-		System.out.println("SessionFactory was created.");
-		return factory;
 	}
 }

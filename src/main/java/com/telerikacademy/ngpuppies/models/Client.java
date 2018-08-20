@@ -28,7 +28,7 @@ public class Client {
     
     @NotNull
     @ManyToOne
-    @JoinColumn(name = "RoleID")
+    @JoinColumn(name = "RoleID", insertable = false, updatable = false)
     private Role role;
     
     @NotNull
@@ -39,8 +39,7 @@ public class Client {
     public Client() {
     }
     
-    public Client(int userId, String username, String password, Role role, String eik) {
-        clientId = userId;
+    public Client(String username, String password, Role role, String eik) {
         this.username = username;
         this.password = password;
         this.role = role;

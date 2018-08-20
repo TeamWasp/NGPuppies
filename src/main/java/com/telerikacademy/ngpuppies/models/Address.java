@@ -36,8 +36,7 @@ public class Address {
 	public Address() {
 	}
 	
-	public Address(int addressId, String country, String city, String zipCode, String street) {
-		this.addressId = addressId;
+	public Address(String country, String city, String zipCode, String street) {
 		this.country = country;
 		this.city = city;
 		this.zipCode = zipCode;

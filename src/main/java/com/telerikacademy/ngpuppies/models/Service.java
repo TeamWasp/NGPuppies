@@ -20,8 +20,7 @@ public class Service {
     public Service() {
     }
     
-    public Service(int serviceId, String name) {
-        this.serviceId = serviceId;
+    public Service(String name) {
         this.name = name;
     }
     
