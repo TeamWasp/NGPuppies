@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
+import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
@@ -41,6 +42,9 @@ public class Subscriber {
     @JoinColumn(name = "BankID")
     @JsonManagedReference
     private Client bank;
+
+    @OneToMany(mappedBy = "subscriber")
+    private List<Bill> bills;
     
     public Subscriber() {
     }
@@ -100,5 +104,13 @@ public class Subscriber {
     
     public void setBank(Client bank) {
         this.bank = bank;
+    }
+
+    public List<Bill> getBills() {
+        return bills;
+    }
+
+    public void setBills(List<Bill> bills) {
+        this.bills = bills;
     }
 }
