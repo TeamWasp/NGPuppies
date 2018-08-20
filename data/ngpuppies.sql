@@ -13,6 +13,7 @@
 
 
 -- Dumping database structure for ngpuppies
+DROP DATABASE IF EXISTS `ngpuppies`;
 CREATE DATABASE IF NOT EXISTS `ngpuppies` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `ngpuppies`;
 
@@ -128,14 +129,14 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   `LastName` varchar(50) NOT NULL,
   `EGN` varchar(50) NOT NULL,
   `AddressID` int(11) NOT NULL,
-  `BankID` int(11) NOT NULL,
+  `BankID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`PhoneNumber`),
   UNIQUE KEY `EGN_UNIQUE` (`EGN`),
   KEY `FK_subscribers_addresses_idx` (`AddressID`),
-  KEY `FK_subscribers_clients_idx` (`BankID`),
+  KEY `FK_subscribers_users` (`BankID`),
   CONSTRAINT `FK_subscribers_addresses` FOREIGN KEY (`AddressID`) REFERENCES `addresses` (`AddressID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-  CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`UserID`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`UserID`)
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.subscribers: ~4 rows (approximately)
 DELETE FROM `subscribers`;
@@ -150,7 +151,7 @@ INSERT INTO `subscribers` (`PhoneNumber`, `FirstName`, `LastName`, `EGN`, `Addre
 -- Dumping structure for table ngpuppies.users
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
-  `UserID` int(11) NOT NULL,
+  `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(30) NOT NULL,
   `Password` varchar(30) NOT NULL,
   `RoleID` int(11) NOT NULL,
@@ -161,9 +162,9 @@ CREATE TABLE IF NOT EXISTS `users` (
   UNIQUE KEY `Username_UNIQUE` (`Username`),
   KEY `FK_users_roles_idx` (`RoleID`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.users: ~5 rows (approximately)
+-- Dumping data for table ngpuppies.users: ~7 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`) VALUES
@@ -171,7 +172,9 @@ INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAd
 	(2, 'dsk_bank', 'dsk_bank', 2, '0000000000', ''),
 	(3, 'donchominkov', 'donchominkov', 1, '1111111111', 'doncho@telerikacademy.bg'),
 	(4, 'petarraykov', 'petarraykov', 1, '2222222222', 'petar@telerikacademy.bg'),
-	(5, 'united_bulgarian_bank', 'united_bulgarian_bank', 2, '3333333333', '');
+	(5, 'united_bulgarian_bank', 'united_bulgarian_bank', 2, '3333333333', ''),
+	(7, 'Vladimir', 'vladimir', 1, '4444444444', 'vladimir@admin.bg'),
+	(8, 'Vladimir2', 'vladimir', 1, '6666666666', 'vladimir@admin.bg');
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

@@ -20,6 +20,11 @@ public class Admin extends User {
 		this.emailAddress = emailAddress;
 	}
 	
+	public Admin(String username, String password, String eik, String emailAddress) {
+		super(username, password, eik);
+		this.emailAddress = emailAddress;
+	}
+	
 	public String getEmailAddress() {
 		return emailAddress;
 	}

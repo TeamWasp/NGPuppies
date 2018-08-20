@@ -3,9 +3,11 @@ package com.telerikacademy.ngpuppies.services;
 import com.telerikacademy.ngpuppies.models.Admin;
 import com.telerikacademy.ngpuppies.repositories.base.AdminRepository;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
+@Service
 public class AdminServiceImpl implements AdminService {
 	
 	private AdminRepository repository;

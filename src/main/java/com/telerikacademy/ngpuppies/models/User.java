@@ -1,10 +1,8 @@
 package com.telerikacademy.ngpuppies.models;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.List;
 
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
@@ -14,7 +12,7 @@ public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "UserID")
-    private int clientId;
+    private int userId;
     
     @NotNull
     @Size(min=8, max = 15)
@@ -26,7 +24,6 @@ public class User {
     @Column(name = "Password")
     private String password;
     
-    @NotNull
     @ManyToOne
     @JoinColumn(name = "RoleID", insertable = false, updatable = false)
     private Role role;
@@ -46,12 +43,18 @@ public class User {
         this.eik = eik;
     }
     
-    public int getClientId() {
-        return clientId;
+    public User(String username, String password, String eik) {
+        this.username = username;
+        this.password = password;
+        this.eik = eik;
     }
     
-    public void setClientId(int clientId) {
-        this.clientId = clientId;
+    public int getUserId() {
+        return userId;
+    }
+    
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
     
     public String getUsername() {
