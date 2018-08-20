@@ -38,4 +38,22 @@ public class AdminController {
 		Admin newAdmin = new Admin(username, password, eik, emailAddress);
 		service.create(newAdmin);
 	}
+	
+	@PutMapping("/updateAdmin/{id}")
+	public void updateAdmin(
+			@PathVariable("id") String adminIdString,
+			@RequestParam(value = "username", required = false) String username,
+			@RequestParam(value = "password", required = false) String password,
+			@RequestParam(value = "eik", required = false) String eik,
+			@RequestParam(value = "emailAddress", required = false) String emailAddress){
+		int adminId = Integer.parseInt(adminIdString);
+		Admin updatedAdmin = new Admin(username, password, eik, emailAddress);
+		service.update(adminId, updatedAdmin);
+	}
+	
+	@DeleteMapping("/deleteAdmin/{id}")
+	public void deleteAdmin(@PathVariable("id") String adminIdString) {
+		int adminId = Integer.parseInt(adminIdString);
+		service.delete(adminId);
+	}
 }
