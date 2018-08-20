@@ -37,4 +37,7 @@ public class CurrencyServiceImpl implements GenericService<Currency> {
 	public void update(int currencyId, Currency currency) {
 		repository.update(currencyId, currency);
 	}
+	
+	@Override
+	public void delete(int currencyId) { repository.delete(currencyId);	}
 }

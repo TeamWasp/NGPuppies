@@ -11,4 +11,6 @@ public interface GenericRepository<T> {
 	List<T> getAll();
 	
 	void update(int id, T obj);
+	
+	void delete(int id);
 }

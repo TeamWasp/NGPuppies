@@ -69,4 +69,16 @@ public class CurrencySqlRepository implements GenericRepository<Currency> {
 			System.out.println(ex.getMessage());
 		}
 	}
+	
+	@Override
+	public void delete(int currencyId) {
+		Currency currency = getById(currencyId);
+		try (Session session = factory.openSession()){
+			session.beginTransaction();
+			session.delete(currency);
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
 }

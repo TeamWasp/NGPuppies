@@ -22,18 +22,6 @@ public class AdminSqlRepository implements AdminRepository {
 	}
 	
 	@Override
-	public void delete(int adminId) {
-		Admin admin = getById(adminId);
-		try (Session session = factory.openSession()){
-			session.beginTransaction();
-			session.delete(admin);
-			session.getTransaction().commit();
-		} catch (Exception ex) {
-			System.out.println(ex.getMessage());
-		}
-	}
-	
-	@Override
 	public void create(Admin admin) {
 		try(Session session = factory.openSession()) {
 			session.beginTransaction();
@@ -80,6 +68,18 @@ public class AdminSqlRepository implements AdminRepository {
 			admin.setEik(updateAdmin.getEik());
 			admin.setRole(updateAdmin.getRole());
 			admin.setEmailAddress(updateAdmin.getEmailAddress());
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+	}
+	
+	@Override
+	public void delete(int adminId) {
+		Admin admin = getById(adminId);
+		try (Session session = factory.openSession()){
+			session.beginTransaction();
+			session.delete(admin);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

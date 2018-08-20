@@ -12,4 +12,5 @@ public interface GenericService<T> {
 	
 	void update(int id, T obj);
 	
+	void delete(int id);
 }

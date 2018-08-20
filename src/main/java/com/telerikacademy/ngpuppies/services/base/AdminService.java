@@ -4,5 +4,5 @@ import com.telerikacademy.ngpuppies.models.Admin;
 
 public interface AdminService extends GenericService<Admin> {
 	
-	void delete(int id);
+	//void delete(int id);
 }
