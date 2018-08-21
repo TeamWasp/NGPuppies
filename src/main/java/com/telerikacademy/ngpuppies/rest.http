@@ -1,3 +1,3 @@
-POST http://localhost:8080/admins/createAdmin?username=Vladimir2&password=vladimir&eik=6666666666&emailAddress=vladimir@admin.bg
+PUT http://localhost:8080/clients/pay/2
 Content-Type: application/json
 ###

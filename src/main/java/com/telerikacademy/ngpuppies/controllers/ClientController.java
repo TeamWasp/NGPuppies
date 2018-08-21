@@ -3,10 +3,7 @@ package com.telerikacademy.ngpuppies.controllers;
 import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -29,7 +26,7 @@ public class ClientController {
     public List<Subscriber> getTopTenSubscribers(@PathVariable("id") String idString){
         return service.getTopTenSubscribers(Integer.parseInt(idString));
     }
-    @GetMapping("/pay/{id}")
+    @PutMapping("/pay/{id}")
     public void payBill(@PathVariable("id") String idString){
         service.payBill(Integer.parseInt(idString));
     }
