@@ -29,4 +29,8 @@ public class ClientController {
     public List<Subscriber> getTopTenSubscribers(@PathVariable("id") String idString){
         return service.getTopTenSubscribers(Integer.parseInt(idString));
     }
+    @GetMapping("/pay/{id}")
+    public void payBill(@PathVariable("id") String idString){
+        service.payBill(Integer.parseInt(idString));
+    }
 }

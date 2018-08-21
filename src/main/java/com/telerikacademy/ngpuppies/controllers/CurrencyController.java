@@ -30,4 +30,5 @@ public class CurrencyController {
 		int id = Integer.parseInt(idString);
 		return service.getById(id);
 	}
+
 }

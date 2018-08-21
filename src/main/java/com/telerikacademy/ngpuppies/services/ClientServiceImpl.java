@@ -26,4 +26,9 @@ public class ClientServiceImpl implements ClientService {
     public List<Subscriber> getTopTenSubscribers(int userId) {
         return repository.getTopTenSubscribers(userId);
     }
+
+    @Override
+    public void payBill(int billId){
+        repository.payBill(billId);
+    }
 }

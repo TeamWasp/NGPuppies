@@ -9,5 +9,6 @@ public interface ClientRepository {
 	
 	List<Subscriber> getAllSubscribers(int userId);
 	List<Subscriber> getTopTenSubscribers(int userId);
+	void payBill(int billId);
 	
 }

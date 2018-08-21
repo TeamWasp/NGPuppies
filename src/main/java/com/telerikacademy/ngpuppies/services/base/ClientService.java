@@ -7,4 +7,5 @@ import java.util.List;
 public interface ClientService {
     List<Subscriber> getAllSubscribers(int userId);
     List<Subscriber> getTopTenSubscribers(int userId);
+    void payBill(int billId);
 }
