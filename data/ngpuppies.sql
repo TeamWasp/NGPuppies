@@ -56,15 +56,16 @@ CREATE TABLE IF NOT EXISTS `bills` (
   CONSTRAINT `FK_bills_currencies` FOREIGN KEY (`CurrencyID`) REFERENCES `currencies` (`CurrencyID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_bills_services` FOREIGN KEY (`ServiceID`) REFERENCES `services` (`ServiceID`) ON DELETE NO ACTION ON UPDATE NO ACTION,
   CONSTRAINT `FK_bills_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`PhoneNumber`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.bills: ~3 rows (approximately)
+-- Dumping data for table ngpuppies.bills: ~4 rows (approximately)
 DELETE FROM `bills`;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
 INSERT INTO `bills` (`BillID`, `ServiceID`, `SubscriberID`, `StartDate`, `EndDate`, `Amount`, `CurrencyID`, `PaymentDate`) VALUES
 	(1, 1, '0888355101', '2018-07-15', '2018-08-15', 30.00000, 1, '2018-08-19'),
-	(2, 2, '0888355101', '2018-08-20', '2018-09-20', 40.54000, 2, NULL),
-	(3, 1, '7777777777', '2018-06-10', '2018-07-10', 15.93000, 1, '2018-07-01');
+	(2, 2, '0888355101', '2018-08-20', '2018-09-20', 40.54000, 2, '2018-08-21'),
+	(3, 1, '7777777777', '2018-06-10', '2018-07-10', 15.93000, 1, '2018-07-01'),
+	(4, 3, '7777777777', '2018-07-21', '2018-08-21', 101.29000, 2, '2018-08-21');
 /*!40000 ALTER TABLE `bills` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies.currencies
@@ -157,24 +158,23 @@ CREATE TABLE IF NOT EXISTS `users` (
   `RoleID` int(11) NOT NULL,
   `EIK` varchar(20) NOT NULL,
   `EmailAddress` varchar(30) DEFAULT NULL,
+  `IsNewUser` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `EIK_UNIQUE` (`EIK`),
   UNIQUE KEY `Username_UNIQUE` (`Username`),
   KEY `FK_users_roles_idx` (`RoleID`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.users: ~7 rows (approximately)
+-- Dumping data for table ngpuppies.users: ~5 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`) VALUES
-	(1, 'unicredit_bulbank', 'unicredit_bulbank', 2, '9999999999', ''),
-	(2, 'dsk_bank', 'dsk_bank', 2, '0000000000', ''),
-	(3, 'donchominkov', 'donchominkov', 1, '1111111111', 'doncho@telerikacademy.bg'),
-	(4, 'petarraykov', 'petarraykov', 1, '2222222222', 'petar@telerikacademy.bg'),
-	(5, 'united_bulgarian_bank', 'united_bulgarian_bank', 2, '3333333333', ''),
-	(7, 'Vladimir', 'vladimir', 1, '4444444444', 'vladimir@admin.bg'),
-	(8, 'Vladimir2', 'vladimir', 1, '6666666666', 'vladimir@admin.bg');
+INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`, `IsNewUser`) VALUES
+	(1, 'unicredit_bulbank', 'unicredit_bulbank', 2, '9999999999', '', NULL),
+	(2, 'dsk_bank', 'dsk_bank', 2, '0000000000', '', NULL),
+	(3, 'donchominkov', 'donchominkov', 1, '1111111111', 'doncho@telerikacademy.bg', 1),
+	(4, 'petarraykov', 'petarraykov', 1, '2222222222', 'petar@telerikacademy.bg', 0),
+	(5, 'united_bulgarian_bank', 'united_bulgarian_bank', 2, '3333333333', '', NULL);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
