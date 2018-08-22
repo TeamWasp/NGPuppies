@@ -1,5 +1,6 @@
 package com.telerikacademy.ngpuppies.repositories;
 
+import com.telerikacademy.ngpuppies.models.Client;
 import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.Session;
@@ -61,10 +62,11 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	@Override
 	public List<Subscriber> getAll(int clientId) {
 		List<Subscriber> subscribers = new ArrayList<>();
+		Client client = new Client(clientId	);
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			Query query = session.createQuery("from Subscriber as a where a.bank = :clientId");
-			query.setParameter("clientId", clientId);
+			query.setParameter("clientId", client);
 			subscribers = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
