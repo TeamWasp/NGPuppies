@@ -2,6 +2,8 @@ package com.telerikacademy.ngpuppies.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.telerikacademy.ngpuppies.serializers.SubscriberSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -10,6 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
+@JsonSerialize(using = SubscriberSerializer.class)
 public class Subscriber implements Comparable<Subscriber> {
     
     @Id
@@ -45,7 +48,7 @@ public class Subscriber implements Comparable<Subscriber> {
     private Client bank;
 
     @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)
-    @JsonManagedReference // Prevents from infinite loops in Json (one class calls a second and the second calls the first infinitely)
+    //@JsonManagedReference // Prevents from infinite loops in Json (one class calls a second and the second calls the first infinitely)
     private List<Bill> bills;
 
     //private int paid;
