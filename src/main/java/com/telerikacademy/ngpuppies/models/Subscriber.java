@@ -1,5 +1,6 @@
 package com.telerikacademy.ngpuppies.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
@@ -44,11 +45,16 @@ public class Subscriber implements Comparable<Subscriber> {
     private Client bank;
 
     @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)
+    @JsonManagedReference // Prevents from infinite loops in Json (one class calls a second and the second calls the first infinitely)
     private List<Bill> bills;
 
     //private int paid;
 
     public Subscriber() {
+    }
+    
+    public Subscriber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
     }
     
     public Subscriber(String phoneNumber, String firstName, String lastName, String egn, Address address, Client bank) {
