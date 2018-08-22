@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Bill;
+import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.repositories.base.BillRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -73,8 +74,22 @@ public class BillSqlRepository implements BillRepository {
 		}
 		return bills;
 	}
-
-
+	
+	@Override
+	public List<Bill> getAll(String subscriberId) {
+		List<Bill> bills = new ArrayList<>();
+		Subscriber subscriber = new Subscriber(subscriberId);
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Bill as a where a.subscriber = :subscriber", Bill.class);
+			query.setParameter("subscriber", subscriber);
+			bills = query.getResultList();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return bills;
+	}
 
 	@Override
 	public void update(int billId, Bill updateBill) {
