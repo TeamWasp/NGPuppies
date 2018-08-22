@@ -49,7 +49,7 @@ public class CurrencySqlRepository implements GenericRepository<Currency> {
 		List<Currency> currencies = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			currencies = session.createQuery("from Currency").list();
+			currencies = session.createQuery("from Currency", Currency.class).getResultList();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

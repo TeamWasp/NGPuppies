@@ -1,6 +1,6 @@
 package com.telerikacademy.ngpuppies.repositories;
 
-import com.telerikacademy.ngpuppies.models.Service;
+import com.telerikacademy.ngpuppies.models.User;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,20 +11,20 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ServiceSqlRepository implements GenericRepository<Service> {
+public class UserSqlRepository implements GenericRepository<User> {
 	
 	private SessionFactory factory;
 	
 	@Autowired
-	public ServiceSqlRepository(SessionFactory factory) {
+	public UserSqlRepository(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
 	@Override
-	public void create(Service service) {
+	public void create(User user) {
 		try(Session session = factory.openSession()) {
 			session.beginTransaction();
-			session.save(service);
+			session.save(user);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -32,37 +32,40 @@ public class ServiceSqlRepository implements GenericRepository<Service> {
 	}
 	
 	@Override
-	public Service getById(int serviceId) {
-		Service service = null;
+	public User getById(int userId) {
+		User user = null;
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			service = session.get(Service.class, serviceId);
+			user = session.get(User.class, userId);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return service;
+		return user;
 	}
 	
 	@Override
-	public List<Service> getAll() {
-		List<Service> services = new ArrayList<>();
+	public List<User> getAll() {
+		List<User> users = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			services = session.createQuery("from Service", Service.class).getResultList();
+			users = session.createQuery("from users", User.class).getResultList(); // users with lower "u" so that Hibernate directly refers to db table, else (written as "User") will not find it
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return services;
+		return users;
 	}
 	
 	@Override
-	public void update(int adminId, Service updateService) {
+	public void update(int userId, User updateUser) {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			Service service = session.get(Service.class, adminId);
-			service.setName(updateService.getName());
+			User user = session.get(User.class, userId);
+			user.setUsername(updateUser.getUsername());
+			user.setPassword(updateUser.getPassword());
+			user.setEik(updateUser.getEik());
+			user.setRole(updateUser.getRole());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -70,11 +73,11 @@ public class ServiceSqlRepository implements GenericRepository<Service> {
 	}
 	
 	@Override
-	public void delete(int serviceId) {
-		Service service = getById(serviceId);
+	public void delete(int userId) {
+		User user = getById(userId);
 		try (Session session = factory.openSession()){
 			session.beginTransaction();
-			session.delete(service);
+			session.delete(user);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

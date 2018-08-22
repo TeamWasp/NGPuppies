@@ -1,7 +1,6 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Subscriber;
-import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -34,7 +33,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	}
 	
 	@Override
-	public Subscriber getById(int subscriberId) {
+	public Subscriber getById(String subscriberId) {
 		Subscriber subscriber = null;
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
@@ -51,7 +50,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 		List<Subscriber> subscribers = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			subscribers = session.createQuery("from Subscriber").list();
+			subscribers = session.createQuery("from Subscriber", Subscriber.class).getResultList();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -66,7 +65,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 			session.beginTransaction();
 			Query query = session.createQuery("from Subscriber as a where a.bank = :clientId");
 			query.setParameter("clientId", clientId);
-			subscribers = query.list();
+			subscribers = query.getResultList();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -75,7 +74,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	}
 	
 	@Override
-	public void update(int subscriberId, Subscriber updateSubscriber) {
+	public void update(String subscriberId, Subscriber updateSubscriber) {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			Subscriber subscriber = session.get(Subscriber.class, subscriberId);
@@ -92,7 +91,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	}
 	
 	@Override
-	public void delete(int subscriberId) {
+	public void delete(String subscriberId) {
 		Subscriber subscriber = getById(subscriberId);
 		try (Session session = factory.openSession()){
 			session.beginTransaction();
