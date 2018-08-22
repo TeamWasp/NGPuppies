@@ -1,5 +1,7 @@
 package com.telerikacademy.ngpuppies.models;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.math.BigDecimal;
@@ -22,6 +24,7 @@ public class Bill {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "SubscriberID")
+    @JsonManagedReference
     private Subscriber subscriber;
     
     @NotNull
