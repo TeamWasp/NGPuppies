@@ -8,4 +8,6 @@ import java.util.List;
 public interface BillRepository extends GenericRepository<Bill> {
 	
 	List<Bill> getAll(Date startDate, Date endDate);
+	
+	List<Bill> getAll(String subscriberId);
 }
