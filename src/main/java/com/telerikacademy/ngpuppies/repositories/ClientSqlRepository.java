@@ -55,7 +55,30 @@ public class ClientSqlRepository implements ClientRepository {
         }
 
     }
-    
+
+    @Override
+    public List<Bill> getAllBills(int userId) {
+        List<Bill> allBillsBelongingToBank = new ArrayList<>();
+        for (Subscriber sub:this.getAllSubscribers(userId)) {
+            allBillsBelongingToBank.addAll(sub.getBills());
+
+        }
+        return allBillsBelongingToBank;
+    }
+
+    @Override
+    public List<Bill> getUnpaidBills(int userId) {
+        List<Bill> unpaidBills = new ArrayList<>();
+        List<Bill> allBills = this.getAllBills(userId);
+        for (int i = 0; i <allBills.size() ; i++) {
+            if(allBills.get(i).getPaymentDate()==null){
+                unpaidBills.add(allBills.get(i));
+            }
+
+        }
+        return unpaidBills;
+    }
+
     @Override
     public void create(Client client) {
         try(Session session = factory.openSession()) {

@@ -1,5 +1,6 @@
 package com.telerikacademy.ngpuppies.services;
 
+import com.telerikacademy.ngpuppies.models.Bill;
 import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.repositories.base.ClientRepository;
 import com.telerikacademy.ngpuppies.services.base.ClientService;
@@ -30,5 +31,15 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public void payBill(int billId){
         repository.payBill(billId);
+    }
+
+    @Override
+    public List<Bill> getAllBills(int userId) {
+        return this.repository.getAllBills(userId);
+    }
+
+    @Override
+    public List<Bill> getUnpaidBills(int userId) {
+        return this.repository.getUnpaidBills(userId);
     }
 }
