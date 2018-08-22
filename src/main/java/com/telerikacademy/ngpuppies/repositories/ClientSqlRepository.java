@@ -55,4 +55,68 @@ public class ClientSqlRepository implements ClientRepository {
         }
 
     }
+    
+    @Override
+    public void create(Client client) {
+        try(Session session = factory.openSession()) {
+            session.beginTransaction();
+            session.save(client);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    @Override
+    public Client getById(int clientId) {
+        Client client = null;
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            client = session.get(Client.class, clientId);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return client;
+    }
+    
+    @Override
+    public List<Client> getAll() {
+        List<Client> clients = new ArrayList<>();
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            clients = session.createQuery("from Client", Client.class).getResultList();
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+        return clients;
+    }
+    
+    @Override
+    public void update(int clientId, Client updateClient) {
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            Client client = session.get(Client.class, clientId);
+            client.setUsername(updateClient.getUsername());
+            client.setPassword(updateClient.getPassword());
+            client.setEik(updateClient.getEik());
+            //client.setRole(updateClient.getRole());
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
+    
+    @Override
+    public void delete(int clientId) {
+        Client client = getById(clientId);
+        try (Session session = factory.openSession()){
+            session.beginTransaction();
+            session.delete(client);
+            session.getTransaction().commit();
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
