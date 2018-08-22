@@ -21,6 +21,7 @@ public class AdminServiceImpl implements AdminService {
 	private GenericRepository<Currency> currencyRepository;
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
+	private GenericRepository<User> userRepository;
 	
 	
 	@Autowired
@@ -30,7 +31,8 @@ public class AdminServiceImpl implements AdminService {
 			ClientRepository clientRepository,
 			GenericRepository<Currency> currencyRepository,
 			BillRepository billRepository,
-			SubscriberRepository subscriberRepository
+			SubscriberRepository subscriberRepository,
+			GenericRepository<User> userRepository
 	) {
 		this.adminRepository = adminRepository;
 		this.serviceRepository = serviceRepository;
@@ -38,6 +40,7 @@ public class AdminServiceImpl implements AdminService {
 		this.currencyRepository = currencyRepository;
 		this.billRepository = billRepository;
 		this.subscriberRepository = subscriberRepository;
+		this.userRepository = userRepository;
 	}
 	
 	@Override
@@ -47,7 +50,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void create(Client client) {
-	
+		clientRepository.create(client);
 	}
 	
 	@Override
@@ -77,12 +80,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Client getClientById(int clientId) {
-		return null;
+		return clientRepository.getById(clientId);
 	}
 	
 	@Override
 	public User getUserById(int userId) {
-		return null;
+		return userRepository.getById(userId);
 	}
 	
 	@Override
@@ -101,7 +104,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public Subscriber getSubscriberById(int subscriberId) {
+	public Subscriber getSubscriberById(String subscriberId) {
 		return subscriberRepository.getById(subscriberId);
 	}
 	
@@ -112,12 +115,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<Client> getAllClients() {
-		return null;
+		return clientRepository.getAll();
 	}
 	
 	@Override
 	public List<User> getAllUsers() {
-		return null;
+		return userRepository.getAll();
 	}
 	
 	@Override
@@ -157,7 +160,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int clientId, Client client) {
-	
+		clientRepository.update(clientId, client);
 	}
 	
 	@Override
@@ -176,7 +179,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void update(int subscriberId, Subscriber subscriber) {
+	public void update(String subscriberId, Subscriber subscriber) {
 		subscriberRepository.update(subscriberId, subscriber);
 	}
 	
@@ -187,12 +190,12 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void deleteClient(int clientId) {
-	
+		clientRepository.delete(clientId);
 	}
 	
 	@Override
 	public void deleteUser(int userId) {
-	
+		userRepository.delete(userId);
 	}
 	
 	@Override
@@ -211,7 +214,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void deleteSubscriber(int subscriberId) {
+	public void deleteSubscriber(String subscriberId) {
 		subscriberRepository.delete(subscriberId);
 	}
 	

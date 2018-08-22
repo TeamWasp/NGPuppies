@@ -4,7 +4,6 @@ import com.telerikacademy.ngpuppies.models.*;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Map;
 
 public interface AdminService {
 	
@@ -12,6 +11,8 @@ public interface AdminService {
 	void create(Admin admin); //throws Exception;
 	
 	void create(Client client);
+	
+	//void create(User user);
 	
 	void create(Service service);
 	
@@ -34,7 +35,7 @@ public interface AdminService {
 	
 	Bill getBillById(int billId);
 	
-	Subscriber getSubscriberById(int subscriberId);
+	Subscriber getSubscriberById(String subscriberId);
 	
 	// getAll methods
 	List<Admin> getAllAdmins();
@@ -66,7 +67,7 @@ public interface AdminService {
 	
 	void update(int billId, Bill bill);
 	
-	void update(int subscriberId, Subscriber subscriber);
+	void update(String subscriberId, Subscriber subscriber);
 	
 	// delete methods
 	void deleteAdmin(int adminId);
@@ -81,5 +82,5 @@ public interface AdminService {
 	
 	void deleteBill(int billId);
 	
-	void deleteSubscriber(int subscriberId);
+	void deleteSubscriber(String subscriberId);
 }
