@@ -1,7 +1,6 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Admin;
-import com.telerikacademy.ngpuppies.repositories.base.AdminRepository;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -51,7 +50,7 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 		List<Admin> admins = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			admins = session.createQuery("from Admin").list();
+			admins = session.createQuery("from Admin", Admin.class).getResultList();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -67,8 +66,9 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 			admin.setUsername(updateAdmin.getUsername());
 			admin.setPassword(updateAdmin.getPassword());
 			admin.setEik(updateAdmin.getEik());
-			admin.setRole(updateAdmin.getRole());
+			//admin.setRole(updateAdmin.getRole());
 			admin.setEmailAddress(updateAdmin.getEmailAddress());
+			admin.setIsNewUser(updateAdmin.getIsNewUser());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
