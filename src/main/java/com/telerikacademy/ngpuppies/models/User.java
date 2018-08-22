@@ -36,6 +36,8 @@ public class User {
     public User() {
     }
     
+    public User(int userId) {this.userId = userId;}
+    
     public User(String username, String password, Role role, String eik) {
         this.username = username;
         this.password = password;
