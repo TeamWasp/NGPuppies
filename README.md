@@ -10,3 +10,6 @@ URL: https://app.mindmup.com/map/_free/2018/08/6884aed0a26611e8bb06cf6cac0826ab
 
 ## TODO Calendar (www.trello.com):
 URL: https://trello.com/b/qaTxQv8L/ngpuppies-telerik-academy-final-project/calendar/2018/08
+
+## Google docs QA to Bright Consulting:
+URL: https://docs.google.com/spreadsheets/d/1kbZuq-hA9mGi5R1_9Dpks7-z7-0eMAfhh1enz2g7B7g/edit#gid=0
