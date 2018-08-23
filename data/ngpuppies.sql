@@ -91,7 +91,7 @@ INSERT INTO `currencies` (`CurrencyID`, `Currency`, `ExchangeRate`) VALUES
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE IF NOT EXISTS `roles` (
   `RoleID` int(11) NOT NULL AUTO_INCREMENT,
-  `Name` enum('ADMIN','USER') NOT NULL,
+  `Name` enum('ROLE_ADMIN','ROLE_USER') NOT NULL,
   PRIMARY KEY (`RoleID`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
@@ -100,8 +100,8 @@ CREATE TABLE IF NOT EXISTS `roles` (
 DELETE FROM `roles`;
 /*!40000 ALTER TABLE `roles` DISABLE KEYS */;
 INSERT INTO `roles` (`RoleID`, `Name`) VALUES
-	(1, 'ADMIN'),
-	(2, 'USER');
+	(1, 'ROLE_ADMIN'),
+	(2, 'ROLE_USER');
 /*!40000 ALTER TABLE `roles` ENABLE KEYS */;
 
 -- Dumping structure for table ngpuppies.services
@@ -154,11 +154,11 @@ DROP TABLE IF EXISTS `users`;
 CREATE TABLE IF NOT EXISTS `users` (
   `UserID` int(11) NOT NULL AUTO_INCREMENT,
   `Username` varchar(30) NOT NULL,
-  `Password` varchar(30) NOT NULL,
+  `Password` varchar(60) NOT NULL,
   `RoleID` int(11) NOT NULL,
   `EIK` varchar(20) NOT NULL,
   `EmailAddress` varchar(30) DEFAULT NULL,
-  `IsNewUser` tinyint(4) DEFAULT '1',
+  `enabled` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`UserID`),
   UNIQUE KEY `EIK_UNIQUE` (`EIK`),
   UNIQUE KEY `Username_UNIQUE` (`Username`),
@@ -169,12 +169,12 @@ CREATE TABLE IF NOT EXISTS `users` (
 -- Dumping data for table ngpuppies.users: ~5 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
-INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`, `IsNewUser`) VALUES
-	(1, 'unicredit_bulbank', 'unicredit_bulbank', 2, '9999999999', '', NULL),
-	(2, 'dsk_bank', 'dsk_bank', 2, '0000000000', '', NULL),
-	(3, 'donchominkov', 'donchominkov', 1, '1111111111', 'doncho@telerikacademy.bg', 1),
-	(4, 'petarraykov', 'petarraykov', 1, '2222222222', 'petar@telerikacademy.bg', 0),
-	(5, 'united_bulgarian_bank', 'united_bulgarian_bank', 2, '3333333333', '', NULL);
+INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`, `enabled`) VALUES
+	(1, 'unicredit_bulbank', '$2a$04$/w5qTGCBBKib/fahl/TpO.Nca2TYI4dUTY6PL3yWCfDbXfK42l2CC', 2, '9999999999', '', 1),
+	(2, 'dsk_bank', '$2a$04$quQ7C6G67u6Km1LF5MkoS.fUE69QkbVv/XvTvwRoEBQ2uGJlMhMli', 2, '0000000000', '', 1),
+	(3, 'donchominkov', '$2a$04$6f3gE29U5Lz.5nzlMtIQIuXfuyQ7bYjsWZKb9WfV8zbm7ljk.yGHa', 1, '1111111111', 'doncho@telerikacademy.bg', 1),
+	(4, 'petarraykov', '$2a$04$LJMU8YWC7e3jcP9JTS8h8OAkylJA0Aj2qVKx1.aJvwOiCEGl5O99W', 1, '2222222222', 'petar@telerikacademy.bg', 0),
+	(5, 'united_bulgarian_bank', '$2a$04$HaBYSA0UjsS98WEquwZRfuYUZysufbFSlhM/QuxYi73beUWz2tPZC', 2, '3333333333', '', 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
