@@ -41,9 +41,9 @@ public class AdminController {
 			@RequestParam(value = "eik") String eik,
 			@RequestParam(value = "emailAddress") String emailAddress) {
 		
-		boolean isEnabled = false;
+		boolean enabled = false;
 		
-		Admin newAdmin = new Admin(username, password, eik, isEnabled, emailAddress);
+		Admin newAdmin = new Admin(username, password, eik, enabled, emailAddress);
 		service.create(newAdmin);
 	}
 	
@@ -54,13 +54,13 @@ public class AdminController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "eik", required = false) String eik,
 			@RequestParam(value = "emailAddress", required = false) String emailAddress,
-			@RequestParam(value = "isEnabled", required = false) String isEnabledString){
+			@RequestParam(value = "enabled", required = false) String enabledString){
 		int adminId = Integer.parseInt(adminIdString);
-		boolean isEnabled = true;
-		if(isEnabledString.equals("0")){
-			isEnabled = false;
+		boolean enabled = true;
+		if(enabledString.equals("0")){
+			enabled = false;
 		}
-		Admin updatedAdmin = new Admin(username, password, eik, isEnabled, emailAddress);
+		Admin updatedAdmin = new Admin(username, password, eik, enabled, emailAddress);
 		service.update(adminId, updatedAdmin);
 	}
 	
@@ -115,15 +115,15 @@ public class AdminController {
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "eik", required = false) String eik,
-			@RequestParam(value = "isEnabled", required = false) String isEnabledString){
+			@RequestParam(value = "enabled", required = false) String enabledString){
 		
-		boolean isEnabled = true;
-		if (isEnabledString.equals("false")) {
-			isEnabled = false;
+		boolean enabled = true;
+		if (enabledString.equals("false")) {
+			enabled = false;
 		}
 		int clientId = Integer.parseInt(clientIdString);
 		
-		Client updateClient = new Client(username, password, eik, isEnabled);
+		Client updateClient = new Client(username, password, eik, enabled);
 		service.update(clientId, updateClient);
 	}
 	
