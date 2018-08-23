@@ -19,12 +19,12 @@ public class Client extends User {
 	public Client() {}
 	
 	public Client(int userId) { super(userId);}
-	public Client(String username, String password, Role role, String eik) {
-		super(username, password, role, eik);
+	public Client(String username, String password, Role role, String eik, boolean isEnabled) {
+		super(username, password, role, eik, isEnabled);
 	}
 	
-	public Client(String username, String password, String eik) {
-		super(username, password, eik);
+	public Client(String username, String password, String eik, boolean isEnabled) {
+		super(username, password, eik, isEnabled);
 	}
 	
 	public List<Subscriber> getSubscribers() {

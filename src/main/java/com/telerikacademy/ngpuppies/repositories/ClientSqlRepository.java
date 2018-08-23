@@ -124,6 +124,7 @@ public class ClientSqlRepository implements ClientRepository {
             client.setUsername(updateClient.getUsername());
             client.setPassword(updateClient.getPassword());
             client.setEik(updateClient.getEik());
+            client.setEnabled(updateClient.isEnabled());
             //client.setRole(updateClient.getRole());
             session.getTransaction().commit();
         } catch (Exception ex) {

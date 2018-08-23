@@ -20,7 +20,7 @@ public class User {
     private String username;
     
     @NotNull
-    @Size(min=8, max = 15)
+    @Size(min=60, max = 60)
     @Column(name = "Password")
     private String password;
     
@@ -33,22 +33,27 @@ public class User {
     @Column(name = "EIK", unique = true)
     private String eik;
     
+    @Column(name = "enabled")
+    private boolean enabled;
+    
     public User() {
     }
     
     public User(int userId) {this.userId = userId;}
     
-    public User(String username, String password, Role role, String eik) {
+    public User(String username, String password, Role role, String eik, boolean enabled) {
         this.username = username;
         this.password = password;
         this.role = role;
         this.eik = eik;
+        this.enabled = enabled;
     }
     
-    public User(String username, String password, String eik) {
+    public User(String username, String password, String eik, boolean enabled) {
         this.username = username;
         this.password = password;
         this.eik = eik;
+        this.enabled = enabled;
     }
     
     public int getUserId() {
@@ -89,5 +94,13 @@ public class User {
     
     public void setEik(String eik) {
         this.eik = eik;
+    }
+    
+    public boolean isEnabled() {
+        return enabled;
+    }
+    
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
     }
 }

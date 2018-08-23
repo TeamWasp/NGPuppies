@@ -1,10 +1,7 @@
 package com.telerikacademy.ngpuppies.services;
 
 import com.telerikacademy.ngpuppies.models.*;
-import com.telerikacademy.ngpuppies.repositories.base.BillRepository;
-import com.telerikacademy.ngpuppies.repositories.base.ClientRepository;
-import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
-import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
+import com.telerikacademy.ngpuppies.repositories.base.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

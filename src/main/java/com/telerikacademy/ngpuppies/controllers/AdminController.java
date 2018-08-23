@@ -3,6 +3,7 @@ package com.telerikacademy.ngpuppies.controllers;
 import com.telerikacademy.ngpuppies.models.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -38,15 +39,11 @@ public class AdminController {
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "eik") String eik,
-			@RequestParam(value = "emailAddress") String emailAddress,
-			@RequestParam(value = "isNewUser") String isNewUserString) {
+			@RequestParam(value = "emailAddress") String emailAddress) {
 		
-		boolean isNewUser = true;
-		if(isNewUserString.equals("0")) {
-			isNewUser = false;
-		}
+		boolean isEnabled = false;
 		
-		Admin newAdmin = new Admin(username, password, eik, emailAddress, isNewUser);
+		Admin newAdmin = new Admin(username, password, eik, isEnabled, emailAddress);
 		service.create(newAdmin);
 	}
 	
@@ -57,13 +54,13 @@ public class AdminController {
 			@RequestParam(value = "password", required = false) String password,
 			@RequestParam(value = "eik", required = false) String eik,
 			@RequestParam(value = "emailAddress", required = false) String emailAddress,
-			@RequestParam(value = "isNewUser", required = false) String isNewUserString){
+			@RequestParam(value = "isEnabled", required = false) String isEnabledString){
 		int adminId = Integer.parseInt(adminIdString);
-		boolean isNewUser = true;
-		if(isNewUserString.equals("0")){
-			isNewUser = false;
+		boolean isEnabled = true;
+		if(isEnabledString.equals("0")){
+			isEnabled = false;
 		}
-		Admin updatedAdmin = new Admin(username, password, eik, emailAddress, isNewUser);
+		Admin updatedAdmin = new Admin(username, password, eik, isEnabled, emailAddress);
 		service.update(adminId, updatedAdmin);
 	}
 	
@@ -107,7 +104,8 @@ public class AdminController {
 			@RequestParam(value = "password") String password,
 			@RequestParam(value = "eik") String eik) {
 		
-		Client newClient = new Client(username, password, eik);
+		boolean isEnabled = true;
+		Client newClient = new Client(username, password, eik, isEnabled);
 		service.create(newClient);
 	}
 	
@@ -116,11 +114,16 @@ public class AdminController {
 			@PathVariable("id") String clientIdString,
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "eik", required = false) String eik){
+			@RequestParam(value = "eik", required = false) String eik,
+			@RequestParam(value = "isEnabled", required = false) String isEnabledString){
 		
+		boolean isEnabled = true;
+		if (isEnabledString.equals("false")) {
+			isEnabled = false;
+		}
 		int clientId = Integer.parseInt(clientIdString);
 		
-		Client updateClient = new Client(username, password, eik);
+		Client updateClient = new Client(username, password, eik, isEnabled);
 		service.update(clientId, updateClient);
 	}
 	

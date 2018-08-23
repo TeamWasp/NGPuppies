@@ -68,7 +68,7 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 			admin.setEik(updateAdmin.getEik());
 			//admin.setRole(updateAdmin.getRole());
 			admin.setEmailAddress(updateAdmin.getEmailAddress());
-			admin.setIsNewUser(updateAdmin.getIsNewUser());
+			admin.setEnabled(updateAdmin.isEnabled());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

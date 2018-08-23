@@ -66,6 +66,7 @@ public class UserSqlRepository implements GenericRepository<User> {
 			user.setPassword(updateUser.getPassword());
 			user.setEik(updateUser.getEik());
 			user.setRole(updateUser.getRole());
+			user.setEnabled(updateUser.isEnabled());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

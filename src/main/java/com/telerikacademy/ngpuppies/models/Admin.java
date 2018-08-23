@@ -13,21 +13,16 @@ public class Admin extends User {
 	@Column(name = "EmailAddress")
 	private String emailAddress;
 	
-	@Column(name = "IsNewUser")
-	private boolean isNewUser;
-	
 	public Admin() {}
 	
-	public Admin(String username, String password, Role role, String eik, String emailAddress, Boolean isNewUser) {
-		super(username, password, role, eik);
+	public Admin(String username, String password, Role role, String eik, Boolean enabled, String emailAddress) {
+		super(username, password, role, eik, enabled);
 		this.emailAddress = emailAddress;
-		this.isNewUser = isNewUser;
 	}
 	
-	public Admin(String username, String password, String eik, String emailAddress, Boolean isNewUser) {
-		super(username, password, eik);
+	public Admin(String username, String password, String eik, Boolean enabled, String emailAddress) {
+		super(username, password, eik, enabled);
 		this.emailAddress = emailAddress;
-		this.isNewUser = isNewUser;
 	}
 	
 	public String getEmailAddress() {
@@ -36,13 +31,5 @@ public class Admin extends User {
 	
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
-	}
-	
-	public boolean getIsNewUser() {
-		return isNewUser;
-	}
-	
-	public void setIsNewUser(Boolean isNewUser) {
-		this.isNewUser = isNewUser;
 	}
 }
