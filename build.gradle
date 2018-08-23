@@ -36,8 +36,8 @@ dependencies {
     compile group: 'org.hibernate', name: 'hibernate-gradle-plugin', version: '5.3.2.Final'
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.13'
 
-    //compile('org.springframework.boot:spring-boot-starter-security')
-    //testCompile('org.springframework.security:spring-security-test')
+    compile('org.springframework.boot:spring-boot-starter-security')
+    testCompile('org.springframework.security:spring-security-test')
 
     // needed for spring security purposes
     compile group: 'org.thymeleaf.extras', name: 'thymeleaf-extras-springsecurity4', version: '3.0.2.RELEASE'
