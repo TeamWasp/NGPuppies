@@ -13,7 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("api/admin")
 public class AdminController {
 	private AdminService service;
 	
@@ -43,7 +43,7 @@ public class AdminController {
 		
 		boolean enabled = false;
 		
-		Admin newAdmin = new Admin(username, password, eik, enabled, emailAddress);
+		Admin newAdmin = new Admin(username, password, enabled, emailAddress);
 		service.create(newAdmin);
 	}
 	
@@ -60,7 +60,7 @@ public class AdminController {
 		if(enabledString.equals("0")){
 			enabled = false;
 		}
-		Admin updatedAdmin = new Admin(username, password, eik, enabled, emailAddress);
+		Admin updatedAdmin = new Admin(username, password, enabled, emailAddress);
 		service.update(adminId, updatedAdmin);
 	}
 	
@@ -105,7 +105,7 @@ public class AdminController {
 			@RequestParam(value = "eik") String eik) {
 		
 		boolean isEnabled = true;
-		Client newClient = new Client(username, password, eik, isEnabled);
+		Client newClient = new Client(username, password, isEnabled, eik);
 		service.create(newClient);
 	}
 	
@@ -123,7 +123,7 @@ public class AdminController {
 		}
 		int clientId = Integer.parseInt(clientIdString);
 		
-		Client updateClient = new Client(username, password, eik, enabled);
+		Client updateClient = new Client(username, password, enabled, eik);
 		service.update(clientId, updateClient);
 	}
 	

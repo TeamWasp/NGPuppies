@@ -49,8 +49,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		//http.csrf().disable();
 		http.authorizeRequests()
 				.antMatchers("/").hasAnyRole("USER", "ADMIN")
-				.antMatchers("/clients/**").hasRole("USER")
-				.antMatchers("/admin/**").hasRole("ADMIN")
+				.antMatchers("/api/client/**").hasRole("USER")
+				.antMatchers("/api/admin/**").hasRole("ADMIN")
 				//.antMatchers("/admin/admins/**").hasIpAddress("127.0.0.1")
 				//.anyRequest().permitAll()
 				.and()
