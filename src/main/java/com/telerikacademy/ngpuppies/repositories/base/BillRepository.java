@@ -10,4 +10,7 @@ public interface BillRepository extends GenericRepository<Bill> {
 	List<Bill> getAll(Date startDate, Date endDate);
 	
 	List<Bill> getAll(String subscriberId);
+
+	List<Bill> getUnpaidBills(int userId);
+
 }

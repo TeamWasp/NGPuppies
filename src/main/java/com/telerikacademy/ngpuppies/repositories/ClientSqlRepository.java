@@ -22,25 +22,11 @@ public class ClientSqlRepository implements ClientRepository {
     }
 
 
-    @Override
-    public List<Subscriber> getAllSubscribers(int userId) {
-        List<Subscriber> subscribers = new ArrayList<>();
-        try (Session session = factory.openSession()) {
-            session.beginTransaction();
-            Client c = session.get(Client.class, userId);
-            subscribers = c.getSubscribers();
-            session.getTransaction().commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return subscribers;
-    }
 
-    @Override
+
+    //TODO: implement SQL querry
     public List<Subscriber> getTopTenSubscribers(int userId) {
-        List<Subscriber> subscribers = getAllSubscribers(userId);
-        Collections.sort(subscribers);
-        return subscribers.stream().limit(10).collect(Collectors.toList());
+        return null;
     }
 
     @Override
@@ -56,28 +42,8 @@ public class ClientSqlRepository implements ClientRepository {
 
     }
 
-    @Override
-    public List<Bill> getAllBills(int userId) {
-        List<Bill> allBillsBelongingToBank = new ArrayList<>();
-        for (Subscriber sub:this.getAllSubscribers(userId)) {
-            allBillsBelongingToBank.addAll(sub.getBills());
 
-        }
-        return allBillsBelongingToBank;
-    }
 
-    @Override
-    public List<Bill> getUnpaidBills(int userId) {
-        List<Bill> unpaidBills = new ArrayList<>();
-        List<Bill> allBills = this.getAllBills(userId);
-        for (int i = 0; i <allBills.size() ; i++) {
-            if(allBills.get(i).getPaymentDate()==null){
-                unpaidBills.add(allBills.get(i));
-            }
-
-        }
-        return unpaidBills;
-    }
 
     @Override
     public void create(Client client) {

@@ -44,7 +44,7 @@ public class Subscriber implements Comparable<Subscriber> {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "BankID")
-    @JsonManagedReference
+    @JsonBackReference
     private Client bank;
 
     @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)

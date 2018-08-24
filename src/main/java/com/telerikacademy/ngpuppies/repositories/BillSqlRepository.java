@@ -16,12 +16,12 @@ import java.util.List;
 @Repository
 public class BillSqlRepository implements BillRepository {
 	private SessionFactory factory;
-	
+
 	@Autowired
 	public BillSqlRepository(SessionFactory factory) {
 		this.factory = factory;
 	}
-	
+
 	@Override
 	public void create(Bill bill) {
 		try(Session session = factory.openSession()) {
@@ -32,7 +32,7 @@ public class BillSqlRepository implements BillRepository {
 			System.out.println(ex.getMessage());
 		}
 	}
-	
+
 	@Override
 	public Bill getById(int billId) {
 		Bill bill = null;
@@ -45,7 +45,7 @@ public class BillSqlRepository implements BillRepository {
 		}
 		return bill;
 	}
-	
+
 	@Override
 	public List<Bill> getAll() {
 		List<Bill> bills = new ArrayList<>();
@@ -58,7 +58,7 @@ public class BillSqlRepository implements BillRepository {
 		}
 		return bills;
 	}
-	
+
 	@Override
 	public List<Bill> getAll(Date startDate, Date endDate) {
 		List<Bill> bills = new ArrayList<>();
@@ -74,7 +74,7 @@ public class BillSqlRepository implements BillRepository {
 		}
 		return bills;
 	}
-	
+
 	@Override
 	public List<Bill> getAll(String subscriberId) {
 		List<Bill> bills = new ArrayList<>();
@@ -89,6 +89,27 @@ public class BillSqlRepository implements BillRepository {
 			System.out.println(ex.getMessage());
 		}
 		return bills;
+	}
+
+
+	@Override
+    @SuppressWarnings("unchecked")
+    public List<Bill> getUnpaidBills(int userId) {
+        List<Bill> bills = new ArrayList<>();
+        try (Session session = factory.openSession()) {
+            session.beginTransaction();
+            String query = "select b from Bill as b " +
+                    "join Subscriber as s on b.subscriber.phoneNumber = s.phoneNumber " +
+                    "join Client as c on s.bank.userId = c.userId " +
+                    "where s.bank.userId = :bankId and b.paymentDate is NULL";
+            bills = session.createQuery(query)
+                    .setParameter("bankId", userId)
+                    .list();
+            session.getTransaction().commit();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return bills;
 	}
 
 	@Override
@@ -108,7 +129,7 @@ public class BillSqlRepository implements BillRepository {
 			System.out.println(ex.getMessage());
 		}
 	}
-	
+
 	@Override
 	public void delete(int billId) {
 		Bill bill = getById(billId);

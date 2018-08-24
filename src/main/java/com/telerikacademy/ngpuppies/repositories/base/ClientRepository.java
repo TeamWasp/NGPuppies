@@ -8,11 +8,8 @@ import java.util.List;
 
 public interface ClientRepository extends GenericRepository<Client> {
 	
-	List<Subscriber> getAllSubscribers(int userId);
 	List<Subscriber> getTopTenSubscribers(int userId);
 	void payBill(int billId);
-	List<Bill> getAllBills(int userId);
-	List<Bill> getUnpaidBills(int userId);
 
 
 }

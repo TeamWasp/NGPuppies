@@ -29,7 +29,8 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Subscriber> getAllSubscribers(int userId) {
-        return repository.getAllSubscribers(userId);
+
+        return subscriberRepository.getAll(userId);
     }
 
     @Override
@@ -49,11 +50,10 @@ public class ClientServiceImpl implements ClientService {
     
     @Override
     public List<Bill> getAllBills(int userId) {
-        User client = repository.getById(userId);
         List<Subscriber> subscribers = subscriberRepository.getAll(userId);
         List<Bill> billsClient = new ArrayList<>();
         for (Subscriber sub : subscribers) {
-            List<Bill> billsSub = billRepository.getAll(sub.getPhoneNumber());
+            List<Bill> billsSub = sub.getBills();
             billsClient.addAll(billsSub);
         }
         
@@ -62,6 +62,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Bill> getUnpaidBills(int userId) {
-        return this.repository.getUnpaidBills(userId);
+        return this.billRepository.getUnpaidBills(userId);
     }
 }
