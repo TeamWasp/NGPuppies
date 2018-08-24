@@ -4,6 +4,7 @@ import com.telerikacademy.ngpuppies.models.*;
 import com.telerikacademy.ngpuppies.repositories.base.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -19,7 +20,7 @@ public class AdminServiceImpl implements AdminService {
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
 	private GenericRepository<User> userRepository;
-	
+	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
 	public AdminServiceImpl(
@@ -29,7 +30,8 @@ public class AdminServiceImpl implements AdminService {
 			GenericRepository<Currency> currencyRepository,
 			BillRepository billRepository,
 			SubscriberRepository subscriberRepository,
-			GenericRepository<User> userRepository
+			GenericRepository<User> userRepository,
+			PasswordEncoder passwordEncoder
 	) {
 		this.adminRepository = adminRepository;
 		this.serviceRepository = serviceRepository;
@@ -38,10 +40,12 @@ public class AdminServiceImpl implements AdminService {
 		this.billRepository = billRepository;
 		this.subscriberRepository = subscriberRepository;
 		this.userRepository = userRepository;
+		this.passwordEncoder = passwordEncoder;
 	}
 	
 	@Override
 	public void create(Admin admin) {
+		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminRepository.create(admin);
 	}
 	
