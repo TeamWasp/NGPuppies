@@ -3,7 +3,6 @@ package com.telerikacademy.ngpuppies.controllers;
 import com.telerikacademy.ngpuppies.models.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
@@ -34,11 +33,10 @@ public class AdminController {
 		return service.getAdminById(adminId);
 	}
 	
-	@PostMapping("/admins/")
+	@PostMapping("/admins/createAdmin")
 	public void createAdmin(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
-			@RequestParam(value = "eik") String eik,
 			@RequestParam(value = "emailAddress") String emailAddress) {
 		
 		boolean enabled = false;
@@ -47,12 +45,11 @@ public class AdminController {
 		service.create(newAdmin);
 	}
 	
-	@PutMapping("/admins/{id}")
+	@PutMapping("/admins/updateAdmin/{id}")
 	public void updateAdmin(
 			@PathVariable("id") String adminIdString,
 			@RequestParam(value = "username", required = false) String username,
 			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "eik", required = false) String eik,
 			@RequestParam(value = "emailAddress", required = false) String emailAddress,
 			@RequestParam(value = "enabled", required = false) String enabledString){
 		int adminId = Integer.parseInt(adminIdString);
@@ -64,7 +61,7 @@ public class AdminController {
 		service.update(adminId, updatedAdmin);
 	}
 	
-	@DeleteMapping("/admins/{id}")
+	@DeleteMapping("/admins/deleteAdmin/{id}")
 	public void deleteAdmin(@PathVariable("id") String adminIdString) {
 		int adminId = Integer.parseInt(adminIdString);
 		service.deleteAdmin(adminId);
@@ -80,7 +77,7 @@ public class AdminController {
 		return service.getUserById(userId);
 	}
 	
-	@DeleteMapping("/users/{id}")
+	@DeleteMapping("/users/deleteUser/{id}")
 	public void deleteUser(@PathVariable("id") String userIdString) {
 		int userId = Integer.parseInt(userIdString);
 		service.deleteUser(userId);
@@ -98,7 +95,7 @@ public class AdminController {
 		return service.getClientById(clientId);
 	}
 	
-	@PostMapping("/clients/")
+	@PostMapping("/clients/createClient")
 	public void createClient(
 			@RequestParam(value = "username") String username,
 			@RequestParam(value = "password") String password,
@@ -109,7 +106,7 @@ public class AdminController {
 		service.create(newClient);
 	}
 	
-	@PutMapping("/clients/{id}")
+	@PutMapping("/clients/updateClient/{id}")
 	public void updateClient(
 			@PathVariable("id") String clientIdString,
 			@RequestParam(value = "username", required = false) String username,
@@ -127,7 +124,7 @@ public class AdminController {
 		service.update(clientId, updateClient);
 	}
 	
-	@DeleteMapping("/clients/{id}")
+	@DeleteMapping("/clients/deleteClient/{id}")
 	public void deleteClient(@PathVariable("id") String clientIdString) {
 		int clientId = Integer.parseInt(clientIdString);
 		service.deleteClient(clientId);
@@ -145,7 +142,7 @@ public class AdminController {
 		return service.getServiceById(serviceId);
 	}
 	
-	@PostMapping("/services/")
+	@PostMapping("/services/createService")
 	public void createService(
 			@RequestParam(value = "name") String name) {
 		
@@ -153,7 +150,7 @@ public class AdminController {
 		service.create(newService);
 	}
 	
-	@PutMapping("/services/{id}")
+	@PutMapping("/services/updateService/{id}")
 	public void updateService(
 			@PathVariable("id") String serviceIdString,
 			@RequestParam(value = "name", required = false) String name){
@@ -164,7 +161,7 @@ public class AdminController {
 		service.update(serviceId, updateService);
 	}
 	
-	@DeleteMapping("/services/{id}")
+	@DeleteMapping("/services/deleteService/{id}")
 	public void deleteService(@PathVariable("id") String serviceIdString) {
 		int serviceId = Integer.parseInt(serviceIdString);
 		service.deleteService(serviceId);
@@ -182,7 +179,7 @@ public class AdminController {
 		return service.getCurrencyById(currencyId);
 	}
 	
-	@PostMapping("/currencies/")
+	@PostMapping("/currencies/createCurrency")
 	public void createCurrency(
 			@RequestParam(value = "currency") String currency,
 			@RequestParam(value = "exchangeRate") String exchangeRateString) {
@@ -192,7 +189,7 @@ public class AdminController {
 		service.create(newCurrency);
 	}
 	
-	@PutMapping("/currencies/{id}")
+	@PutMapping("/currencies/updateCurrency/{id}")
 	public void updateCurrency(
 			@PathVariable("id") String currencyIdString,
 			@RequestParam(value = "currency", required = false) String currency,
@@ -205,7 +202,7 @@ public class AdminController {
 		service.update(currencyId, updateCurrency);
 	}
 	
-	@DeleteMapping("/currencies/{id}")
+	@DeleteMapping("/currencies/deleteCurrency/{id}")
 	public void deleteCurrency(@PathVariable("id") String currencyIdString) {
 		int currencyId = Integer.parseInt(currencyIdString);
 		service.deleteCurrency(currencyId);
@@ -230,7 +227,7 @@ public class AdminController {
 		return service.getSubscriberById(subscriberId);
 	}
 	
-	@PostMapping("/subscribers/")
+	@PostMapping("/subscribers/createSubscriber")
 	public void createSubscriber(
 			@RequestParam(value = "phoneNumber") String phoneNumber,
 			@RequestParam(value = "firstName") String firstName,
@@ -250,7 +247,7 @@ public class AdminController {
 		service.create(newSubscriber);
 	}
 	
-	@PutMapping("/subscribers/{phoneNumber}")
+	@PutMapping("/subscribers/updateSubscriber/{phoneNumber}")
 	public void updateSubscriber(
 			@PathVariable(value = "phoneNumber") String phoneNumber,
 			@RequestParam(value = "firstName") String firstName,
@@ -270,7 +267,7 @@ public class AdminController {
 		service.update(phoneNumber, updateSubscriber);
 	}
 	
-	@DeleteMapping("/subscribers/{id}")
+	@DeleteMapping("/subscribers/deleteSubscriber/{id}")
 	public void deleteSubscriber(@PathVariable("id") String subscriberId) {
 		service.deleteSubscriber(subscriberId);
 	}
@@ -299,7 +296,7 @@ public class AdminController {
 		return service.getBillById(billId);
 	}
 	
-	@PostMapping("/bills/")
+	@PostMapping("/bills/createBill")
 	public void createBill(
 			@RequestParam(value = "serviceId") String serviceIdString,
 			@RequestParam(value = "subscriberPhoneNumber") String subscriberPhoneNumber,
@@ -325,7 +322,7 @@ public class AdminController {
 		this.service.create(newBill);
 	}
 	
-	@PutMapping("/bills/{id}")
+	@PutMapping("/bills/updateBill/{id}")
 	public void updateBill(
 			@PathVariable(value = "id") String billIdString,
 			@RequestParam(value = "serviceId") String serviceIdString,
@@ -353,7 +350,7 @@ public class AdminController {
 		this.service.update(billId, updateBill);
 	}
 	
-	@DeleteMapping("/bills/{id}")
+	@DeleteMapping("/bills/deleteBill/{id}")
 	public void deleteBill(@PathVariable("id") String billIdString) {
 		int billId = Integer.parseInt(billIdString);
 		service.deleteBill(billId);
