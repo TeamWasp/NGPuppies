@@ -11,7 +11,6 @@ import java.util.List;
 @DiscriminatorValue("2")
 public class Client extends User {
 	
-	@NotNull
 	@Size(min=10, max = 15)
 	@Column(name = "EIK", unique = true)
 	private String eik;
