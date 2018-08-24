@@ -64,7 +64,6 @@ public class UserSqlRepository implements GenericRepository<User> {
 			User user = session.get(User.class, userId);
 			user.setUsername(updateUser.getUsername());
 			user.setPassword(updateUser.getPassword());
-			user.setEik(updateUser.getEik());
 			user.setRole(updateUser.getRole());
 			user.setEnabled(updateUser.isEnabled());
 			session.getTransaction().commit();

@@ -7,7 +7,6 @@ import javax.validation.constraints.Size;
 @Entity(name = "users")
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "RoleID")
-//@Table(name = "clients")
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,11 +27,6 @@ public class User {
     @JoinColumn(name = "RoleID", insertable = false, updatable = false)
     private Role role;
     
-    @NotNull
-    @Size(min=10, max = 15)
-    @Column(name = "EIK", unique = true)
-    private String eik;
-    
     @Column(name = "enabled")
     private boolean enabled;
     
@@ -41,18 +35,16 @@ public class User {
     
     public User(int userId) {this.userId = userId;}
     
-    public User(String username, String password, Role role, String eik, boolean enabled) {
+    public User(String username, String password, Role role, boolean enabled) {
         this.username = username;
         this.password = password;
         this.role = role;
-        this.eik = eik;
         this.enabled = enabled;
     }
     
-    public User(String username, String password, String eik, boolean enabled) {
+    public User(String username, String password, boolean enabled) {
         this.username = username;
         this.password = password;
-        this.eik = eik;
         this.enabled = enabled;
     }
     
@@ -86,14 +78,6 @@ public class User {
     
     public void setRole(Role role) {
         this.role = role;
-    }
-    
-    public String getEik() {
-        return eik;
-    }
-    
-    public void setEik(String eik) {
-        this.eik = eik;
     }
     
     public boolean isEnabled() {
