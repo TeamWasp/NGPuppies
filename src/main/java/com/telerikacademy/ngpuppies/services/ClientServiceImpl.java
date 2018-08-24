@@ -50,11 +50,9 @@ public class ClientServiceImpl implements ClientService {
     
     @Override
     public List<Bill> getAllBills(int userId) {
-        List<Subscriber> subscribers = subscriberRepository.getAll(userId);
         List<Bill> billsClient = new ArrayList<>();
-        for (Subscriber sub : subscribers) {
-            List<Bill> billsSub = sub.getBills();
-            billsClient.addAll(billsSub);
+        for (Subscriber sub : subscriberRepository.getAll(userId)) {
+            billsClient.addAll(sub.getBills());
         }
         
         return billsClient;
