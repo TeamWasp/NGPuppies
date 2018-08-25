@@ -34,26 +34,6 @@ public class SubscriberSerializer extends StdSerializer<Subscriber> {
         gen.writeNumberField("bankId", value.getBank().getUserId());
         gen.writeStringField("bankUsername", value.getBank().getUsername());
         gen.writeEndObject();
-        gen.writeObjectFieldStart("bills");
-        for (Bill bill : value.getBills()) {
-            gen.writeObjectFieldStart("bill");
-            gen.writeNumberField("billId", bill.getBillId());
-            gen.writeObjectFieldStart("service");
-            gen.writeNumberField("serviceId", bill.getService().getServiceId());
-            gen.writeStringField("serviceName", bill.getService().getName());
-            gen.writeEndObject();
-            gen.writeStringField("StartDate", bill.getStartDate().toString());
-            gen.writeStringField("EndDate", bill.getEndDate().toString());
-            gen.writeNumberField("Amount", bill.getAmount());
-            gen.writeObjectFieldStart("currency");
-            gen.writeNumberField("currencyId", bill.getCurrency().getCurrencyId());
-            gen.writeStringField("currency", bill.getCurrency().getCurrency());
-            gen.writeNumberField("exchangeRate", bill.getCurrency().getExchangeRate());
-            gen.writeEndObject();
-            gen.writeEndObject();
-
-        }
-        gen.writeEndObject();
         gen.writeEndObject();
     }
 }
