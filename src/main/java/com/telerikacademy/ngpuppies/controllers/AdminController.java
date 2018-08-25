@@ -29,58 +29,71 @@ public class AdminController {
 	
 	@GetMapping("/admins/{id}")
 	public Admin getAdminById(@PathVariable("id") String adminIdString) {
-		int adminId = Integer.parseInt(adminIdString);
-		return service.getAdminById(adminId);
+		
+		try {
+			int adminId = Integer.parseInt(adminIdString);
+			return service.getAdminById(adminId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect admin id");
+			return null;
+		}
 	}
 	
 	@PostMapping("/admins/createAdmin")
-	public void createAdmin(
-			@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password,
-			@RequestParam(value = "emailAddress") String emailAddress) {
-		
-		boolean enabled = false;
-		
-		Admin newAdmin = new Admin(username, password, enabled, emailAddress);
+	public void createAdmin(@RequestBody Admin newAdmin) {
 		service.create(newAdmin);
 	}
 	
 	@PutMapping("/admins/updateAdmin/{id}")
 	public void updateAdmin(
 			@PathVariable("id") String adminIdString,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "emailAddress", required = false) String emailAddress,
-			@RequestParam(value = "enabled", required = false) String enabledString){
-		int adminId = Integer.parseInt(adminIdString);
-		boolean enabled = true;
-		if(enabledString.equals("0")){
-			enabled = false;
+			@RequestBody Admin updatedAdmin)
+	{
+		try {
+			int adminId = Integer.parseInt(adminIdString);
+			service.update(adminId, updatedAdmin);
+		} catch (Exception ex) {
+			System.out.printf("Admin Id \"%s\" is incorrectly typed!", adminIdString);
 		}
-		Admin updatedAdmin = new Admin(username, password, enabled, emailAddress);
-		service.update(adminId, updatedAdmin);
 	}
 	
 	@DeleteMapping("/admins/deleteAdmin/{id}")
 	public void deleteAdmin(@PathVariable("id") String adminIdString) {
-		int adminId = Integer.parseInt(adminIdString);
-		service.deleteAdmin(adminId);
+		
+		try {
+			int adminId = Integer.parseInt(adminIdString);
+			service.deleteAdmin(adminId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect admin id");
+		}
 	}
 	
 	// users requests
 	@GetMapping("/users/")
-	public List<User> getAllUsers() { return service.getAllUsers(); }
+	public List<User> getAllUsers() {
+		return service.getAllUsers();
+	}
 	
 	@GetMapping("/users/{id}")
 	public User getUserById(@PathVariable("id") String userIdString) {
-		int userId = Integer.parseInt(userIdString);
-		return service.getUserById(userId);
+		
+		try {
+			int userId = Integer.parseInt(userIdString);
+			return service.getUserById(userId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect user id");
+			return null;
+		}
 	}
 	
 	@DeleteMapping("/users/deleteUser/{id}")
 	public void deleteUser(@PathVariable("id") String userIdString) {
-		int userId = Integer.parseInt(userIdString);
-		service.deleteUser(userId);
+		try {
+			int userId = Integer.parseInt(userIdString);
+			service.deleteUser(userId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect user id");
+		}
 	}
 	
 	// clients requests
@@ -91,43 +104,41 @@ public class AdminController {
 	
 	@GetMapping("/clients/{id}")
 	public Client getClientById(@PathVariable("id") String clientIdString) {
-		int clientId = Integer.parseInt(clientIdString);
-		return service.getClientById(clientId);
+		try {
+			int clientId = Integer.parseInt(clientIdString);
+			return service.getClientById(clientId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect client id");
+			return null;
+		}
 	}
 	
 	@PostMapping("/clients/createClient")
-	public void createClient(
-			@RequestParam(value = "username") String username,
-			@RequestParam(value = "password") String password,
-			@RequestParam(value = "eik") String eik) {
-		
-		boolean isEnabled = true;
-		Client newClient = new Client(username, password, isEnabled, eik);
+	public void createClient(@RequestBody Client newClient) {
 		service.create(newClient);
 	}
 	
 	@PutMapping("/clients/updateClient/{id}")
 	public void updateClient(
 			@PathVariable("id") String clientIdString,
-			@RequestParam(value = "username", required = false) String username,
-			@RequestParam(value = "password", required = false) String password,
-			@RequestParam(value = "eik", required = false) String eik,
-			@RequestParam(value = "enabled", required = false) String enabledString){
-		
-		boolean enabled = true;
-		if (enabledString.equals("false")) {
-			enabled = false;
+			@RequestBody Client updateClient)
+	{
+		try {
+			int clientId = Integer.parseInt(clientIdString);
+			service.update(clientId, updateClient);
+		} catch (Exception ex) {
+			System.out.printf("Client Id \"%s\" is incorrectly typed!", clientIdString);
 		}
-		int clientId = Integer.parseInt(clientIdString);
-		
-		Client updateClient = new Client(username, password, enabled, eik);
-		service.update(clientId, updateClient);
 	}
 	
 	@DeleteMapping("/clients/deleteClient/{id}")
 	public void deleteClient(@PathVariable("id") String clientIdString) {
-		int clientId = Integer.parseInt(clientIdString);
-		service.deleteClient(clientId);
+		try {
+			int clientId = Integer.parseInt(clientIdString);
+			service.deleteClient(clientId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect client id");
+		}
 	}
 	
 	// service requests
@@ -138,33 +149,41 @@ public class AdminController {
 	
 	@GetMapping("/services/{id}")
 	public Service getServiceById(@PathVariable("id") String serviceIdString) {
-		int serviceId = Integer.parseInt(serviceIdString);
-		return service.getServiceById(serviceId);
+		try {
+			int serviceId = Integer.parseInt(serviceIdString);
+			return service.getServiceById(serviceId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect service id");
+			return null;
+		}
 	}
 	
 	@PostMapping("/services/createService")
-	public void createService(
-			@RequestParam(value = "name") String name) {
-		
-		Service newService = new Service(name);
+	public void createService(@RequestBody Service newService) {
 		service.create(newService);
 	}
 	
 	@PutMapping("/services/updateService/{id}")
 	public void updateService(
 			@PathVariable("id") String serviceIdString,
-			@RequestParam(value = "name", required = false) String name){
-		
-		int serviceId = Integer.parseInt(serviceIdString);
-		
-		Service updateService = new Service(name);
-		service.update(serviceId, updateService);
+			@RequestBody Service updateService)
+	{
+		try {
+			int serviceId = Integer.parseInt(serviceIdString);
+			service.update(serviceId, updateService);
+		} catch (Exception ex) {
+			System.out.printf("Service Id \"%s\" is incorrectly typed!", serviceIdString);
+		}
 	}
 	
 	@DeleteMapping("/services/deleteService/{id}")
 	public void deleteService(@PathVariable("id") String serviceIdString) {
-		int serviceId = Integer.parseInt(serviceIdString);
-		service.deleteService(serviceId);
+		try {
+			int serviceId = Integer.parseInt(serviceIdString);
+			service.deleteService(serviceId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect service id");
+		}
 	}
 	
 	// currency requests
@@ -175,37 +194,41 @@ public class AdminController {
 	
 	@GetMapping("/currencies/{id}")
 	public Currency getCurrencyById(@PathVariable("id") String currencyIdString) {
-		int currencyId = Integer.parseInt(currencyIdString);
-		return service.getCurrencyById(currencyId);
+		try {
+			int currencyId = Integer.parseInt(currencyIdString);
+			return service.getCurrencyById(currencyId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect currency id");
+			return null;
+		}
 	}
 	
 	@PostMapping("/currencies/createCurrency")
-	public void createCurrency(
-			@RequestParam(value = "currency") String currency,
-			@RequestParam(value = "exchangeRate") String exchangeRateString) {
-		
-		double exchangeRate = Double.parseDouble(exchangeRateString);
-		Currency newCurrency = new Currency(currency, exchangeRate);
+	public void createCurrency(@RequestBody Currency newCurrency) {
 		service.create(newCurrency);
 	}
 	
 	@PutMapping("/currencies/updateCurrency/{id}")
 	public void updateCurrency(
 			@PathVariable("id") String currencyIdString,
-			@RequestParam(value = "currency", required = false) String currency,
-			@RequestParam(value = "exchangeRate", required = false) String exchangeRateString){
-		
-		int currencyId = Integer.parseInt(currencyIdString);
-		double exchangeRate = Double.parseDouble(exchangeRateString);
-		
-		Currency updateCurrency = new Currency(currency, exchangeRate);
-		service.update(currencyId, updateCurrency);
+			@RequestBody Currency updateCurrency)
+	{
+		try {
+			int currencyId = Integer.parseInt(currencyIdString);
+			service.update(currencyId, updateCurrency);
+		} catch (Exception ex) {
+			System.out.printf("Currency Id \"%s\" is incorrectly typed!", currencyIdString);
+		}
 	}
 	
 	@DeleteMapping("/currencies/deleteCurrency/{id}")
 	public void deleteCurrency(@PathVariable("id") String currencyIdString) {
-		int currencyId = Integer.parseInt(currencyIdString);
-		service.deleteCurrency(currencyId);
+		try {
+			int currencyId = Integer.parseInt(currencyIdString);
+			service.deleteCurrency(currencyId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect currency id");
+		}
 	}
 	
 	// subscriber requests
@@ -218,8 +241,13 @@ public class AdminController {
 	public List<Subscriber> getAllSubscribersByBankId(
 			@RequestParam(value = "bankId") String bankIdString)
 	{
-		int bankId = Integer.parseInt(bankIdString);
-		return service.getAllSubscribers(bankId);
+		try {
+			int bankId = Integer.parseInt(bankIdString);
+			return service.getAllSubscribers(bankId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect bank id");
+			return null;
+		}
 	}
 	
 	@GetMapping("/subscribers/{id}")
@@ -228,42 +256,15 @@ public class AdminController {
 	}
 	
 	@PostMapping("/subscribers/createSubscriber")
-	public void createSubscriber(
-			@RequestParam(value = "phoneNumber") String phoneNumber,
-			@RequestParam(value = "firstName") String firstName,
-			@RequestParam(value = "lastName") String lastName,
-			@RequestParam(value = "egn") String egn,
-			@RequestParam(value = "country") String country,
-			@RequestParam(value = "city") String city,
-			@RequestParam(value = "zipCode") String zipCode,
-			@RequestParam(value = "Street") String street,
-			@RequestParam(value = "bankId") String bankIdString
-			) {
-		
-		int bankId = Integer.parseInt(bankIdString);
-		Client bank = new Client(bankId);
-		Address address = new Address(country, city, zipCode, street);
-		Subscriber newSubscriber = new Subscriber(phoneNumber, firstName, lastName, egn, address, bank);
+	public void createSubscriber(@RequestBody Subscriber newSubscriber) {
 		service.create(newSubscriber);
 	}
 	
-	@PutMapping("/subscribers/updateSubscriber/{phoneNumber}")
+	@PutMapping(value = "/subscribers/updateSubscriber/{phoneNumber}")
 	public void updateSubscriber(
-			@PathVariable(value = "phoneNumber") String phoneNumber,
-			@RequestParam(value = "firstName") String firstName,
-			@RequestParam(value = "lastName") String lastName,
-			@RequestParam(value = "egn") String egn,
-			@RequestParam(value = "country") String country,
-			@RequestParam(value = "city") String city,
-			@RequestParam(value = "zipCode") String zipCode,
-			@RequestParam(value = "Street") String street,
-			@RequestParam(value = "bankId") String bankIdString
-	) {
-		
-		int bankId = Integer.parseInt(bankIdString);
-		Client bank = new Client(bankId);
-		Address address = new Address(country, city, zipCode, street);
-		Subscriber updateSubscriber = new Subscriber(phoneNumber, firstName, lastName, egn, address, bank);
+			@PathVariable("phoneNumber") String phoneNumber,
+			@RequestBody Subscriber updateSubscriber)
+	{
 		service.update(phoneNumber, updateSubscriber);
 	}
 	
@@ -292,67 +293,40 @@ public class AdminController {
 	
 	@GetMapping("/bills/{id}")
 	public Bill getBillById(@PathVariable("id") String billIdString) {
-		int billId = Integer.parseInt(billIdString);
-		return service.getBillById(billId);
+		try {
+			int billId = Integer.parseInt(billIdString);
+			return service.getBillById(billId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect bill id");
+			return null;
+		}
 	}
 	
 	@PostMapping("/bills/createBill")
-	public void createBill(
-			@RequestParam(value = "serviceId") String serviceIdString,
-			@RequestParam(value = "subscriberPhoneNumber") String subscriberPhoneNumber,
-			@RequestParam(value = "startDate") String startDateString,
-			@RequestParam(value = "endDate") String endDateString,
-			@RequestParam(value = "amount") String amountString,
-			@RequestParam(value = "currencyId") String currencyIdString,
-			@RequestParam(value = "paymentDate") String paymentDateString
-	) throws ParseException {
-		
-		Service service = new Service(Integer.parseInt(serviceIdString));
-		Subscriber subscriber = new Subscriber(subscriberPhoneNumber);
-		Currency currency = new Currency(Integer.parseInt(currencyIdString));
-		double amount = Double.parseDouble(amountString);
-		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate = format.parse(startDateString);
-		Date endDate = format.parse(endDateString);
-		Date paymentDate = format.parse(paymentDateString);
-		
-		
-		Bill newBill = new Bill(service, subscriber, currency, startDate, endDate, amount, paymentDate);
+	public void createBill(@RequestBody Bill newBill) {
 		this.service.create(newBill);
 	}
 	
 	@PutMapping("/bills/updateBill/{id}")
 	public void updateBill(
 			@PathVariable(value = "id") String billIdString,
-			@RequestParam(value = "serviceId") String serviceIdString,
-			@RequestParam(value = "subscriberPhoneNumber") String subscriberPhoneNumber,
-			@RequestParam(value = "startDate") String startDateString,
-			@RequestParam(value = "endDate") String endDateString,
-			@RequestParam(value = "amount") String amountString,
-			@RequestParam(value = "currencyId") String currencyIdString,
-			@RequestParam(value = "paymentDate") String paymentDateString
-	) throws ParseException {
-		
-		int billId = Integer.parseInt(billIdString);
-		Service service = new Service(Integer.parseInt(serviceIdString));
-		Subscriber subscriber = new Subscriber(subscriberPhoneNumber);
-		Currency currency = new Currency(Integer.parseInt(currencyIdString));
-		double amount = Double.parseDouble(amountString);
-		
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate = format.parse(startDateString);
-		Date endDate = format.parse(endDateString);
-		Date paymentDate = format.parse(paymentDateString);
-		
-		
-		Bill updateBill = new Bill(service, subscriber, currency, startDate, endDate, amount, paymentDate);
-		this.service.update(billId, updateBill);
+			@RequestBody Bill updateBill)
+	{
+		try {
+			int billId = Integer.parseInt(billIdString);
+			service.update(billId, updateBill);
+		} catch (Exception ex) {
+			System.out.printf("Bill Id \"%s\" is incorrectly typed!", billIdString);
+		}
 	}
 	
 	@DeleteMapping("/bills/deleteBill/{id}")
 	public void deleteBill(@PathVariable("id") String billIdString) {
-		int billId = Integer.parseInt(billIdString);
-		service.deleteBill(billId);
+		try {
+			int billId = Integer.parseInt(billIdString);
+			service.deleteBill(billId);
+		} catch (Exception ex) {
+			System.out.println("Incorrect bill id");
+		}
 	}
 }
