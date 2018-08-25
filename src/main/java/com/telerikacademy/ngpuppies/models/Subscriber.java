@@ -36,7 +36,7 @@ public class Subscriber implements Comparable<Subscriber> {
     private String egn;
     
     @NotNull
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "AddressID")
     @JsonManagedReference
     private Address address;
@@ -44,7 +44,7 @@ public class Subscriber implements Comparable<Subscriber> {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "BankID")
-    @JsonBackReference
+    @JsonManagedReference
     private Client bank;
 
     @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)
