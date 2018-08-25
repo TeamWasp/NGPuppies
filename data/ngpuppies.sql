@@ -76,7 +76,7 @@ CREATE TABLE IF NOT EXISTS `currencies` (
   `ExchangeRate` decimal(10,5) NOT NULL,
   PRIMARY KEY (`CurrencyID`),
   UNIQUE KEY `Currency_UNIQUE` (`Currency`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.currencies: ~3 rows (approximately)
 DELETE FROM `currencies`;
@@ -111,7 +111,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   `Name` varchar(50) NOT NULL DEFAULT '0',
   PRIMARY KEY (`ServiceID`),
   UNIQUE KEY `Name_UNIQUE` (`Name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.services: ~3 rows (approximately)
 DELETE FROM `services`;
@@ -156,15 +156,15 @@ CREATE TABLE IF NOT EXISTS `users` (
   `Username` varchar(30) NOT NULL,
   `Password` varchar(60) NOT NULL,
   `RoleID` int(11) NOT NULL,
-  `EIK` varchar(20) NOT NULL,
+  `EIK` varchar(20) DEFAULT NULL,
   `EmailAddress` varchar(30) DEFAULT NULL,
   `enabled` tinyint(4) DEFAULT '1',
   PRIMARY KEY (`UserID`),
-  UNIQUE KEY `EIK_UNIQUE` (`EIK`),
   UNIQUE KEY `Username_UNIQUE` (`Username`),
+  UNIQUE KEY `EIK_UNIQUE` (`EIK`),
   KEY `FK_users_roles_idx` (`RoleID`),
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
 -- Dumping data for table ngpuppies.users: ~5 rows (approximately)
 DELETE FROM `users`;
