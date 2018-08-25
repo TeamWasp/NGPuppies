@@ -46,13 +46,27 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		//http.csrf().disable();
+		
+		/*http
+				.csrf().disable()
+				.authorizeRequests()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.and()
+				.httpBasic();*/
+		
+		http
+				.csrf().disable() // added to stop CSRF protection, which passes a token around and disrupts Postman put, post, delete requests (remove afterwards)
+				.httpBasic(); // added only for the purposes of testing with Postman (remove afterwards); stops more complicated authentication processes, which use tokens
+		
 		http.authorizeRequests()
-				.antMatchers("/").hasAnyRole("USER", "ADMIN")
+				//.antMatchers("/").permitAll()
 				.antMatchers("/api/client/**").hasRole("USER")
+				//.antMatchers("/api/admin/***").hasRole("ADMIN")
 				.antMatchers("/api/admin/**").hasRole("ADMIN")
 				//.antMatchers("/admin/admins/**").hasIpAddress("127.0.0.1")
-				//.anyRequest().permitAll()
+				.anyRequest().permitAll()
 				.and()
 				.formLogin()
 				//.loginProcessingUrl("/login")
