@@ -42,4 +42,12 @@ public class Service {
     public void setName(String name) {
         this.name = name;
     }
+    
+    @Override
+    public String toString() {
+        return "Service{" +
+            "serviceId='" + serviceId + '\'' +
+            ", name=" + name +
+            '}';
+    }
 }

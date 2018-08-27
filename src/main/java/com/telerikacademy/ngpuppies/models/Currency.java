@@ -1,5 +1,6 @@
 package com.telerikacademy.ngpuppies.models;
 
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -56,5 +57,14 @@ public class Currency {
     
     public void setExchangeRate(double exchangeRate) {
         this.exchangeRate = exchangeRate;
+    }
+    
+    @Override
+    public String toString() {
+        return "Currency{" +
+            "currencyId='" + currencyId + '\'' +
+            ", currency=" + currency + '\'' +
+            ", exchangeRate=" + exchangeRate +
+            '}';
     }
 }

@@ -48,4 +48,16 @@ public class Client extends User {
 	public void setEik(String eik) {
 		this.eik = eik;
 	}
+	
+	@Override
+	public String toString() {
+		return "Client{" +
+				"userId='" + getUserId() + '\'' +
+				", username=" + getUsername() + '\'' +
+				", password=" + getPassword() + '\'' +
+				", roleId=" + getRole() + '\'' +
+				", enabled=" + isEnabled() + '\'' +
+				", EIK=" + getEik() +
+				'}';
+	}
 }

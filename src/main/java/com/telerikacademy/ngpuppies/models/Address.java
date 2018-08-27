@@ -82,4 +82,15 @@ public class Address {
 	public void setStreet(String street) {
 		this.street = street;
 	}
+	
+	@Override
+	public String toString() {
+		return "Address{" +
+				"addressId='" + addressId + '\'' +
+				", country=" + country + '\'' +
+				", city=" + city + '\'' +
+				", zipCode=" + zipCode + '\'' +
+				", street=" + street +
+				'}';
+	}
 }
