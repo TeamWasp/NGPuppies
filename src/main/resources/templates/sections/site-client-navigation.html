@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<head>
+</head>
+<body>
+<header th:fragment="site-header">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar-fixed-top">
+        <h1 class="navbar-brand mb-0 mt-0 h1">NG Puppies - CLIENT MODULE</h1>
+        <!-- Button to collapses the navbar when resizing website -->
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <!-- Navigation bar -->
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="nav navbar-nav">
+                <li th:classappend="${module == 'bills' ? 'active' : ''}">
+                    <a href="#" th:href="@{/client/bills}">Bills</a>
+                </li>
+                <li th:classappend="${module == 'subscribers' ? 'active' : ''}">
+                    <a href="#" th:href="@{/admin/subscribers}">Subscribers</a>
+                </li>
+                <li th:classappend="${module == 'history' ? 'active' : ''}">
+                    <a href="#" th:href="@{/admin/history}">History</a>
+                </li>
+                <li th:classappend="${module == 'reports' ? 'active' : ''}">
+                    <a href="#" th:href="@{/admin/reports}">Reports</a>
+                </li>
+                <ul class="nav navbar-nav">
+                    <li th:classappend="${module == 'home' ? 'active' : ''}">
+                        <a href="#" th:href="@{/client}">Home</a>
+                    </li>
+                </ul>
+            </ul>
+            <ul class="nav navbar-nav navbar-right">
+                <li th:if="${#authorization.expression('!isAuthenticated()')}">
+                    <a href="/signin" th:href="@{/signin}">
+                        <span class="glyphicon glyphicon-log-in" aria-hidden="true"></span>&nbsp;Sign in
+                    </a>
+                </li>
+                <li th:if="${#authorization.expression('isAuthenticated()')}">
+                    <a href="/logout" th:href="@{#}" onclick="$('#form').submit();">
+                        <span class="glyphicon glyphicon-log-out" aria-hidden="true"></span>&nbsp;Logout
+                    </a>
+                    <form style="visibility: hidden" id="form" method="post" action="#" th:action="@{/logout}"></form>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
+
+</body>
+</html>

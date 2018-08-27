@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+<html lang="en">
+<head>
+</head>
+<body>
+<div id="footer" th:fragment="site-footer-fixed" class="container marketing fixed-bottom">
+    <div>
+        <div>
+            Logged user: <span sec:authentication="name">Username</span>
+            Role: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>
+        </div>
+        <!-- Footer -->
+        <footer>
+            <p class="float-right"><a th:href="@{/}">Back to top</a></p>
+            <p>&copy; 2018 NGPuppies</p>
+        </footer>
+    </div>
+</div>
+</body>
+</html>
