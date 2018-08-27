@@ -1,6 +1,6 @@
 package com.telerikacademy.ngpuppies.repositories;
 
-import com.telerikacademy.ngpuppies.models.User;
+import com.telerikacademy.ngpuppies.models.Address;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -11,20 +11,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserSqlRepository implements GenericRepository<User> {
-	
+public class AddressSqlRepository implements GenericRepository<Address> {
 	private SessionFactory factory;
 	
 	@Autowired
-	public UserSqlRepository(SessionFactory factory) {
+	public AddressSqlRepository(SessionFactory factory) {
 		this.factory = factory;
 	}
 	
 	@Override
-	public void create(User user) {
+	public void create(Address address) {
 		try(Session session = factory.openSession()) {
 			session.beginTransaction();
-			session.save(user);
+			session.save(address);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -32,40 +31,40 @@ public class UserSqlRepository implements GenericRepository<User> {
 	}
 	
 	@Override
-	public User getById(int userId) {
-		User user = null;
+	public Address getById(int addressId) {
+		Address address = null;
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			user = session.get(User.class, userId);
+			address = session.get(Address.class, addressId);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return user;
+		return address;
 	}
 	
 	@Override
-	public List<User> getAll() {
-		List<User> users = new ArrayList<>();
+	public List<Address> getAll() {
+		List<Address> addresses = new ArrayList<>();
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			users = session.createQuery("from users", User.class).getResultList(); // users with lower "u" so that Hibernate directly refers to db table, else (written as "User") will not find it
+			addresses = session.createQuery("from Address ", Address.class).getResultList(); // users with lower "u" so that Hibernate directly refers to db table, else (written as "User") will not find it
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
-		return users;
+		return addresses;
 	}
 	
 	@Override
-	public void update(int userId, User updateUser) {
+	public void update(int addressId, Address updateAddress) {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
-			User user = session.get(User.class, userId);
-			user.setUsername(updateUser.getUsername());
-			user.setPassword(updateUser.getPassword());
-			user.setRole(updateUser.getRole());
-			user.setEnabled(updateUser.isEnabled());
+			Address user = session.get(Address.class, addressId);
+			user.setCountry(updateAddress.getCountry());
+			user.setCity(updateAddress.getCity());
+			user.setZipCode(updateAddress.getZipCode());
+			user.setStreet(updateAddress.getStreet());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -73,11 +72,11 @@ public class UserSqlRepository implements GenericRepository<User> {
 	}
 	
 	@Override
-	public void delete(int userId) {
-		User user = getById(userId);
+	public void delete(int addressId) {
+		Address address = getById(addressId);
 		try (Session session = factory.openSession()){
 			session.beginTransaction();
-			session.delete(user);
+			session.delete(address);
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

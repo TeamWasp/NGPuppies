@@ -32,4 +32,16 @@ public class Admin extends User {
 	public void setEmailAddress(String emailAddress) {
 		this.emailAddress = emailAddress;
 	}
+	
+	@Override
+	public String toString() {
+		return "Admin{" +
+				"userId='" + getUserId() + '\'' +
+				", username=" + getUsername() + '\'' +
+				", password=" + getPassword() + '\'' +
+				", roleId=" + getRole() + '\'' +
+				", enabled=" + isEnabled() + '\'' +
+				", emailAddress=" + emailAddress +
+				'}';
+	}
 }

@@ -128,4 +128,18 @@ public class Bill {
     public void setPaymentDate(Date paymentDate) {
         this.paymentDate = paymentDate;
     }
+    
+    @Override
+    public String toString() {
+        return "Bill{" +
+            "billId='" + billId + '\'' +
+            ", serviceId=" + service.getServiceId() + '\'' +
+            ", subscriberId=" + subscriber.getPhoneNumber() + '\'' +
+            ", startDate=" + startDate + '\'' +
+            ", endDate=" + endDate + '\'' +
+            ", amount=" + amount + '\'' +
+            ", currencyId=" + currency.getCurrencyId() + '\'' +
+            ", paymentDate=" + paymentDate +
+            '}';
+    }
 }

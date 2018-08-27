@@ -63,11 +63,19 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			Admin admin = session.get(Admin.class, adminId);
-			admin.setUsername(updateAdmin.getUsername());
-			admin.setPassword(updateAdmin.getPassword());
+			if (updateAdmin.getUsername() != null) {
+				admin.setUsername(updateAdmin.getUsername());
+			}
+			if (updateAdmin.getPassword() != null) {
+				admin.setPassword(updateAdmin.getPassword());
+			}
+			if (updateAdmin.getEmailAddress() != null) {
+				admin.setEmailAddress(updateAdmin.getEmailAddress());
+			}
+			if (updateAdmin.isEnabled() && updateAdmin.isEnabled() != admin.isEnabled()) {
+				admin.setEnabled(updateAdmin.isEnabled());
+			}
 			//admin.setRole(updateAdmin.getRole());
-			admin.setEmailAddress(updateAdmin.getEmailAddress());
-			admin.setEnabled(updateAdmin.isEnabled());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

@@ -12,7 +12,7 @@ import java.util.List;
 
 @Entity
 @Table(name = "subscribers")
-//@JsonSerialize(using = SubscriberSerializer.class)
+@JsonSerialize(using = SubscriberSerializer.class)
 public class Subscriber implements Comparable<Subscriber> {
     
     @Id
@@ -36,7 +36,7 @@ public class Subscriber implements Comparable<Subscriber> {
     private String egn;
     
     @NotNull
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "AddressID")
     @JsonManagedReference
     private Address address;
@@ -44,7 +44,7 @@ public class Subscriber implements Comparable<Subscriber> {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "BankID")
-    @JsonBackReference
+    @JsonManagedReference
     private Client bank;
 
     @OneToMany(mappedBy = "subscriber",fetch = FetchType.EAGER)
@@ -124,8 +124,20 @@ public class Subscriber implements Comparable<Subscriber> {
     public void setBills(List<Bill> bills) {
         this.bills = bills;
     }
-
-
+    
+    
+    @Override
+    public String toString() {
+        return "Subscriber{" +
+            "phoneNumber='" + phoneNumber + '\'' +
+            ", firstName=" + firstName + '\'' +
+            ", lastName=" + lastName + '\'' +
+            ", EGN=" + egn + '\'' +
+            ", addressId=" + address.getAddressId() +
+            ", bankId=" + bank.getUserId() +
+            '}';
+    }
+    
     @Override
     public int compareTo(Subscriber o) {
         int compare=0;

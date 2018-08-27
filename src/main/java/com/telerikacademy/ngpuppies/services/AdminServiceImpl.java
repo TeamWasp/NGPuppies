@@ -20,6 +20,7 @@ public class AdminServiceImpl implements AdminService {
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
 	private GenericRepository<User> userRepository;
+	private GenericRepository<Address> addressRepository;
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -31,6 +32,7 @@ public class AdminServiceImpl implements AdminService {
 			BillRepository billRepository,
 			SubscriberRepository subscriberRepository,
 			GenericRepository<User> userRepository,
+			GenericRepository<Address> addressRepository,
 			PasswordEncoder passwordEncoder
 	) {
 		this.adminRepository = adminRepository;
@@ -39,6 +41,7 @@ public class AdminServiceImpl implements AdminService {
 		this.currencyRepository = currencyRepository;
 		this.billRepository = billRepository;
 		this.subscriberRepository = subscriberRepository;
+		this.addressRepository = addressRepository;
 		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
@@ -51,6 +54,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void create(Client client) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepository.create(client);
 	}
 	
@@ -76,17 +80,23 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int adminId) {
-		return adminRepository.getById(adminId);
+		Admin admin = adminRepository.getById(adminId);
+		admin.setPassword("");
+		return admin;
 	}
 	
 	@Override
 	public Client getClientById(int clientId) {
-		return clientRepository.getById(clientId);
+		Client client = clientRepository.getById(clientId);
+		client.setPassword("");
+		return client;
 	}
 	
 	@Override
 	public User getUserById(int userId) {
-		return userRepository.getById(userId);
+		User user = userRepository.getById(userId);
+		user.setPassword("");
+		return user;
 	}
 	
 	@Override
@@ -111,17 +121,35 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<Admin> getAllAdmins() {
-		return adminRepository.getAll();
+		List<Admin> admins = adminRepository.getAll();
+		for (Admin admin : admins)
+		{
+			admin.setPassword("");
+		}
+		
+		return admins;
 	}
 	
 	@Override
 	public List<Client> getAllClients() {
-		return clientRepository.getAll();
+		List<Client> clients = clientRepository.getAll();
+		for (Client client : clients)
+		{
+			client.setPassword("");
+		}
+		
+		return clients;
 	}
 	
 	@Override
 	public List<User> getAllUsers() {
-		return userRepository.getAll();
+		List<User> users = userRepository.getAll();
+		for (User user : users)
+		{
+			user.setPassword("");
+		}
+		
+		return users;
 	}
 	
 	@Override
@@ -156,11 +184,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int adminId, Admin admin) {
+		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminRepository.update(adminId, admin);
 	}
 	
 	@Override
 	public void update(int clientId, Client client) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepository.update(clientId, client);
 	}
 	
@@ -181,7 +211,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(String subscriberId, Subscriber subscriber) {
+		Address address = subscriber.getAddress();
 		subscriberRepository.update(subscriberId, subscriber);
+		addressRepository.update(address.getAddressId(), address);
 	}
 	
 	@Override
@@ -219,61 +251,4 @@ public class AdminServiceImpl implements AdminService {
 		subscriberRepository.delete(subscriberId);
 	}
 	
-	/*@Override
-	public void delete(int adminId) {
-		Admin admin = getById(adminId);
-		if(admin == null){
-			System.out.printf("Admin with \"%d\" does not exist!", adminId);
-		}
-		else {
-			adminRepository.delete(adminId);
-		}
-	}
-	
-	// cannot check if username of Client object does not match username of Admin => try to create UserService for such scenarios and transfer such functionality there
-	// Or leave this for the database to handle as a duplicate key error? and use Exception Handler to process it as a message to the UI???
-	@Override
-	public void create(Admin admin) {
-		List<Admin> allAdmins = adminRepository.getAll();
-		if (admin != null) {
-			for (Admin a : allAdmins) {
-				if (a.getUsername().equals(admin.getUsername())) {
-					System.out.printf("Admin with username: \"%s\" already exits!\n", admin.getUsername());
-					return;
-				}
-			}
-		}
-		adminRepository.create(admin);
-	}
-	
-	@Override
-	public Admin getById(int adminId) {
-		return adminRepository.getById(adminId);
-	}
-	
-	@Override
-	public List<Admin> getAll() {
-		return adminRepository.getAll();
-	}
-	
-	@Override
-	public void update(int adminId, Admin admin) {
-		Admin oldAdmin = adminRepository.getById(adminId);
-		if(admin.getUsername().equals("")){
-			admin.setUsername(oldAdmin.getUsername());
-		}
-		
-		if(admin.getPassword().equals("")){
-			admin.setPassword(oldAdmin.getPassword());
-		}
-		
-		if(admin.getEik().equals("")){
-			admin.setEik(oldAdmin.getEik());
-		}
-		
-		if(admin.getEmailAddress().equals("")){
-			admin.setEmailAddress(oldAdmin.getEmailAddress());
-		}
-		adminRepository.update(adminId, admin);
-	}*/
 }

@@ -31,7 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.jdbcAuthentication().dataSource(securityDataSource)
 				.usersByUsernameQuery(
-						"select username,password, enabled  from users where username=?")
+						"select username,password, enabled  from users where username=? COLLATE latin1_general_cs")
 				.authoritiesByUsernameQuery(
 						"select\n" +
 								"\n" +
@@ -46,16 +46,36 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		
-		//http.csrf().disable();
-		http.authorizeRequests()
-				.antMatchers("/").hasAnyRole("USER", "ADMIN")
+		
+		/*http
+				.csrf().disable()
+				.authorizeRequests()
+				.anyRequest().authenticated()
+				.and()
+				.formLogin()
+				.and()
+				.httpBasic();*/
+		
+		http
+				.cors()
+				.and()
+				.csrf().disable() // added to stop CSRF protection, which passes a token around and disrupts Postman put, post, delete requests (remove afterwards)
+				.httpBasic(); // added only for the purposes of testing with Postman (remove afterwards); stops more complicated authentication processes, which use tokens
+				http.authorizeRequests()
+				.antMatchers("/login").permitAll()
 				.antMatchers("/api/client/**").hasRole("USER")
+				//.antMatchers("/api/admin/***").hasRole("ADMIN")
+				.antMatchers("/client/**").hasRole("USER")
+				.antMatchers("/admin/**").hasRole("ADMIN")
 				.antMatchers("/api/admin/**").hasRole("ADMIN")
 				//.antMatchers("/admin/admins/**").hasIpAddress("127.0.0.1")
-				//.anyRequest().permitAll()
+				.anyRequest().authenticated()
 				.and()
 				.formLogin()
 				//.loginProcessingUrl("/login")
+				.permitAll()
+				.and()
+				.logout()
 				.permitAll();
 	}
 }
