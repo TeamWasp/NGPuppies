@@ -3,9 +3,11 @@ package com.telerikacademy.ngpuppies.repositories;
 import com.telerikacademy.ngpuppies.models.Client;
 import com.telerikacademy.ngpuppies.models.Subscriber;
 import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
+import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -58,7 +60,8 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 		}
 		return subscribers;
 	}
-	
+
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subscriber> getAll(int clientId) {
 		List<Subscriber> subscribers = new ArrayList<>();
@@ -74,6 +77,33 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 		}
 		return subscribers;
 	}
+
+	@Override
+	public List<SubscriberDTO> getTopTen(int clientId){
+	    List<SubscriberDTO> subscribers = new ArrayList<>();
+	    try (Session session = factory.openSession()){
+	        session.beginTransaction();
+	        String query = "select b.subscriber.phoneNumber as phoneNumber, b.subscriber.firstName as firstName, b.subscriber.lastName as lastName, " +
+                    "sum(b.amount*(case when b.currency.currency != 'bgn'" +
+                    "then  b.currency.exchangeRate else 1 end)) as sumAmount "+
+                    "from Bill as b " +
+                    "where b.subscriber.bank.userId = :bankId and b.paymentDate is Not NULL "+
+                    "group by b.subscriber "+
+                    "order by sumAmount DESC";
+	        subscribers = session.createQuery(query)
+                    .setParameter("bankId",clientId)
+                    .setMaxResults(10)
+                    .setResultTransformer(Transformers.aliasToBean(SubscriberDTO.class))
+                    .list();
+	        session.getTransaction().commit();
+        }
+        catch (Exception ex){
+            System.out.println(ex.getMessage());
+        }
+        return subscribers;
+    }
+
+
 	
 	@Override
 	public void update(String subscriberId, Subscriber updateSubscriber) {

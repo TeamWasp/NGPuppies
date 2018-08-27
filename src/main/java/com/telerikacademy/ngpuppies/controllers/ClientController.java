@@ -2,6 +2,8 @@ package com.telerikacademy.ngpuppies.controllers;
 
 import com.telerikacademy.ngpuppies.models.Bill;
 import com.telerikacademy.ngpuppies.models.Subscriber;
+import com.telerikacademy.ngpuppies.repositories.SubscriberSqlRepository;
+import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -12,6 +14,7 @@ import java.util.List;
 @RequestMapping("api/client")
 public class ClientController {
     private ClientService service;
+    private SubscriberSqlRepository subscriberSqlRepository;
 
     @Autowired
     public ClientController(ClientService service) {
@@ -24,7 +27,7 @@ public class ClientController {
     }
 
     @GetMapping("/top/{id}")
-    public List<Subscriber> getTopTenSubscribers(@PathVariable("id") String idString) {
+    public List<SubscriberDTO> getTopTenSubscribers(@PathVariable("id") String idString) {
         return service.getTopTenSubscribers(Integer.parseInt(idString));
     }
 

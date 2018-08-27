@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.repositories.base;
 
 import com.telerikacademy.ngpuppies.models.Subscriber;
+import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
 
 import java.util.List;
 
@@ -14,6 +15,8 @@ public interface SubscriberRepository {
 	
 	// get all by bank
 	List<Subscriber> getAll(int clientId);
+
+	List<SubscriberDTO> getTopTen(int clientId);
 	
 	void update(String subscriberId, Subscriber subscriber);
 	
