@@ -41,8 +41,8 @@ public class AdminServiceImpl implements AdminService {
 		this.currencyRepository = currencyRepository;
 		this.billRepository = billRepository;
 		this.subscriberRepository = subscriberRepository;
-		this.userRepository = userRepository;
 		this.addressRepository = addressRepository;
+		this.userRepository = userRepository;
 		this.passwordEncoder = passwordEncoder;
 	}
 	
@@ -54,6 +54,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void create(Client client) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepository.create(client);
 	}
 	
@@ -183,11 +184,13 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int adminId, Admin admin) {
+		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
 		adminRepository.update(adminId, admin);
 	}
 	
 	@Override
 	public void update(int clientId, Client client) {
+		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		clientRepository.update(clientId, client);
 	}
 	
