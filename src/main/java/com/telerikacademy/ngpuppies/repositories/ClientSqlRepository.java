@@ -22,13 +22,6 @@ public class ClientSqlRepository implements ClientRepository {
     }
 
 
-
-
-    //TODO: implement SQL querry
-    public List<Subscriber> getTopTenSubscribers(int userId) {
-        return null;
-    }
-
     @Override
     public void payBill(int billId) {
         try (Session session = factory.openSession()) {

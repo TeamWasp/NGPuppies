@@ -7,6 +7,7 @@ import com.telerikacademy.ngpuppies.models.User;
 import com.telerikacademy.ngpuppies.repositories.base.BillRepository;
 import com.telerikacademy.ngpuppies.repositories.base.ClientRepository;
 import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
+import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,7 @@ public class ClientServiceImpl implements ClientService {
         this.repository = repository;
         this.billRepository = billRepository;
         this.subscriberRepository = subscriberRepository;
+
     }
 
     @Override
@@ -34,9 +36,10 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public List<Subscriber> getTopTenSubscribers(int userId) {
-        return repository.getTopTenSubscribers(userId);
+    public List<SubscriberDTO> getTopTenSubscribers(int userId) {
+        return subscriberRepository.getTopTen(userId);
     }
+
 
     @Override
     public void payBill(int billId){
