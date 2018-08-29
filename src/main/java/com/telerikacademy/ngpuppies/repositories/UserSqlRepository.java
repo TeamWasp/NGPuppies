@@ -4,6 +4,7 @@ import com.telerikacademy.ngpuppies.models.User;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -82,5 +83,19 @@ public class UserSqlRepository implements GenericRepository<User> {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+
+	public User getByUsername(String username) {
+		User user = null;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			user = session.createQuery("from users u where u.username = :username", User.class)
+					.setParameter("username",username)
+					.getSingleResult();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return user;
 	}
 }
