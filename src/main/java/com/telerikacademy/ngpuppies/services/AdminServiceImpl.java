@@ -19,7 +19,7 @@ public class AdminServiceImpl implements AdminService {
 	private GenericRepository<Currency> currencyRepository;
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
-	private GenericRepository<User> userRepository;
+	private UserRepository userRepository;
 	private GenericRepository<Address> addressRepository;
 	private PasswordEncoder passwordEncoder;
 	
@@ -31,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
 			GenericRepository<Currency> currencyRepository,
 			BillRepository billRepository,
 			SubscriberRepository subscriberRepository,
-			GenericRepository<User> userRepository,
+			UserRepository userRepository,
 			GenericRepository<Address> addressRepository,
 			PasswordEncoder passwordEncoder
 	) {
@@ -80,23 +80,17 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public Admin getAdminById(int adminId) {
-		Admin admin = adminRepository.getById(adminId);
-		admin.setPassword("");
-		return admin;
+		return adminRepository.getById(adminId);
 	}
 	
 	@Override
 	public Client getClientById(int clientId) {
-		Client client = clientRepository.getById(clientId);
-		client.setPassword("");
-		return client;
+		return clientRepository.getById(clientId);
 	}
 	
 	@Override
 	public User getUserById(int userId) {
-		User user = userRepository.getById(userId);
-		user.setPassword("");
-		return user;
+		return userRepository.getById(userId);
 	}
 	
 	@Override
@@ -121,35 +115,17 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public List<Admin> getAllAdmins() {
-		List<Admin> admins = adminRepository.getAll();
-		for (Admin admin : admins)
-		{
-			admin.setPassword("");
-		}
-		
-		return admins;
+		return adminRepository.getAll();
 	}
 	
 	@Override
 	public List<Client> getAllClients() {
-		List<Client> clients = clientRepository.getAll();
-		for (Client client : clients)
-		{
-			client.setPassword("");
-		}
-		
-		return clients;
+		return clientRepository.getAll();
 	}
 	
 	@Override
 	public List<User> getAllUsers() {
-		List<User> users = userRepository.getAll();
-		for (User user : users)
-		{
-			user.setPassword("");
-		}
-		
-		return users;
+		return userRepository.getAll();
 	}
 	
 	@Override
@@ -250,5 +226,4 @@ public class AdminServiceImpl implements AdminService {
 	public void deleteSubscriber(String subscriberId) {
 		subscriberRepository.delete(subscriberId);
 	}
-	
 }
