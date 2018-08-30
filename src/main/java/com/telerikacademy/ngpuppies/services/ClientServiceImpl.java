@@ -27,6 +27,8 @@ public class ClientServiceImpl implements ClientService {
     private UserSqlRepository userSqlRepository;
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
+    @Autowired
+    private UserSqlRepository userRepository;
 
     @Autowired
     public ClientServiceImpl(ClientRepository repository, BillRepository billRepository, SubscriberRepository subscriberRepository, UserSqlRepository userSqlRepository) {
@@ -38,29 +40,8 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    //TODO: IMPLEMENT THIS AUTHENTICATION FOR ALL METHODS!
-    //TODO: Think of a way to implement once instead of copypasting into every method
-    public List<Subscriber> getAllSubscribers(int userId, HttpServletRequest req) {
-        String header = req.getHeader(HEADER_STRING);
-        String authToken = null;
-        String username = null;
-        if (header.startsWith(TOKEN_PREFIX)) {
-            authToken = header.replace(TOKEN_PREFIX, "");
-            try {
-                username = jwtTokenUtil.getUsernameFromToken(authToken);
-            } catch (IllegalArgumentException e) {
-                System.out.println(e.getMessage());
-            }
-            String authUsername = userSqlRepository.getById(userId).getUsername();
-            if(username.equals(authUsername)){
-                return subscriberRepository.getAll(userId);
-            }
-            else{
-                return null;
-            }
-
-        }
-        return null;
+    public List<Subscriber> getAllSubscribers(int userId) {
+        return subscriberRepository.getAll(userId);
     }
 
     @Override
@@ -70,8 +51,13 @@ public class ClientServiceImpl implements ClientService {
 
 
     @Override
-    public void payBill(int billId) {
-        repository.payBill(billId);
+    public void payBill(int billId, HttpServletRequest req) {
+        if (billRepository.getById(billId).getSubscriber().getBank().getUserId() == getIdFromToken(req)) {
+            repository.payBill(billId);
+        }
+        else{
+            System.out.printf("unauthurized to pay");
+        }
     }
 
     /*@Override
@@ -92,5 +78,23 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public List<Bill> getUnpaidBills(int userId) {
         return this.billRepository.getUnpaidBills(userId);
+    }
+
+    public int getIdFromToken(HttpServletRequest req) {
+        String header = req.getHeader(HEADER_STRING);
+        String authToken;
+        String username = null;
+        if (header.startsWith(TOKEN_PREFIX)) {
+            authToken = header.replace(TOKEN_PREFIX, "");
+            try {
+                username = jwtTokenUtil.getUsernameFromToken(authToken);
+            } catch (IllegalArgumentException e) {
+                System.out.println(e.getMessage());
+            }
+            return userRepository.getByUsername(username).getUserId();
+        } else {
+            System.out.println("invalid token prefix");
+            throw new NullPointerException();
+        }
     }
 }
