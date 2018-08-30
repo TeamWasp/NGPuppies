@@ -1,4 +1,4 @@
-package com.telerikacademy.ngpuppies.models;
+package com.telerikacademy.ngpuppies.security.models;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -6,12 +6,13 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import java.io.Serializable;
 
 public class LoginUser implements Serializable {
-    @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
-
+    
     private String username;
     private String password;
-
+    
+    @Autowired
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
     public LoginUser() {
     }
 

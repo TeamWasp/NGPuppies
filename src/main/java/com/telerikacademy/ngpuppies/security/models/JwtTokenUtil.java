@@ -1,14 +1,10 @@
-package com.telerikacademy.ngpuppies.security;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
+package com.telerikacademy.ngpuppies.security.models;
 
 import com.telerikacademy.ngpuppies.models.Role;
 import com.telerikacademy.ngpuppies.models.User;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
-import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 
@@ -18,10 +14,9 @@ import java.util.function.Function;
 
 import static com.telerikacademy.ngpuppies.security.Constants.*;
 
-
-
 @Component
 public class JwtTokenUtil implements Serializable {
+    
     public String getUsernameFromToken(String token) {
         return getAllClaimsFromToken(token).getSubject();
     }
@@ -52,7 +47,6 @@ public class JwtTokenUtil implements Serializable {
     }
 
     private String doGenerateToken(String subject, Role role) {
-
         Claims claims = Jwts.claims().setSubject(subject);
         claims.put("scopes", Arrays.asList(role.getName().toString()));
 
@@ -71,5 +65,4 @@ public class JwtTokenUtil implements Serializable {
                 username.equals(userDetails.getUsername())
                         && !isTokenExpired(token));
     }
-
 }

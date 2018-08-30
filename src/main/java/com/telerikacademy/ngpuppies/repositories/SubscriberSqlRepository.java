@@ -2,8 +2,8 @@ package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Client;
 import com.telerikacademy.ngpuppies.models.Subscriber;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.repositories.base.SubscriberRepository;
-import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;

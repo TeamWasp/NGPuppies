@@ -1,4 +1,4 @@
-package com.telerikacademy.ngpuppies.repositories.dto;
+package com.telerikacademy.ngpuppies.models.dto;
 
 public class SubscriberDTO {
     private String phoneNumber;

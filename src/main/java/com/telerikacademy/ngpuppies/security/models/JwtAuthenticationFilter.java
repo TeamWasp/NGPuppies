@@ -1,6 +1,5 @@
-package com.telerikacademy.ngpuppies.security;
+package com.telerikacademy.ngpuppies.security.models;
 
-import com.telerikacademy.ngpuppies.security.JwtTokenUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;

@@ -10,7 +10,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-// Note: Here maybe we need to use User instead of Admin in order for the Admin to be able to manage not only Admin(s) but also Client(s)
 @Repository
 public class AdminSqlRepository implements GenericRepository<Admin> {
 	

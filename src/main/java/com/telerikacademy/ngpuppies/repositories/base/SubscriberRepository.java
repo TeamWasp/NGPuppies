@@ -1,7 +1,7 @@
 package com.telerikacademy.ngpuppies.repositories.base;
 
 import com.telerikacademy.ngpuppies.models.Subscriber;
-import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 
 import java.util.List;
 
