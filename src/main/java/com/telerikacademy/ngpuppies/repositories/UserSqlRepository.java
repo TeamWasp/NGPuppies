@@ -1,10 +1,9 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.User;
-import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
+import com.telerikacademy.ngpuppies.repositories.base.UserRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -12,7 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class UserSqlRepository implements GenericRepository<User> {
+public class UserSqlRepository implements UserRepository {
 	
 	private SessionFactory factory;
 	
@@ -84,7 +83,8 @@ public class UserSqlRepository implements GenericRepository<User> {
 			System.out.println(ex.getMessage());
 		}
 	}
-
+	
+	@Override
 	public User getByUsername(String username) {
 		User user = null;
 		try (Session session = factory.openSession()) {
