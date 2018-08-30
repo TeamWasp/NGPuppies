@@ -284,11 +284,15 @@ public class AdminController {
 			@RequestParam(value = "startDate") String startDateString,
 			@RequestParam(value = "endDate") String endDateString) throws ParseException
 	{
-		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-		Date startDate = format.parse(startDateString);
-		Date endDate = format.parse(endDateString);
-		
-		return service.getAllBills(startDate, endDate);
+		try {
+			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+			Date startDate = format.parse(startDateString);
+			Date endDate = format.parse(endDateString);
+			return service.getAllBills(startDate, endDate);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return null;
 	}
 	
 	@GetMapping("/bills/{id}")
