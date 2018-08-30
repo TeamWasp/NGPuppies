@@ -8,6 +8,7 @@ import com.telerikacademy.ngpuppies.services.base.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 @RestController
@@ -22,8 +23,8 @@ public class ClientController {
     }
 
     @GetMapping("/{id}")
-    public List<Subscriber> getAllSubscribers(@PathVariable("id") String idString) {
-        return service.getAllSubscribers(Integer.parseInt(idString));
+    public List<Subscriber> getAllSubscribers(@PathVariable("id") String idString, HttpServletRequest request) {
+        return service.getAllSubscribers(Integer.parseInt(idString),request);
     }
 
     @GetMapping("/top/{id}")
