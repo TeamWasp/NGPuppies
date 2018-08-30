@@ -2,60 +2,76 @@ package com.telerikacademy.ngpuppies.controllers;
 
 import com.telerikacademy.ngpuppies.models.Bill;
 import com.telerikacademy.ngpuppies.models.Subscriber;
-import com.telerikacademy.ngpuppies.repositories.SubscriberSqlRepository;
-import com.telerikacademy.ngpuppies.repositories.UserSqlRepository;
-import com.telerikacademy.ngpuppies.repositories.dto.SubscriberDTO;
+import com.telerikacademy.ngpuppies.models.User;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
+import com.telerikacademy.ngpuppies.security.services.base.TokenService;
 import com.telerikacademy.ngpuppies.services.base.ClientService;
+import com.telerikacademy.ngpuppies.services.base.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-import com.telerikacademy.ngpuppies.security.JwtTokenUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
-
-import static com.telerikacademy.ngpuppies.security.Constants.HEADER_STRING;
-import static com.telerikacademy.ngpuppies.security.Constants.TOKEN_PREFIX;
 
 
 @RestController
 @RequestMapping("api/client")
 public class ClientController {
-    private ClientService service;
-    private SubscriberSqlRepository subscriberSqlRepository;
-    @Autowired
-    private JwtTokenUtil jwtTokenUtil;
-
-
+    
+    private ClientService clientService;
+    private UserService userService;
+    private TokenService<HttpServletRequest> tokenService;
 
     @Autowired
-    public ClientController(ClientService service) {
-        this.service = service;
+    public ClientController(ClientService clientService, UserService userService,TokenService<HttpServletRequest> tokenService) {
+        this.clientService = clientService;
+        this.userService = userService;
+        this.tokenService = tokenService;
     }
 
     @GetMapping("/subs")
     public List<Subscriber> getAllSubscribers(HttpServletRequest request) {
-        return service.getAllSubscribers(service.getIdFromToken(request));
+        String username = tokenService.getUsernameFromToken(request);
+        User user = userService.getByUsername(username);
+        int userId = user.getUserId();
+        
+        return clientService.getAllSubscribers(userId);
     }
 
     @GetMapping("/top")
     public List<SubscriberDTO> getTopTenSubscribers(HttpServletRequest request) {
-        return service.getTopTenSubscribers(service.getIdFromToken(request));
+        String username = tokenService.getUsernameFromToken(request);
+        User user = userService.getByUsername(username);
+        int userId = user.getUserId();
+        
+        return clientService.getTopTenSubscribers(userId);
     }
 
     @PutMapping("/pay/{id}")
     public void payBill(@PathVariable("id") String idString, HttpServletRequest req) {
-        service.payBill(Integer.parseInt(idString),req);
+        try {
+            int clientId = Integer.parseInt(idString);
+            clientService.payBill(clientId,req);
+        } catch (Exception ex) {
+            System.out.println(ex.getMessage());
+        }
     }
 
     @GetMapping("/bills")
     public List<Bill> getAllBills(HttpServletRequest request) {
-        return service.getAllBills(service.getIdFromToken(request));
+        String username = tokenService.getUsernameFromToken(request);
+        User user = userService.getByUsername(username);
+        int userId = user.getUserId();
+        
+        return clientService.getAllBills(userId);
     }
 
     @GetMapping("/bills/unpaid")
     public List<Bill> getUnpaidBills(HttpServletRequest request) {
-        return service.getUnpaidBills(service.getIdFromToken(request));
+        String username = tokenService.getUsernameFromToken(request);
+        User user = userService.getByUsername(username);
+        int userId = user.getUserId();
+        
+        return clientService.getUnpaidBills(userId);
     }
-
-
 }
