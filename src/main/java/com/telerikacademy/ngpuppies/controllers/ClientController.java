@@ -31,9 +31,7 @@ public class ClientController {
 
     @GetMapping("/subs")
     public List<Subscriber> getAllSubscribers(HttpServletRequest request) {
-        String username = tokenService.getUsernameFromToken(request);
-        User user = userService.getByUsername(username);
-        int userId = user.getUserId();
+        int userId = userService.getIdByUsername(tokenService.getUsernameFromToken(request));
         
         return clientService.getAllSubscribers(userId);
     }

@@ -70,4 +70,11 @@ public class ClientServiceImpl implements ClientService {
     public List<Bill> getUnpaidBills(int userId) {
         return this.billRepository.getUnpaidBills(userId);
     }
+
+    @Override
+    public List<Bill> getPaymentHistory(int userId) {
+        return this.billRepository.getPaymentHistory(userId);
+    }
+
+
 }

@@ -13,4 +13,6 @@ public interface BillRepository extends GenericRepository<Bill> {
 
 	List<Bill> getUnpaidBills(int userId);
 
+	List<Bill> getPaymentHistory(int userId);
+
 }

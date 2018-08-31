@@ -13,4 +13,5 @@ public interface ClientService {
     void payBill(int billId, HttpServletRequest req);
     List<Bill> getAllBills(int userId);
     List<Bill> getUnpaidBills(int userId);
+    List<Bill> getPaymentHistory(int userId);
 }

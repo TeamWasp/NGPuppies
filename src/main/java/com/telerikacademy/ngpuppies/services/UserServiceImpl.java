@@ -15,18 +15,23 @@ public class UserServiceImpl implements UserService, UserDetailsService {
 
     @Autowired
     private UserSqlRepository userRepository;
-    
+
     public UserServiceImpl(UserSqlRepository userRepository) {
         this.userRepository = userRepository;
     }
-    
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return userRepository.getByUsername(username);
     }
-    
+
     @Override
     public User getByUsername(String username) {
         return userRepository.getByUsername(username);
+    }
+
+    @Override
+    public int getIdByUsername(String username) {
+        return userRepository.getIdByUsername(username);
     }
 }

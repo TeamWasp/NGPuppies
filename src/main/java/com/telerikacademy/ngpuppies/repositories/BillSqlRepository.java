@@ -141,4 +141,23 @@ public class BillSqlRepository implements BillRepository {
 			System.out.println(ex.getMessage());
 		}
 	}
+
+	public List<Bill> getPaymentHistory(int userId) {
+		List<Bill> bills = new ArrayList<>();
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			String query = "select b from Bill as b " +
+					"join Subscriber as s on b.subscriber.phoneNumber = s.phoneNumber " +
+					"join Client as c on s.bank.userId = c.userId " +
+					"where s.bank.userId = :bankId and b.paymentDate is not NULL " +
+					"order by b.paymentDate DESC";
+			bills = session.createQuery(query)
+					.setParameter("bankId", userId)
+					.list();
+			session.getTransaction().commit();
+		} catch (Exception e) {
+			System.out.println(e.getMessage());
+		}
+		return bills;
+	}
 }
