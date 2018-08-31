@@ -11,7 +11,10 @@ public class BillDTO {
     private String phoneNumber;
     private String service;
     private double amount;
-    private Currency currency;
+    private String currency;
+    private double avg;
+    private double max;
+    private double summ;
     private Date startDate;
     private Date endDate;
     private Date paymentDate;
@@ -20,13 +23,6 @@ public class BillDTO {
 
     }
 
-    public int getBillId() {
-        return billId;
-    }
-
-    public void setBillId(int billId) {
-        this.billId = billId;
-    }
 
     public String getFirstName() {
         return firstName;
@@ -52,12 +48,60 @@ public class BillDTO {
         this.phoneNumber = phoneNumber;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
+
+    public Double getAvg() {
+        return avg;
+    }
+
+    public void setAvg(Double avg) {
+        this.avg = avg;
+    }
+
+    public Double getMax() {
+        return max;
+    }
+
+    public void setMax(Double max) {
+        this.max = max;
+    }
+
+    public Date getPaymentDate() {
+        return paymentDate;
+    }
+
+    public void setPaymentDate(Date paymentDate) {
+        this.paymentDate = paymentDate;
+    }
+
+    public Double getSumm() {
+        return summ;
+    }
+
+    public void setSumm(Double summ) {
+        this.summ = summ;
+    }
+
     public String getService() {
         return service;
     }
 
     public void setService(String service) {
         this.service = service;
+    }
+
+    public int getBillId() {
+        return billId;
+    }
+
+    public void setBillId(int billId) {
+        this.billId = billId;
     }
 
     public double getAmount() {
@@ -68,12 +112,12 @@ public class BillDTO {
         this.amount = amount;
     }
 
-    public Currency getCurrency() {
-        return currency;
+    public Date getEndDate() {
+        return endDate;
     }
 
-    public void setCurrency(Currency currency) {
-        this.currency = currency;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
     public Date getStartDate() {
@@ -83,21 +127,4 @@ public class BillDTO {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
-
-    public Date getEndDate() {
-        return endDate;
-    }
-
-    public void setEndDate(Date endDate) {
-        this.endDate = endDate;
-    }
-
-    public Date getPaymentDate() {
-        return paymentDate;
-    }
-
-    public void setPaymentDate(Date paymentDate) {
-        this.paymentDate = paymentDate;
-    }
 }
-
