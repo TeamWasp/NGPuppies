@@ -38,6 +38,9 @@ public class User implements UserDetails {
     
     @Column(name = "enabled")
     private boolean enabled;
+
+    @Column(name= "isFirstLogin")
+    private boolean isFirstLogin;
     
     public User() {
     }
@@ -116,7 +119,15 @@ public class User implements UserDetails {
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
-    
+
+    public boolean isFirstLogin() {
+        return isFirstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        isFirstLogin = firstLogin;
+    }
+
     @Override
     public String toString() {
         return "User{" +

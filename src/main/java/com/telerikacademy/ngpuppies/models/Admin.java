@@ -12,6 +12,7 @@ public class Admin extends User {
 	@Email
 	@Column(name = "EmailAddress")
 	private String emailAddress;
+
 	
 	public Admin() {}
 	
