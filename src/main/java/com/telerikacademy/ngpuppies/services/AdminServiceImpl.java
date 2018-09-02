@@ -49,6 +49,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void create(Admin admin) {
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		admin.setFirstLogin(true);
 		adminRepository.create(admin);
 	}
 	
