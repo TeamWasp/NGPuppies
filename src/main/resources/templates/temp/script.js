@@ -1,10 +1,11 @@
 $(document).ready(function() {
 
-    let auth = null;
+    var auth = null;
+    var role = null;
     $('#login-button').click(function (ev) {
         ev.preventDefault();
-        let username = $('#username').val();
-        let password = $('#password').val();
+        var username = $('#username').val();
+        var password = $('#password').val();
 
         $.ajax({
             type: 'POST',
@@ -18,9 +19,9 @@ $(document).ready(function() {
             })
         }).done(function (body) {
             auth = body["token"];
+            role = body["role"];
             localStorage.setItem("token", auth);
-            window.location.href = "D:/Projects/NGPuppies/src/main/resources/templates/home.html";
-    
+            localStorage.setItem("role", role);
         });
     });
 

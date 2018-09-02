@@ -65,13 +65,13 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                         "select username,password, enabled  from users where username=? COLLATE latin1_general_cs")
                 .authoritiesByUsernameQuery(
                         "select\n" +
-                                "\n" +
-                                "a.Username,\n" +
-                                "b.name as role\n" +
-                                "\n" +
-                                "from users as a\n" +
-                                "inner join roles as b\n" +
-                                "on a.roleId = b.roleId where username=?");
+                        "\n" +
+                        "a.Username,\n" +
+                        "b.name as role\n" +
+                        "\n" +
+                        "from users as a\n" +
+                        "inner join roles as b\n" +
+                        "on a.roleId = b.roleId where username=?");
     }
 
     @Override
@@ -83,13 +83,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/client/**").hasRole("USER")
                 .antMatchers("/admin/**").hasRole("ADMIN")
                 .antMatchers("/api/admin/**").hasRole("ADMIN")
-                //.antMatchers("/admin/admins/**").hasIpAddress("127.0.0.1")
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/login")
+                /*.loginPage("/login")
                 .loginProcessingUrl("/authenticateUser")
-                /*.defaultSuccessUrl("/home")*/
+                *//*.defaultSuccessUrl("/home")*/
                 .and()
                 .logout()
                 .and()
