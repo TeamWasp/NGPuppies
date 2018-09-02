@@ -55,7 +55,7 @@ public class ClientController {
         return clientService.getTopTenSubscribers(userId);
     }
 
-    @PutMapping("/pay")
+    @PutMapping("/bills/pay")
     public void payBills(@RequestBody List<String> billsId, HttpServletRequest req) {
         try {
             clientService.payMultipleBills(billsId, req);

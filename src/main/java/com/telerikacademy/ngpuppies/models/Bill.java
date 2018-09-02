@@ -113,7 +113,7 @@ public class Bill {
     
     public double getAmount() {
 
-        return amount*currency.getExchangeRate();
+        return amount;
 
     }
     

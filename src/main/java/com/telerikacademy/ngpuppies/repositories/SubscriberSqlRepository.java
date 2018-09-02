@@ -84,7 +84,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	    try (Session session = factory.openSession()){
 	        session.beginTransaction();
 	        String query = "select b.subscriber.phoneNumber as phoneNumber, b.subscriber.firstName as firstName, b.subscriber.lastName as lastName, " +
-                    "sum(b.amount*(case when b.currency.currency != 'bgn'" +
+                    "sum(b.amount*(case when b.currency.currency != 'BGN'" +
                     "then  b.currency.exchangeRate else 1 end)) as sumAmount "+
                     "from Bill as b " +
                     "where b.subscriber.bank.userId = :bankId and b.paymentDate is Not NULL "+
