@@ -227,4 +227,12 @@ public class AdminServiceImpl implements AdminService {
 	public void deleteSubscriber(String subscriberId) {
 		subscriberRepository.delete(subscriberId);
 	}
+
+	public void changePassword(int adminId, String newPassword){
+		Admin admin = adminRepository.getById(adminId);
+		admin.setFirstLogin(false);
+		admin.setPassword(passwordEncoder.encode(newPassword));
+		adminRepository.update(adminId,admin);
+	}
+
 }

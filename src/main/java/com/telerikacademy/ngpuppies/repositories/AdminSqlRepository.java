@@ -74,6 +74,9 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 			if (updateAdmin.isEnabled() && updateAdmin.isEnabled() != admin.isEnabled()) {
 				admin.setEnabled(updateAdmin.isEnabled());
 			}
+			if (admin.isFirstLogin()){
+				admin.setFirstLogin(updateAdmin.isFirstLogin());
+			}
 			//admin.setRole(updateAdmin.getRole());
 			session.getTransaction().commit();
 		} catch (Exception ex) {

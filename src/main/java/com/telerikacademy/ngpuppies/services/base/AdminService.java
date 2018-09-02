@@ -83,4 +83,7 @@ public interface AdminService {
 	void deleteBill(int billId);
 	
 	void deleteSubscriber(String subscriberId);
+
+	// other
+	void changePassword(int adminId, String newPassword);
 }

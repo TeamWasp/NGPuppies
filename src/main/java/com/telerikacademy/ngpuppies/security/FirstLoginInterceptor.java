@@ -27,18 +27,6 @@ public class FirstLoginInterceptor implements HandlerInterceptor {
     @Override
     public boolean preHandle(HttpServletRequest req, HttpServletResponse res, Object handler) throws IOException {
         User user = userService.getByUsername(tokenService.getUsernameFromToken(req));
-        if(user.isFirstLogin()){
-            return false;
-        }
-
-
-
-
-
-
-
-
-
-        return true;
+        return !user.isFirstLogin();
     }
 }
