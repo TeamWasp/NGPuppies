@@ -56,6 +56,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void create(Client client) {
 		client.setPassword(passwordEncoder.encode(client.getPassword()));
+		client.setEnabled(true);
 		clientRepository.create(client);
 	}
 	
@@ -167,7 +168,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int clientId, Client client) {
-		client.setPassword(passwordEncoder.encode(client.getPassword()));
+		if(client.getPassword() != "") {
+			client.setPassword(passwordEncoder.encode(client.getPassword()));
+		}
 		clientRepository.update(clientId, client);
 	}
 	

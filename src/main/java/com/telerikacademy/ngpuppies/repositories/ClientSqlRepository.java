@@ -32,11 +32,7 @@ public class ClientSqlRepository implements ClientRepository {
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
         }
-
     }
-
-
-
 
     @Override
     public void create(Client client) {
@@ -80,11 +76,15 @@ public class ClientSqlRepository implements ClientRepository {
         try (Session session = factory.openSession()) {
             session.beginTransaction();
             Client client = session.get(Client.class, clientId);
-            client.setUsername(updateClient.getUsername());
-            client.setPassword(updateClient.getPassword());
-            client.setEnabled(updateClient.isEnabled());
-            client.setEik(updateClient.getEik());
-            //client.setRole(updateClient.getRole());
+            if(updateClient.getUsername() != null) {
+                client.setUsername(updateClient.getUsername());
+            }
+            if(updateClient.getPassword() != "") {
+                client.setPassword(updateClient.getPassword());
+            }
+            if(updateClient.getEik() != null) {
+                client.setEik(updateClient.getEik());
+            }
             session.getTransaction().commit();
         } catch (Exception ex) {
             System.out.println(ex.getMessage());
