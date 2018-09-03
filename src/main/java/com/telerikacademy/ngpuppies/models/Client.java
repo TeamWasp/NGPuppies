@@ -1,6 +1,10 @@
 package com.telerikacademy.ngpuppies.models;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.telerikacademy.ngpuppies.serializers.ClientSerializer;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +13,7 @@ import java.util.List;
 
 @Entity
 @DiscriminatorValue("2")
+//@JsonSerialize(using= ClientSerializer.class)
 public class Client extends User {
 	
 	@Size(min=10, max = 15)
@@ -16,7 +21,8 @@ public class Client extends User {
 	private String eik;
 	
 	@OneToMany(mappedBy = "bank",fetch = FetchType.EAGER)
-	@JsonBackReference // Prevents from infinite loops in Json (one class calls a second and the second calls the first infinitely)
+	@JsonIgnore // Prevents error messages when updating client from REST API
+	//@JsonBackReference // Prevents from infinite loops in Json (one class calls a second and the second calls the first infinitely)
 	private List<Subscriber> subscribers;
 	
 	public Client() {}
