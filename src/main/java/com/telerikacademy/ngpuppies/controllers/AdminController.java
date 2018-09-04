@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.controllers;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.BillDTO;
 import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -318,11 +319,11 @@ public class AdminController {
 	}
 	
 	@PostMapping("/bills/createBill")
-	public void createBill(@RequestBody Bill newBill) {
+	public void createBill(@RequestBody BillDTO newBill) {
 		this.service.create(newBill);
 	}
 	
-	@PutMapping("/bills/updateBill/{id}")
+	/*@PutMapping("/bills/updateBill/{id}")
 	public void updateBill(
 			@PathVariable(value = "id") String billIdString,
 			@RequestBody Bill updateBill)
@@ -333,7 +334,7 @@ public class AdminController {
 		} catch (Exception ex) {
 			System.out.printf("Bill Id \"%s\" is incorrectly typed!", billIdString);
 		}
-	}
+	}*/
 	
 	@DeleteMapping("/bills/deleteBill/{id}")
 	public void deleteBill(@PathVariable("id") String billIdString) {

@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.services;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.BillDTO;
 import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.repositories.base.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
@@ -17,7 +18,7 @@ public class AdminServiceImpl implements AdminService {
 	private GenericRepository<Admin> adminRepository;
 	private GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository;
 	private ClientRepository clientRepository;
-	private GenericRepository<Currency> currencyRepository;
+	private CurrencyRepository currencyRepository;
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
 	private UserRepository userRepository;
@@ -29,7 +30,7 @@ public class AdminServiceImpl implements AdminService {
 			GenericRepository<Admin> adminRepository,
 			GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository,
 			ClientRepository clientRepository,
-			GenericRepository<Currency> currencyRepository,
+			CurrencyRepository currencyRepository,
 			BillRepository billRepository,
 			SubscriberRepository subscriberRepository,
 			UserRepository userRepository,
@@ -73,7 +74,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void create(Bill bill) {
+	public void create(BillDTO billDto) {
+		int serviceId = billDto.getServiceId();
+		String phoneNumber = billDto.getPhoneNumber();
+		Date startDate = billDto.getStartDate();
+		Date endDate = billDto.getEndDate();
+		double amount = billDto.getAmount();
+		String currencyName = billDto.getCurrency();
+		
+		com.telerikacademy.ngpuppies.models.Service serviceDb = null;
+		Subscriber subscriberDb = null;
+		Currency currencyDb = null;
+		try {
+			serviceDb = serviceRepository.getById(serviceId);
+			subscriberDb = subscriberRepository.getById(phoneNumber);
+			currencyDb = currencyRepository.getByName(currencyName);
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		
+		Bill bill = new Bill(serviceDb, subscriberDb, currencyDb, startDate, endDate, amount, null);
+		
 		billRepository.create(bill);
 	}
 	
@@ -226,10 +247,10 @@ public class AdminServiceImpl implements AdminService {
 		currencyRepository.update(currencyId, currency);
 	}
 	
-	@Override
+	/*@Override
 	public void update(int billId, Bill bill) {
 		billRepository.update(billId, bill);
-	}
+	}*/
 	
 	@Override
 	public void update(String subscriberId, SubscriberDTO subscriberDto) {
