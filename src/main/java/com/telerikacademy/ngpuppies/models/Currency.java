@@ -30,6 +30,10 @@ public class Currency {
         this.currencyId = currencyId;
     }
     
+    public Currency(String currency) {
+        this.currency = currency;
+    }
+    
     public Currency(String currency, double exchangeRate) {
         this.currency = currency;
         this.exchangeRate = exchangeRate;

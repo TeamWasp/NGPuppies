@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.services.base;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.BillDTO;
 import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 
 import java.util.Date;
@@ -17,7 +18,7 @@ public interface AdminService {
 	
 	void create(Currency currency);
 	
-	void create(Bill bill);
+	void create(BillDTO bill);
 	
 	void create(SubscriberDTO subscriber);
 	
@@ -68,7 +69,7 @@ public interface AdminService {
 	
 	void update(int currencyId, Currency currency);
 	
-	void update(int billId, Bill bill);
+	/*void update(int billId, Bill bill);*/
 	
 	void update(String subscriberId, SubscriberDTO subscriber);
 	

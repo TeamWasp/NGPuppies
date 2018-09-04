@@ -1,9 +1,11 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Currency;
+import com.telerikacademy.ngpuppies.repositories.base.CurrencyRepository;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class CurrencySqlRepository implements GenericRepository<Currency> {
+public class CurrencySqlRepository implements CurrencyRepository {
 	
 	private SessionFactory factory;
 	
@@ -37,6 +39,21 @@ public class CurrencySqlRepository implements GenericRepository<Currency> {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			currency = session.get(Currency.class, currencyId);
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return currency;
+	}
+	
+	@Override
+	public Currency getByName(String name) {
+		Currency currency = null;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Currency as a where a.currency = :name")
+					.setParameter("name",name);
+			currency = (Currency) query.uniqueResult();
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());

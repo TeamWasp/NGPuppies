@@ -10,6 +10,7 @@ public class BillDTO {
     private String lastName;
     private String phoneNumber;
     private String service;
+    private int serviceId;
     private double amount;
     private String currency;
     private double avg;
@@ -22,8 +23,15 @@ public class BillDTO {
     public BillDTO() {
 
     }
-
-
+    
+    public int getServiceId() {
+        return serviceId;
+    }
+    
+    public void setServiceId(int serviceId) {
+        this.serviceId = serviceId;
+    }
+    
     public String getFirstName() {
         return firstName;
     }

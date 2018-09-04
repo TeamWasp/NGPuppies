@@ -101,19 +101,17 @@ public class UserSqlRepository implements UserRepository {
 	}
 
 	@Override
-    public int getIdByUsername(String username) {
-        int id=0;
-        try (Session session = factory.openSession()) {
-            session.beginTransaction();
-            Query query = session.createQuery("select u.id from users u where u.username = :username")
-                    .setParameter("username",username);
-            id = (int) query.uniqueResult();
-            session.getTransaction().commit();
-        } catch (Exception ex) {
-            System.out.println(ex.getMessage());
-        }
-        return id;
-    }
-
-
+	public int getIdByUsername(String username) {
+			int id=0;
+			try (Session session = factory.openSession()) {
+					session.beginTransaction();
+					Query query = session.createQuery("select u.id from users u where u.username = :username")
+									.setParameter("username",username);
+					id = (int) query.uniqueResult();
+					session.getTransaction().commit();
+			} catch (Exception ex) {
+					System.out.println(ex.getMessage());
+			}
+			return id;
+	}
 }
