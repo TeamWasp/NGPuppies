@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.services.base;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 
 import java.util.Date;
 import java.util.List;
@@ -12,15 +13,13 @@ public interface AdminService {
 	
 	void create(Client client);
 	
-	//void create(User user);
-	
 	void create(Service service);
 	
 	void create(Currency currency);
 	
 	void create(Bill bill);
 	
-	void create(Subscriber subscriber);
+	void create(SubscriberDTO subscriber);
 	
 	// getById methods
 	Admin getAdminById(int adminId);
@@ -29,6 +28,8 @@ public interface AdminService {
 	
 	User getUserById(int userId);
 	
+	int getIdByUsername(String username);
+	
 	Service getServiceById(int serviceId);
 	
 	Currency getCurrencyById(int currencyId);
@@ -36,6 +37,8 @@ public interface AdminService {
 	Bill getBillById(int billId);
 	
 	Subscriber getSubscriberById(String subscriberId);
+	
+	SubscriberDTO loadSubscriberById(String subscriberId);
 	
 	// getAll methods
 	List<Admin> getAllAdmins();
@@ -67,7 +70,7 @@ public interface AdminService {
 	
 	void update(int billId, Bill bill);
 	
-	void update(String subscriberId, Subscriber subscriber);
+	void update(String subscriberId, SubscriberDTO subscriber);
 	
 	// delete methods
 	void deleteAdmin(int adminId);

@@ -1,5 +1,7 @@
 package com.telerikacademy.ngpuppies.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -11,6 +13,7 @@ public class Address {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "AddressID")
+//	@JsonBackReference
 	private int addressId;
 	
 	@NotNull
@@ -33,10 +36,25 @@ public class Address {
 	@Column(name = "Street")
 	private String street;
 	
+	@OneToOne(mappedBy = "address")
+	private Subscriber subscriber;
+	
 	public Address() {
 	}
 	
+	public Address(int addressId) {
+		this.addressId = addressId;
+	}
+	
 	public Address(String country, String city, String zipCode, String street) {
+		this.country = country;
+		this.city = city;
+		this.zipCode = zipCode;
+		this.street = street;
+	}
+	
+	public Address(int addressId, String country, String city, String zipCode, String street) {
+		this.addressId = addressId;
 		this.country = country;
 		this.city = city;
 		this.zipCode = zipCode;

@@ -1,9 +1,13 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Address;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
+import com.telerikacademy.ngpuppies.repositories.base.AddressRepository;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
+import org.hibernate.transform.Transformers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AddressSqlRepository implements GenericRepository<Address> {
+public class AddressSqlRepository implements AddressRepository {
 	private SessionFactory factory;
 	
 	@Autowired
@@ -41,6 +45,21 @@ public class AddressSqlRepository implements GenericRepository<Address> {
 			System.out.println(ex.getMessage());
 		}
 		return address;
+	}
+	
+	@Override
+	public int loadLast() {
+		int id = 0;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			String query = "select max(a.addressId) "+
+					"from Address as a";
+			id = (Integer) session.createQuery(query).getSingleResult();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return id;
 	}
 	
 	@Override

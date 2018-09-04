@@ -11,6 +11,8 @@ public interface SubscriberRepository {
 	
 	Subscriber getById(String subscriberId);
 	
+	SubscriberDTO loadById(String subscriberId);
+	
 	List<Subscriber> getAll();
 	
 	// get all by bank

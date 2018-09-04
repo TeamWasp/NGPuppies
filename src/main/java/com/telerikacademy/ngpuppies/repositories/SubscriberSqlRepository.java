@@ -49,6 +49,33 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 	}
 	
 	@Override
+	public SubscriberDTO loadById(String subscriberId) {
+		SubscriberDTO subscriberDTO = null;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			String query = "select b.phoneNumber as phoneNumber, " +
+					"b.firstName as firstName, " +
+					"b.lastName as lastName, " +
+					"b.egn as egn, " +
+					"b.address.country as country, " +
+					"b.address.city as city, " +
+					"b.address.zipCode as zipCode, " +
+					"b.address.street as street, " +
+					"b.bank.username as bank " +
+					"from Subscriber as b " +
+					"where b.phoneNumber = :subscriberId";
+			subscriberDTO = (SubscriberDTO) session.createQuery(query)
+					.setParameter("subscriberId", subscriberId)
+					.setResultTransformer(Transformers.aliasToBean(SubscriberDTO.class))
+					.getSingleResult();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return subscriberDTO;
+	}
+	
+	@Override
 	public List<Subscriber> getAll() {
 		List<Subscriber> subscribers = new ArrayList<>();
 		try (Session session = factory.openSession()) {
@@ -60,7 +87,7 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 		}
 		return subscribers;
 	}
-
+	
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Subscriber> getAll(int clientId) {
@@ -77,33 +104,33 @@ public class SubscriberSqlRepository implements SubscriberRepository {
 		}
 		return subscribers;
 	}
-
+	
 	@Override
 	public List<SubscriberDTO> getTopTen(int clientId){
-	    List<SubscriberDTO> subscribers = new ArrayList<>();
-	    try (Session session = factory.openSession()){
-	        session.beginTransaction();
-	        String query = "select b.subscriber.phoneNumber as phoneNumber, b.subscriber.firstName as firstName, b.subscriber.lastName as lastName, " +
-                    "sum(b.amount*(case when b.currency.currency != 'BGN'" +
-                    "then  b.currency.exchangeRate else 1 end)) as sumAmount "+
-                    "from Bill as b " +
-                    "where b.subscriber.bank.userId = :bankId and b.paymentDate is Not NULL "+
-                    "group by b.subscriber "+
-                    "order by sumAmount DESC";
-	        subscribers = session.createQuery(query)
-                    .setParameter("bankId",clientId)
-                    .setMaxResults(10)
-                    .setResultTransformer(Transformers.aliasToBean(SubscriberDTO.class))
-                    .list();
-	        session.getTransaction().commit();
-        }
-        catch (Exception ex){
-            System.out.println(ex.getMessage());
-        }
-        return subscribers;
-    }
-
-
+		List<SubscriberDTO> subscribers = new ArrayList<>();
+		try (Session session = factory.openSession()){
+			session.beginTransaction();
+			String query = "select b.subscriber.phoneNumber as phoneNumber, b.subscriber.firstName as firstName, b.subscriber.lastName as lastName, " +
+					"sum(b.amount*(case when b.currency.currency != 'BGN'" +
+					"then  b.currency.exchangeRate else 1 end)) as sumAmount "+
+					"from Bill as b " +
+					"where b.subscriber.bank.userId = :bankId and b.paymentDate is Not NULL "+
+					"group by b.subscriber "+
+					"order by sumAmount DESC";
+			subscribers = session.createQuery(query)
+					.setParameter("bankId",clientId)
+					.setMaxResults(10)
+					.setResultTransformer(Transformers.aliasToBean(SubscriberDTO.class))
+					.list();
+			session.getTransaction().commit();
+		}
+		catch (Exception ex){
+			System.out.println(ex.getMessage());
+		}
+		return subscribers;
+	}
+	
+	
 	
 	@Override
 	public void update(String subscriberId, Subscriber updateSubscriber) {

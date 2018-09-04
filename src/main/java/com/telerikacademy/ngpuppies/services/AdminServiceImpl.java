@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.services;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.repositories.base.*;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ public class AdminServiceImpl implements AdminService {
 	private BillRepository billRepository;
 	private SubscriberRepository subscriberRepository;
 	private UserRepository userRepository;
-	private GenericRepository<Address> addressRepository;
+	private AddressRepository addressRepository;
 	private PasswordEncoder passwordEncoder;
 	
 	@Autowired
@@ -32,7 +33,7 @@ public class AdminServiceImpl implements AdminService {
 			BillRepository billRepository,
 			SubscriberRepository subscriberRepository,
 			UserRepository userRepository,
-			GenericRepository<Address> addressRepository,
+			AddressRepository addressRepository,
 			PasswordEncoder passwordEncoder
 	) {
 		this.adminRepository = adminRepository;
@@ -49,6 +50,7 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public void create(Admin admin) {
 		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		admin.setEnabled(true);
 		admin.setFirstLogin(true);
 		adminRepository.create(admin);
 	}
@@ -76,8 +78,38 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void create(Subscriber subscriber) {
-		subscriberRepository.create(subscriber);
+	public void create(SubscriberDTO sub) {
+		
+		int userId = 0;
+		try {
+			userId = userRepository.getIdByUsername(sub.getBank());
+		} catch (Exception ex) {
+			System.out.println("No such bank exists!");
+		}
+		
+		Client bank = new Client(userId);
+		
+		String phoneNumber = sub.getPhoneNumber();
+		String firstName = sub.getFirstName();
+		String lastName = sub.getLastName();
+		String egn = sub.getEgn();
+		
+		Address address = new Address(sub.getCountry(), sub.getCity(), sub.getZipCode(), sub.getStreet());
+		if (subscriberRepository.getById(phoneNumber) != null) {
+			System.out.println("Subscriber already exits!");
+		}
+		else {
+			addressRepository.create(address);
+		}
+		
+		int addressId = addressRepository.loadLast();
+		
+		Subscriber subscriber = new Subscriber(phoneNumber, firstName, lastName, egn, new Address(addressId), bank);
+		try {
+			subscriberRepository.create(subscriber);
+		} catch (Exception ex) {
+			System.out.println("Subscriber already exists!");
+		}
 	}
 	
 	@Override
@@ -93,6 +125,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public User getUserById(int userId) {
 		return userRepository.getById(userId);
+	}
+	
+	@Override
+	public int getIdByUsername(String username) {
+		return userRepository.getIdByUsername(username);
 	}
 	
 	@Override
@@ -113,6 +150,11 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public Subscriber getSubscriberById(String subscriberId) {
 		return subscriberRepository.getById(subscriberId);
+	}
+	
+	@Override
+	public SubscriberDTO loadSubscriberById(String subscriberId) {
+		return subscriberRepository.loadById(subscriberId);
 	}
 	
 	@Override
@@ -168,7 +210,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int clientId, Client client) {
-		if(client.getPassword() != "") {
+		if(!client.getPassword().equals("")) {
 			client.setPassword(passwordEncoder.encode(client.getPassword()));
 		}
 		clientRepository.update(clientId, client);
@@ -190,10 +232,27 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
-	public void update(String subscriberId, Subscriber subscriber) {
-		Address address = subscriber.getAddress();
+	public void update(String subscriberId, SubscriberDTO subscriberDto) {
+		
+		String phoneNumber = subscriberDto.getPhoneNumber();
+		String firstName = subscriberDto.getFirstName();
+		String lastName = subscriberDto.getLastName();
+		String egn = subscriberDto.getEgn();
+		String country = subscriberDto.getCountry();
+		String city = subscriberDto.getCity();
+		String zipCode = subscriberDto.getZipCode();
+		String street = subscriberDto.getStreet();
+		String bank = subscriberDto.getBank();
+		
+		Subscriber subscriberDb = subscriberRepository.getById(phoneNumber);
+		int addressId = subscriberDb.getAddress().getAddressId();
+		int bankId = userRepository.getIdByUsername(bank);
+		
+		Client user = new Client(bankId);
+		Address address = new Address(addressId, country, city, zipCode, street);
+		Subscriber subscriber = new Subscriber(phoneNumber, firstName, lastName, egn, address, user);
+		addressRepository.update(addressId, address);
 		subscriberRepository.update(subscriberId, subscriber);
-		addressRepository.update(address.getAddressId(), address);
 	}
 	
 	@Override

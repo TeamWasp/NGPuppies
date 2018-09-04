@@ -24,7 +24,7 @@ public class Bill {
     @NotNull
     @ManyToOne
     @JoinColumn(name = "SubscriberID")
-    @JsonManagedReference
+    @JsonManagedReference(value = "subscriber")
     private Subscriber subscriber;
     
     @NotNull

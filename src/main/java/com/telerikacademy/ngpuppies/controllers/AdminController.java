@@ -1,6 +1,7 @@
 package com.telerikacademy.ngpuppies.controllers;
 
 import com.telerikacademy.ngpuppies.models.*;
+import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.services.base.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -84,6 +85,11 @@ public class AdminController {
 			System.out.println("Incorrect user id");
 			return null;
 		}
+	}
+	
+	@GetMapping("/users")
+	public int getIdByUsername(@RequestParam(value = "username", required = false) String username) {
+		return service.getIdByUsername(username);
 	}
 	
 	@DeleteMapping("/users/deleteUser/{id}")
@@ -255,17 +261,22 @@ public class AdminController {
 		return service.getSubscriberById(subscriberId);
 	}
 	
+	@GetMapping("/subscribersDTO/{id}")
+	public SubscriberDTO loadSubscriberById(@PathVariable("id") String subscriberId) {
+		return service.loadSubscriberById(subscriberId);
+	}
+	
 	@PostMapping("/subscribers/createSubscriber")
-	public void createSubscriber(@RequestBody Subscriber newSubscriber) {
+	public void createSubscriber(@RequestBody SubscriberDTO newSubscriber) {
 		service.create(newSubscriber);
 	}
 	
 	@PutMapping(value = "/subscribers/updateSubscriber/{phoneNumber}")
 	public void updateSubscriber(
 			@PathVariable("phoneNumber") String phoneNumber,
-			@RequestBody Subscriber updateSubscriber)
+			@RequestBody SubscriberDTO updateSubscriberDto)
 	{
-		service.update(phoneNumber, updateSubscriber);
+		service.update(phoneNumber, updateSubscriberDto);
 	}
 	
 	@DeleteMapping("/subscribers/deleteSubscriber/{id}")
@@ -282,7 +293,7 @@ public class AdminController {
 	@GetMapping("/bills")
 	public List<Bill> getAllBillsByTimePeriod(
 			@RequestParam(value = "startDate") String startDateString,
-			@RequestParam(value = "endDate") String endDateString) throws ParseException
+			@RequestParam(value = "endDate") String endDateString)
 	{
 		try {
 			DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
