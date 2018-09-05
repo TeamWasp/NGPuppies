@@ -13,7 +13,7 @@ public class Service {
     private int serviceId;
     
     @NotNull
-    @Size(min = 4)
+    @Size(min = 4, max = 10)
     @Column(name = "Name", unique = true)
     private String name;
     
