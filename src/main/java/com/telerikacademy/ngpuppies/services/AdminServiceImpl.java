@@ -16,7 +16,7 @@ import java.util.List;
 public class AdminServiceImpl implements AdminService {
 	
 	private GenericRepository<Admin> adminRepository;
-	private GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository;
+	private ServiceRepository serviceRepository;
 	private ClientRepository clientRepository;
 	private CurrencyRepository currencyRepository;
 	private BillRepository billRepository;
@@ -28,7 +28,7 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	public AdminServiceImpl(
 			GenericRepository<Admin> adminRepository,
-			GenericRepository<com.telerikacademy.ngpuppies.models.Service> serviceRepository,
+			ServiceRepository serviceRepository,
 			ClientRepository clientRepository,
 			CurrencyRepository currencyRepository,
 			BillRepository billRepository,
@@ -75,7 +75,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void create(BillDTO billDto) {
-		int serviceId = billDto.getServiceId();
+		String serviceName = billDto.getService();
 		String phoneNumber = billDto.getPhoneNumber();
 		Date startDate = billDto.getStartDate();
 		Date endDate = billDto.getEndDate();
@@ -86,7 +86,7 @@ public class AdminServiceImpl implements AdminService {
 		Subscriber subscriberDb = null;
 		Currency currencyDb = null;
 		try {
-			serviceDb = serviceRepository.getById(serviceId);
+			serviceDb = serviceRepository.getByName(serviceName);
 			subscriberDb = subscriberRepository.getById(phoneNumber);
 			currencyDb = currencyRepository.getByName(currencyName);
 		} catch (Exception ex) {

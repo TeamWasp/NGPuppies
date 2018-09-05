@@ -1,9 +1,10 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Service;
-import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
+import com.telerikacademy.ngpuppies.repositories.base.ServiceRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class ServiceSqlRepository implements GenericRepository<Service> {
+public class ServiceSqlRepository implements ServiceRepository {
 	
 	private SessionFactory factory;
 	
@@ -79,5 +80,20 @@ public class ServiceSqlRepository implements GenericRepository<Service> {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+	
+	@Override
+	public Service getByName(String name) {
+		Service service = null;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Service as a where a.name = :name")
+					.setParameter("name",name);
+			service = (Service) query.uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return service;
 	}
 }
