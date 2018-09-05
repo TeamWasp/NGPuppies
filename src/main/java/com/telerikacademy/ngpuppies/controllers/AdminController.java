@@ -41,6 +41,11 @@ public class AdminController {
 		}
 	}
 	
+	@GetMapping("/admins")
+	public Admin getAdminByUsername(@RequestParam(value = "username") String username) {
+		return service.getAdminByUsername(username);
+	}
+	
 	@PostMapping("/admins/createAdmin")
 	public void createAdmin(@RequestBody Admin newAdmin) {
 		service.create(newAdmin);

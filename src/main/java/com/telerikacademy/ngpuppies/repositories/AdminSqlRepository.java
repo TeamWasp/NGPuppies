@@ -1,9 +1,11 @@
 package com.telerikacademy.ngpuppies.repositories;
 
 import com.telerikacademy.ngpuppies.models.Admin;
+import com.telerikacademy.ngpuppies.repositories.base.AdminRepository;
 import com.telerikacademy.ngpuppies.repositories.base.GenericRepository;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -11,7 +13,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Repository
-public class AdminSqlRepository implements GenericRepository<Admin> {
+public class AdminSqlRepository implements AdminRepository {
 	
 	private SessionFactory factory;
 	
@@ -62,22 +64,21 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 		try (Session session = factory.openSession()) {
 			session.beginTransaction();
 			Admin admin = session.get(Admin.class, adminId);
-			if (updateAdmin.getUsername() != null) {
+			if (updateAdmin.getUsername() != null && updateAdmin.getUsername() != "") {
 				admin.setUsername(updateAdmin.getUsername());
 			}
-			if (updateAdmin.getPassword() != null) {
+			if (updateAdmin.getPassword() != null && updateAdmin.getPassword() != "") {
 				admin.setPassword(updateAdmin.getPassword());
 			}
-			if (updateAdmin.getEmailAddress() != null) {
+			if (updateAdmin.getEmailAddress() != null && updateAdmin.getEmailAddress() != "") {
 				admin.setEmailAddress(updateAdmin.getEmailAddress());
 			}
 			if (updateAdmin.isEnabled() && updateAdmin.isEnabled() != admin.isEnabled()) {
 				admin.setEnabled(updateAdmin.isEnabled());
 			}
-			if (admin.isFirstLogin()){
+			if (!updateAdmin.isFirstLogin()){
 				admin.setFirstLogin(updateAdmin.isFirstLogin());
 			}
-			//admin.setRole(updateAdmin.getRole());
 			session.getTransaction().commit();
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
@@ -94,5 +95,20 @@ public class AdminSqlRepository implements GenericRepository<Admin> {
 		} catch (Exception ex) {
 			System.out.println(ex.getMessage());
 		}
+	}
+	
+	@Override
+	public Admin getAdminByUsername(String username) {
+		Admin admin = null;
+		try (Session session = factory.openSession()) {
+			session.beginTransaction();
+			Query query = session.createQuery("from Admin u where u.username = :username")
+					.setParameter("username",username);
+			admin = (Admin) query.uniqueResult();
+			session.getTransaction().commit();
+		} catch (Exception ex) {
+			System.out.println(ex.getMessage());
+		}
+		return admin;
 	}
 }

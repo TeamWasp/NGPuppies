@@ -25,6 +25,8 @@ public interface AdminService {
 	// getById methods
 	Admin getAdminById(int adminId);
 	
+	Admin getAdminByUsername(String username);
+	
 	Client getClientById(int clientId);
 	
 	User getUserById(int userId);

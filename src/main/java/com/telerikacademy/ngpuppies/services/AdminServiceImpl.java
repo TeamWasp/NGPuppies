@@ -15,7 +15,7 @@ import java.util.List;
 @Service
 public class AdminServiceImpl implements AdminService {
 	
-	private GenericRepository<Admin> adminRepository;
+	private AdminRepository adminRepository;
 	private ServiceRepository serviceRepository;
 	private ClientRepository clientRepository;
 	private CurrencyRepository currencyRepository;
@@ -27,7 +27,7 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Autowired
 	public AdminServiceImpl(
-			GenericRepository<Admin> adminRepository,
+			AdminRepository adminRepository,
 			ServiceRepository serviceRepository,
 			ClientRepository clientRepository,
 			CurrencyRepository currencyRepository,
@@ -139,6 +139,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 	
 	@Override
+	public Admin getAdminByUsername(String username) {
+		return adminRepository.getAdminByUsername(username);
+	}
+	
+	@Override
 	public Client getClientById(int clientId) {
 		return clientRepository.getById(clientId);
 	}
@@ -225,7 +230,9 @@ public class AdminServiceImpl implements AdminService {
 	
 	@Override
 	public void update(int adminId, Admin admin) {
-		admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		if(!admin.getPassword().equals("")) {
+			admin.setPassword(passwordEncoder.encode(admin.getPassword()));
+		}
 		adminRepository.update(adminId, admin);
 	}
 	
