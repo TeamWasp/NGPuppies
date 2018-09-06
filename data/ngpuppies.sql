@@ -13,6 +13,7 @@
 
 
 -- Dumping database structure for ngpuppies
+DROP DATABASE IF EXISTS `ngpuppies`;
 CREATE DATABASE IF NOT EXISTS `ngpuppies` /*!40100 DEFAULT CHARACTER SET latin1 */;
 USE `ngpuppies`;
 
@@ -27,7 +28,7 @@ CREATE TABLE IF NOT EXISTS `addresses` (
   PRIMARY KEY (`AddressID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.addresses: ~9 rows (approximately)
+-- Dumping data for table ngpuppies.addresses: ~21 rows (approximately)
 DELETE FROM `addresses`;
 /*!40000 ALTER TABLE `addresses` DISABLE KEYS */;
 INSERT INTO `addresses` (`AddressID`, `Country`, `City`, `ZipCode`, `Street`) VALUES
@@ -74,7 +75,7 @@ CREATE TABLE IF NOT EXISTS `bills` (
   CONSTRAINT `FK_bills_subscribers` FOREIGN KEY (`SubscriberID`) REFERENCES `subscribers` (`PhoneNumber`) ON DELETE NO ACTION ON UPDATE NO ACTION
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.bills: ~7 rows (approximately)
+-- Dumping data for table ngpuppies.bills: ~12 rows (approximately)
 DELETE FROM `bills`;
 /*!40000 ALTER TABLE `bills` DISABLE KEYS */;
 INSERT INTO `bills` (`BillID`, `ServiceID`, `SubscriberID`, `StartDate`, `EndDate`, `Amount`, `CurrencyID`, `PaymentDate`) VALUES
@@ -137,7 +138,7 @@ CREATE TABLE IF NOT EXISTS `services` (
   UNIQUE KEY `Name_UNIQUE` (`Name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.services: ~4 rows (approximately)
+-- Dumping data for table ngpuppies.services: ~5 rows (approximately)
 DELETE FROM `services`;
 /*!40000 ALTER TABLE `services` DISABLE KEYS */;
 INSERT INTO `services` (`ServiceID`, `Name`) VALUES
@@ -165,7 +166,7 @@ CREATE TABLE IF NOT EXISTS `subscribers` (
   CONSTRAINT `FK_subscribers_users` FOREIGN KEY (`BankID`) REFERENCES `users` (`UserID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.subscribers: ~4 rows (approximately)
+-- Dumping data for table ngpuppies.subscribers: ~12 rows (approximately)
 DELETE FROM `subscribers`;
 /*!40000 ALTER TABLE `subscribers` DISABLE KEYS */;
 INSERT INTO `subscribers` (`PhoneNumber`, `FirstName`, `LastName`, `EGN`, `AddressID`, `BankID`) VALUES
@@ -201,14 +202,12 @@ CREATE TABLE IF NOT EXISTS `users` (
   CONSTRAINT `FK_users_roles` FOREIGN KEY (`RoleID`) REFERENCES `roles` (`RoleID`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=latin1;
 
--- Dumping data for table ngpuppies.users: ~4 rows (approximately)
+-- Dumping data for table ngpuppies.users: ~15 rows (approximately)
 DELETE FROM `users`;
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
 INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAddress`, `enabled`, `isFirstLogin`) VALUES
 	(1, 'unicredit', '$2a$10$Q2JA3Y9Ra1gcq1a4ANrKG.0xJCxhhcuvasRHURvVjPIvOwAHXtl9K', 2, '9999999999', '', 1, 0),
 	(2, 'dsk_bank', '$2a$10$s0QfBO8lBOPXO7bpdF5kyO3JC4FTOW.hOZfFmCyutSQZAwRX/gV7W', 2, '0000000011', '', 1, 0),
-	(3, 'donchominkov', '$2a$04$6f3gE29U5Lz.5nzlMtIQIuXfuyQ7bYjsWZKb9WfV8zbm7ljk.yGHa', 1, '1111111111', 'doncho@telerikacademy.bg', 1, 1),
-	(4, 'petarraykov', '$2a$10$Eg.98Kvwe2.drEUeU9k18Oyq/MmqZRIEH3uUmkJAl4.3zi7h4E1Zy', 1, '2222222222', 'petar@telerikacademy.bg', 1, 0),
 	(30, 'vladimir', '$2a$10$9dII35W9E0/oAcPLcBplgukl2g39jsDFYq9gvGDXCMeURIi0jVCVi', 1, NULL, 'vladimir@gmail.com', 1, 0),
 	(31, 'boris_zhelev', '$2a$10$Jk7JuBmEak9n/GDLLLALa.9N3WyasoODDRoc25uhyrrbOl33qCP3m', 1, NULL, 'boris_zhelev@yahoo.com', 1, 0),
 	(32, 'procredit_bank', '$2a$10$PB8HDkHm5FJaE84Zgs1e1.P07lF7jERb0SJYoI9U8L.LWrGMvcDoa', 2, '5757555775', NULL, 1, 0),
@@ -219,7 +218,9 @@ INSERT INTO `users` (`UserID`, `Username`, `Password`, `RoleID`, `EIK`, `EmailAd
 	(37, 'telerik_academy', '$2a$10$tgScQBC0MqWc.x3soP7ojuxI9n7HAB9ycp7yM4Tn22HjD7.FrsUJ.', 1, NULL, 'telerik_academy@telerik.bg', 1, 0),
 	(38, 'general_admin', '$2a$10$VJpWWBpAoCjj6kB037/kPeXb6bhBXMF75jCNksW6VypJVAvD8OuAi', 1, NULL, 'general_admin@gmail.com', 1, 0),
 	(40, 'svetoslav', '$2a$10$ErKXBq8.hDRIymK9BUwoIetZj5CdAEUFsCaxbGvMgZzy.uOct9Op6', 1, NULL, 'svetoslav_niko@gmail.com', 1, 0),
-	(41, 'allianz_bank', '$2a$10$gUTNo5Hpld54U.JhiChftemJG9AfOoA99nlwT9UlMfN2Em9Whiqw.', 2, '9009033334', NULL, 1, 0);
+	(41, 'allianz_bank', '$2a$10$gUTNo5Hpld54U.JhiChftemJG9AfOoA99nlwT9UlMfN2Em9Whiqw.', 2, '9009033334', NULL, 1, 0),
+	(42, 'petarraykov', '$2a$04$mBQBHhqOuvrNrjbySUL8y.FjCxFFuyjhrGI.4pDnqT8lKbbXz2kUe', 1, NULL, 'petarraykov@telerik.bg', 1, 0),
+	(43, 'donchominkov', '$2a$04$YraGxzpe3uq7wB24NbuUHuNhrbxMAjzeD3rrVEnql3jaHy6A.Qoxi', 1, NULL, 'donchominkov@telerik.bg', 1, 1);
 /*!40000 ALTER TABLE `users` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;
