@@ -53,7 +53,7 @@ public class AuthenticationController {
         return ResponseEntity.ok(new AuthToken(token, user.getRole().getName().toString(), user.isFirstLogin()));
     }
     @PutMapping("/reset")
-    public void changePassword(@RequestBody  Map<String,String> password,HttpServletRequest req){
+    public void changePassword(@RequestBody  Map<String,String> password, HttpServletRequest req){
         String p = password.get("password");
         int adminId = userService.getIdByUsername(tokenService.getUsernameFromToken(req));
         adminService.changePassword(adminId,p);
