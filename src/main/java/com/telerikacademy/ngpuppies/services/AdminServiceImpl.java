@@ -60,6 +60,7 @@ public class AdminServiceImpl implements AdminService {
 	public void create(Client client) {
 		client.setPassword(passwordEncoder.encode(client.getPassword()));
 		client.setEnabled(true);
+		client.setFirstLogin(false);
 		clientRepository.create(client);
 	}
 	
