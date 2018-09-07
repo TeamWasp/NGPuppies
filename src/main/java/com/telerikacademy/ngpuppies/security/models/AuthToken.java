@@ -1,12 +1,14 @@
 package com.telerikacademy.ngpuppies.security.models;
 
 public class AuthToken {
-    String token;
-    String role;
+    private String token;
+    private String role;
+    private boolean firstLogin;
 
-    public AuthToken(String token, String role) {
+    public AuthToken(String token, String role, boolean firstLogin) {
         this.token = token;
         this.role = role;
+        this.firstLogin = firstLogin;
     }
 
     public String getToken() {
@@ -23,5 +25,13 @@ public class AuthToken {
     
     public void setRole(String role) {
         this.role = role;
+    }
+
+    public boolean isFirstLogin() {
+        return firstLogin;
+    }
+
+    public void setFirstLogin(boolean firstLogin) {
+        this.firstLogin = firstLogin;
     }
 }

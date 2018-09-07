@@ -50,7 +50,7 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
         final User user = userService.getByUsername(loginUser.getUsername());
         final String token = jwtTokenUtil.generateToken(user);
-        return ResponseEntity.ok(new AuthToken(token, user.getRole().getName().toString()));
+        return ResponseEntity.ok(new AuthToken(token, user.getRole().getName().toString(), user.isFirstLogin()));
     }
     @PutMapping("/reset")
     public void changePassword(@RequestBody  Map<String,String> password,HttpServletRequest req){
