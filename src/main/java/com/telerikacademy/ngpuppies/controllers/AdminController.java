@@ -35,7 +35,7 @@ public class AdminController {
 			int adminId = Integer.parseInt(adminIdString);
 			return service.getAdminById(adminId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect admin id");
+			System.out.printf("Incorrect admin id (\"%s\")", adminIdString);
 			return null;
 		}
 	}
@@ -59,7 +59,7 @@ public class AdminController {
 			int adminId = Integer.parseInt(adminIdString);
 			service.update(adminId, updatedAdmin);
 		} catch (Exception ex) {
-			System.out.printf("Admin Id \"%s\" is incorrectly typed!", adminIdString);
+			System.out.printf("Admin Id (\"%s\") is incorrectly typed!", adminIdString);
 		}
 	}
 	
@@ -70,7 +70,7 @@ public class AdminController {
 			int adminId = Integer.parseInt(adminIdString);
 			service.deleteAdmin(adminId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect admin id");
+			System.out.printf("Incorrect admin id (\"%s\")", adminIdString);
 		}
 	}
 	
@@ -87,7 +87,7 @@ public class AdminController {
 			int userId = Integer.parseInt(userIdString);
 			return service.getUserById(userId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect user id");
+			System.out.printf("Incorrect user id (\"%s\")", userIdString);
 			return null;
 		}
 	}
@@ -103,7 +103,7 @@ public class AdminController {
 			int userId = Integer.parseInt(userIdString);
 			service.deleteUser(userId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect user id");
+			System.out.printf("Incorrect user id (\"%s\")", userIdString);
 		}
 	}
 	
@@ -119,7 +119,7 @@ public class AdminController {
 			int clientId = Integer.parseInt(clientIdString);
 			return service.getClientById(clientId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect client id");
+			System.out.printf("Incorrect client id (\"%s\")", clientIdString);
 			return null;
 		}
 	}
@@ -138,7 +138,7 @@ public class AdminController {
 			int clientId = Integer.parseInt(clientIdString);
 			service.update(clientId, updateClient);
 		} catch (Exception ex) {
-			System.out.printf("Client Id \"%s\" is incorrectly typed!", clientIdString);
+			System.out.printf("Client Id (\"%s\") is incorrectly typed!", clientIdString);
 		}
 	}
 	
@@ -148,7 +148,7 @@ public class AdminController {
 			int clientId = Integer.parseInt(clientIdString);
 			service.deleteClient(clientId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect client id");
+			System.out.printf("Incorrect client id (\"%s\")", clientIdString);
 		}
 	}
 	
@@ -164,7 +164,7 @@ public class AdminController {
 			int serviceId = Integer.parseInt(serviceIdString);
 			return service.getServiceById(serviceId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect service id");
+			System.out.printf("Incorrect service id (\"%s\")", serviceIdString);
 			return null;
 		}
 	}
@@ -183,7 +183,7 @@ public class AdminController {
 			int serviceId = Integer.parseInt(serviceIdString);
 			service.update(serviceId, updateService);
 		} catch (Exception ex) {
-			System.out.printf("Service Id \"%s\" is incorrectly typed!", serviceIdString);
+			System.out.printf("Service Id (\"%s\") is incorrectly typed!", serviceIdString);
 		}
 	}
 	
@@ -193,7 +193,7 @@ public class AdminController {
 			int serviceId = Integer.parseInt(serviceIdString);
 			service.deleteService(serviceId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect service id");
+			System.out.printf("Incorrect service id (\"%s\")", serviceIdString);
 		}
 	}
 	
@@ -209,7 +209,7 @@ public class AdminController {
 			int currencyId = Integer.parseInt(currencyIdString);
 			return service.getCurrencyById(currencyId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect currency id");
+			System.out.printf("Incorrect currency id (\"%s\")", currencyIdString);
 			return null;
 		}
 	}
@@ -228,7 +228,7 @@ public class AdminController {
 			int currencyId = Integer.parseInt(currencyIdString);
 			service.update(currencyId, updateCurrency);
 		} catch (Exception ex) {
-			System.out.printf("Currency Id \"%s\" is incorrectly typed!", currencyIdString);
+			System.out.printf("Currency Id (\"%s\") is incorrectly typed!", currencyIdString);
 		}
 	}
 	
@@ -238,7 +238,7 @@ public class AdminController {
 			int currencyId = Integer.parseInt(currencyIdString);
 			service.deleteCurrency(currencyId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect currency id");
+			System.out.printf("Incorrect currency id (\"%s\")", currencyIdString);
 		}
 	}
 	
@@ -256,7 +256,7 @@ public class AdminController {
 			int bankId = Integer.parseInt(bankIdString);
 			return service.getAllSubscribers(bankId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect bank id");
+			System.out.printf("Incorrect bank id (\"%s\")", bankIdString);
 			return null;
 		}
 	}
@@ -317,7 +317,7 @@ public class AdminController {
 			int billId = Integer.parseInt(billIdString);
 			return service.getBillById(billId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect bill id");
+			System.out.printf("Incorrect bill id (\"%s\")", billIdString);
 			return null;
 		}
 	}
@@ -333,7 +333,7 @@ public class AdminController {
 			int billId = Integer.parseInt(billIdString);
 			service.deleteBill(billId);
 		} catch (Exception ex) {
-			System.out.println("Incorrect bill id");
+			System.out.printf("Incorrect bill id (\"%s\")", billIdString);
 		}
 	}
 }
