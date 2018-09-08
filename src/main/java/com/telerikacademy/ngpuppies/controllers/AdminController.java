@@ -8,7 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -327,19 +326,6 @@ public class AdminController {
 	public void createBill(@RequestBody BillDTO newBill) {
 		this.service.create(newBill);
 	}
-	
-	/*@PutMapping("/bills/updateBill/{id}")
-	public void updateBill(
-			@PathVariable(value = "id") String billIdString,
-			@RequestBody Bill updateBill)
-	{
-		try {
-			int billId = Integer.parseInt(billIdString);
-			service.update(billId, updateBill);
-		} catch (Exception ex) {
-			System.out.printf("Bill Id \"%s\" is incorrectly typed!", billIdString);
-		}
-	}*/
 	
 	@DeleteMapping("/bills/deleteBill/{id}")
 	public void deleteBill(@PathVariable("id") String billIdString) {

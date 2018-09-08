@@ -3,7 +3,6 @@ package com.telerikacademy.ngpuppies.controllers;
 import com.mchange.rmi.NotAuthorizedException;
 import com.telerikacademy.ngpuppies.models.Bill;
 import com.telerikacademy.ngpuppies.models.Subscriber;
-import com.telerikacademy.ngpuppies.models.User;
 import com.telerikacademy.ngpuppies.models.dto.BillDTO;
 import com.telerikacademy.ngpuppies.models.dto.SubscriberDTO;
 import com.telerikacademy.ngpuppies.security.services.base.TokenService;
