@@ -3,11 +3,11 @@
   "id": "root",
   "ideas": {
     "1": {
-      "title": "CLIENT",
+      "title": "USERS",
       "id": 1,
       "attr": {
         "position": [
-          -2324,
+          -2399,
           -886,
           1
         ],
@@ -44,13 +44,13 @@
               "id": 108
             },
             "2.5": {
-              "title": "EIK (UIC) (mandatory)",
+              "title": "EIK (UIC) (mandatory) for Clients and E-mail (mandatory) for Admins",
               "id": 109
             }
           }
         },
         "30": {
-          "title": "Users - Banks",
+          "title": "Clients - Banks",
           "id": 15,
           "attr": {
             "position": [
@@ -74,7 +74,7 @@
                   "id": 104
                 },
                 "2": {
-                  "title": "pay only the bills of their Subscribers",
+                  "title": "pay only the Bills of their Subscribers",
                   "id": 105
                 },
                 "3": {
@@ -86,8 +86,18 @@
                   "id": 107
                 },
                 "5": {
-                  "title": "one Bank can have only one User in the system",
+                  "title": "one Bank can have only one Client (username) in the system",
                   "id": 111
+                },
+                "6": {
+                  "title": "have no emails!!!",
+                  "id": 175,
+                  "ideas": {
+                    "1": {
+                      "title": "discussed with Bright Consulting",
+                      "id": 176
+                    }
+                  }
                 }
               }
             }
@@ -113,11 +123,11 @@
                   "id": 91
                 },
                 "2": {
-                  "title": "create Users with username & password",
+                  "title": "create Clients with username & password",
                   "id": 92
                 },
                 "3": {
-                  "title": "manage all User-related data",
+                  "title": "manage all Client-related data",
                   "id": 93
                 },
                 "4": {
@@ -133,7 +143,7 @@
                   "id": 96
                 },
                 "7": {
-                  "title": "update info of Users",
+                  "title": "update info of Clients",
                   "id": 97
                 },
                 "8": {
@@ -142,7 +152,13 @@
                 },
                 "9": {
                   "title": "generate payments for any amount  for any Subscriber",
-                  "id": 99
+                  "id": 99,
+                  "ideas": {
+                    "1": {
+                      "title": "Note: \"Generate\" in the sense \"create object Bill\" rather than actually pay the bill (a bit confusing in the project's descr)",
+                      "id": 174
+                    }
+                  }
                 },
                 "10": {
                   "title": "change their own username, password, & email",
@@ -168,7 +184,7 @@
           "background": "#000000"
         },
         "position": [
-          -1122,
+          -1124,
           -889,
           1
         ]
@@ -265,15 +281,15 @@
               "id": 115
             },
             "2": {
-              "title": "service -> the Service of the Subscriber the User (Bank) pays for, selected from a predefined list of services",
+              "title": "service -> the Service of the Subscriber the Client (Bank) pays for, selected from a predefined list of services",
               "id": 116
             },
             "3": {
-              "title": "start date ->  TBD  -> date the Bill was issued",
+              "title": "start date  -> date the Bill was issued",
               "id": 117
             },
             "4": {
-              "title": "end date -> TBD -> deadline for payment of Bill",
+              "title": "end date -> deadline for payment of Bill",
               "id": 118
             },
             "5": {
@@ -301,7 +317,7 @@
           },
           "ideas": {
             "1": {
-              "title": "available to Banks (Users) for payment via GUI or Rest API",
+              "title": "available to Banks (Clients) for payment via GUI and Rest API",
               "id": 113
             }
           }
@@ -313,8 +329,8 @@
       "id": 24,
       "attr": {
         "position": [
-          -1295,
-          -454,
+          -903,
+          -465,
           1
         ],
         "style": {
@@ -327,7 +343,7 @@
           "id": 26,
           "ideas": {
             "1": {
-              "title": "Access to registered users",
+              "title": "Access to registered Clients",
               "id": 31
             },
             "2": {
@@ -364,7 +380,7 @@
                       "id": 50
                     },
                     "2": {
-                      "title": "Most recent 10 payments made by Client for all ofits Subscribers",
+                      "title": "Most recent 10 payments made by Client for all of its Subscribers",
                       "id": 53
                     }
                   },
@@ -418,11 +434,11 @@
                   "id": 37,
                   "ideas": {
                     "12": {
-                      "title": "Banks -> access private part",
+                      "title": "Banks (Cliens) -> access private part",
                       "id": 39
                     },
                     "22": {
-                      "title": "Admins -> access administrative part",
+                      "title": "Admins -> access administrative part or if first login -> redirected to password-reset page",
                       "id": 40,
                       "attr": {}
                     }
@@ -468,7 +484,7 @@
           "id": 27,
           "ideas": {
             "1": {
-              "title": "Access to admins only",
+              "title": "Access to Admins only",
               "id": 33
             },
             "2": {
@@ -494,8 +510,8 @@
       "id": 126,
       "attr": {
         "position": [
-          -1769,
-          411,
+          -1968,
+          520,
           1
         ],
         "style": {
@@ -510,6 +526,12 @@
             "style": {
               "background": "#FF0000"
             }
+          },
+          "ideas": {
+            "1": {
+              "title": "Note: need @RestController(s)",
+              "id": 173
+            }
           }
         },
         "2": {
@@ -517,7 +539,7 @@
           "id": 132,
           "ideas": {
             "1": {
-              "title": "i.e., can have both RestsControllers for all functionalities & Controllers for implemented UI!!!",
+              "title": "Note: i.e., must have @RestController(s) and then create @Controller(s) that using the @RestController(s) and Thymeleaf will produce server-side HTML. This HTML will be the UI. Another way would be to just use single-page application and @RestController(s) only along with Ajax and jQuery for async calls from front-end to server.",
               "id": 133,
               "attr": {
                 "style": {
@@ -530,12 +552,7 @@
         "3": {
           "title": "May build single-page applications to serve the UI",
           "id": 134,
-          "ideas": {
-            "1": {
-              "title": "Note: Better to use Thymeleaf & server-side rendering (have more experience w/ that)",
-              "id": 135
-            }
-          }
+          "ideas": {}
         },
         "13": {
           "title": "Use MySQL (MariaDB) as database",
@@ -736,7 +753,7 @@
       }
     }
   },
-  "title": "CLIENT",
+  "title": "USERS",
   "links": [
     {
       "ideaIdFrom": 1,
