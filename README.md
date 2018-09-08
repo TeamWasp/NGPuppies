@@ -6,7 +6,8 @@ NG Puppies is an application intended for automatic utilities service payments. 
 
 Authentication to the application is provided from the backend (server) of the application via JWT token after providing correct username and password at login time. After successful login the token is saved in the local storage of the page. The token contains information about the username, role, and whether this is the user’s first login into the system or not. Each token is valid for 15 minutes.
 
-Note: Further detailed description can be found in the user's manual (data folder).
+Note: Further detailed description can be found in the user's manual (data folder: 
+https://github.com/TeamWasp/NGPuppies/tree/master/data/NGPuppies_UserManual.docx)
 
 ## NGPuppies Database Diagram:
 ![Alt text](https://github.com/TeamWasp/NGPuppies/blob/master/data/ngpuppies_db_diagram.png?raw=true 'NG-Puppies database diagram')
